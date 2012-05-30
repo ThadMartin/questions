@@ -119,7 +119,7 @@ NSMutableArray * questionAnswers;
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
         [thisQuestionData saveData:questionAnswers: (numQuestions):filePath];
         
-        [NSThread sleepForTimeInterval:2];
+        //[NSThread sleepForTimeInterval:2];
         
         [thisQuestionData uploadToDropBox:filePath];
         

@@ -24,12 +24,12 @@
 @synthesize linkButton;
 
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    if ((self = [super initWithCoder:aDecoder])) {
-        self.title = @"Link Account";
-    }
-    return self;
-}
+//- (id)initWithCoder:(NSCoder *)aDecoder {
+//    if ((self = [super initWithCoder:aDecoder])) {
+//        self.title = @"Link Account";
+//    }
+//    return self;
+//}
 
 
 - (void)didReceiveMemoryWarning
