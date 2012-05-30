@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface GroupID : UIViewController
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UIButton *buttonOne;
+@property (nonatomic, strong) NSString *filePath;
+
 
 @end

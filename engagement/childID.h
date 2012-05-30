@@ -10,4 +10,8 @@
 
 @interface childID : UIViewController
 
+@property (nonatomic, strong) NSString *filePath;
+@property (weak, nonatomic) IBOutlet UIButton *buttonOne;
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+
 @end

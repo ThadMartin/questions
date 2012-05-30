@@ -7,8 +7,14 @@
 //
 
 #import "lastName.h"
+#import "QuestionData.h"
+#import "childID.h"
+
 
 @implementation lastName
+@synthesize textField;
+@synthesize buttonOne;
+@synthesize filePath;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,16 +42,19 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [buttonOne setEnabled:NO];
 }
-*/
+
 
 - (void)viewDidUnload
 {
+    [self setTextField:nil];
+    [self setButtonOne:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -54,7 +63,39 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (YES);
 }
+
+-(BOOL)textFieldShouldReturn:(UITextField *)TheTextField{
+    [TheTextField resignFirstResponder];
+    NSString * firstNameString = self.textField.text;
+    if (firstNameString.length > 0)  //Name should be at least 2 letters?
+        [buttonOne setEnabled:YES];
+    return (YES);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    NSString * sendString = self.textField.text;
+    
+    NSMutableArray * sendName = [[NSMutableArray alloc] init];
+    
+    [sendName addObject:sendString];
+    
+    QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+    
+    [thisQuestionData saveData: sendName:1 :filePath];
+    
+    if ([[segue identifier] isEqualToString:@"lastNameToChildID"])
+    {
+        // Get reference to the destination view controller
+        childID * svc = [segue destinationViewController];
+        
+        // Pass any objects to the view controller here, like...
+        svc.filePath = filePath;   
+    }
+	
+}
+
 
 @end

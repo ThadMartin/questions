@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QuestionData.h"
 
-@interface lastName : UIViewController
+@interface lastName : UIViewController <UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+
+@property (weak, nonatomic) IBOutlet UIButton *buttonOne;
+
+@property(nonatomic, strong) NSString *filePath;
+
 
 @end

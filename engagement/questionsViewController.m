@@ -8,12 +8,15 @@
 
 #import "questionsViewController.h"
 #import "QuestionData.h"
+#import "engagementAppDelegate.h"
+#import <DropboxSDK/DropboxSDK.h>
 
 @implementation questionsViewController
 
 @synthesize butonTwo;
 @synthesize sliderOne;
 @synthesize labelOne;
+@synthesize filePath;
 
 int answerIndex;
 int numQuestions;
@@ -38,7 +41,7 @@ NSMutableArray * questionAnswers;
     [super viewDidLoad];
     
     [butonTwo setEnabled:NO];   //disable submit until there is input.
-    [butonTwo setTitle: @"toutch slider" forState:UIControlStateNormal];
+    [butonTwo setTitle: @"touch slider" forState:UIControlStateNormal];
     
     answerIndex = 0;
     questionAnswers = [[NSMutableArray alloc] init ];  //numbers from slider.
@@ -46,9 +49,15 @@ NSMutableArray * questionAnswers;
     questionList = [thisQuestionData getQuestions];    
     numQuestions = [questionList count];
     
+    if ([[questionList objectAtIndex:numQuestions-1] length] == 0)
+        numQuestions --;   //incase there is a blank line at the end.
+    
     self.labelOne.text = [questionList objectAtIndex:answerIndex];
     answerIndex ++;
     
+    sliderOne.value = 50;
+    
+     
 }
 
 - (void)viewDidUnload
@@ -100,21 +109,33 @@ NSMutableArray * questionAnswers;
 
     int _answer = (int)sliderOne.value; //  0 to 100
     
-    NSNumber *answerObj = [NSNumber numberWithInt:_answer];  //NSArray likes objects.
+//    NSNumber *answerObj = [NSNumber numberWithInt:_answer]; 
+    NSString *answerObj = [NSString stringWithFormat:@"%d",_answer];  //NSArray likes objects.
+
     [questionAnswers addObject: answerObj];
     
     if (answerIndex == numQuestions){
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-        [thisQuestionData saveData:questionAnswers: numQuestions];
-        exit(0);
+        [thisQuestionData saveData:questionAnswers: (numQuestions):filePath];
+        
+        
+        [thisQuestionData uploadToDropBox:filePath];
+        
+              [NSThread sleepForTimeInterval:15];
+        
+         //exit(0);     //if the end is in, file doesn't get uploaded.  uploads but doesn't end otherwise.  Try seguay to "that's all, floks" screen?
+        
+        NSLog(@"This is where we're supposed to end...");
     }
     else{
         self.labelOne.text = [questionList objectAtIndex:answerIndex];
         [butonTwo setEnabled:NO];
+        sliderOne.value = 50;
         [butonTwo setTitle: @"touch slider" forState:UIControlStateNormal];
         answerIndex ++;
     }
     
 }
+
 
 @end

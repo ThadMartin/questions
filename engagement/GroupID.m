@@ -7,8 +7,13 @@
 //
 
 #import "GroupID.h"
+#import "QuestionData.h"
+#import "gender.h"
 
 @implementation GroupID
+@synthesize textField;
+@synthesize buttonOne;
+@synthesize filePath;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,16 +41,18 @@
 }
 */
 
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [buttonOne setEnabled:NO];
+    
 }
-*/
+
 
 - (void)viewDidUnload
 {
+    [self setTextField:nil];
+    [self setButtonOne:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -54,7 +61,53 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (YES);
 }
+
+
+-(BOOL)textFieldShouldReturn:(UITextField *)TheTextField{
+    [TheTextField resignFirstResponder];
+    NSString * childIDString = self.textField.text;
+    if (childIDString.length > 0)  //should be at least 1 number
+        [buttonOne setEnabled:YES];
+    return (YES);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.identifier isEqualToString:@"groupIDtoGender"]){
+        
+        NSString * sendString = self.textField.text;
+        
+        NSMutableArray * sendName = [[NSMutableArray alloc] init];
+        
+        [sendName addObject:sendString];
+        
+        int numOf = 1;
+        
+        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+        [thisQuestionData saveData:sendName:numOf:filePath];
+        
+        gender * svc = [segue destinationViewController];
+        svc.filePath = filePath; 
+    } 
+ 	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

@@ -13,8 +13,14 @@
 @property (weak, nonatomic) IBOutlet UISlider *sliderOne;
 @property (weak, nonatomic) IBOutlet UIButton *butonTwo;
 @property (weak, nonatomic) IBOutlet UILabel *labelOne;
+@property (copy) NSString * filePath;
+//@property (nonatomic, strong) NSString *filePath;
 
 - (IBAction)sliderOneMoved:(id)sender;
 - (IBAction)buttonTwoPressed:(id)sender;
 
+
+
 @end
+
+//DBRestClient *restClient;

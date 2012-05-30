@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		724F0807157416CB007082CE /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F0806157416CB007082CE /* DropboxSDK.framework */; };
+		724F080C15741858007082CE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080B15741858007082CE /* Security.framework */; };
+		724F080E15741F1F007082CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080D15741F1F007082CE /* QuartzCore.framework */; };
 		72F7DF111567EA4000500D63 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF101567EA4000500D63 /* UIKit.framework */; };
 		72F7DF131567EA4000500D63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF121567EA4000500D63 /* Foundation.framework */; };
 		72F7DF151567EA4000500D63 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF141567EA4000500D63 /* CoreGraphics.framework */; };
@@ -16,23 +19,46 @@
 		72F7DF241567EA4100500D63 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF221567EA4100500D63 /* MainStoryboard_iPhone.storyboard */; };
 		72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */; };
 		72F7DF2A1567EA4100500D63 /* engagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF291567EA4100500D63 /* engagementViewController.m */; };
+		72F7DF321567EAC900500D63 /* lastName.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF311567EAC900500D63 /* lastName.m */; };
+		72F7DF351567EC4D00500D63 /* childID.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF341567EC4D00500D63 /* childID.m */; };
+		72F7DF381567EDA800500D63 /* GroupID.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF371567EDA800500D63 /* GroupID.m */; };
+		72F7DF3B1567EE4200500D63 /* gender.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF3A1567EE4200500D63 /* gender.m */; };
+		72F7DF421567F01000500D63 /* QuestionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF411567F01000500D63 /* QuestionData.m */; };
+		72F7DF451567F02F00500D63 /* questionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF441567F02F00500D63 /* questionsViewController.m */; };
+		72F7DF471567F06400500D63 /* questionList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF461567F06400500D63 /* questionList.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		724F0806157416CB007082CE /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = engagement/DropboxSDK.framework; sourceTree = "<group>"; };
+		724F080B15741858007082CE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		724F080D15741F1F007082CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		72F7DF0C1567EA4000500D63 /* engagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = engagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72F7DF101567EA4000500D63 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72F7DF121567EA4000500D63 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		72F7DF141567EA4000500D63 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		72F7DF181567EA4100500D63 /* engagement-Info.plist */ = {isa = PBXFileReference; path = "engagement-Info.plist"; sourceTree = "<group>"; };
+		72F7DF181567EA4100500D63 /* engagement-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "engagement-Info.plist"; sourceTree = "<group>"; };
 		72F7DF1A1567EA4100500D63 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		72F7DF1C1567EA4100500D63 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		72F7DF1E1567EA4100500D63 /* engagement-Prefix.pch */ = {isa = PBXFileReference; path = "engagement-Prefix.pch"; sourceTree = "<group>"; };
-		72F7DF1F1567EA4100500D63 /* engagementAppDelegate.h */ = {isa = PBXFileReference; path = engagementAppDelegate.h; sourceTree = "<group>"; };
+		72F7DF1E1567EA4100500D63 /* engagement-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "engagement-Prefix.pch"; sourceTree = "<group>"; };
+		72F7DF1F1567EA4100500D63 /* engagementAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engagementAppDelegate.h; sourceTree = "<group>"; };
 		72F7DF201567EA4100500D63 /* engagementAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = engagementAppDelegate.m; sourceTree = "<group>"; };
 		72F7DF231567EA4100500D63 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		72F7DF261567EA4100500D63 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		72F7DF281567EA4100500D63 /* engagementViewController.h */ = {isa = PBXFileReference; path = engagementViewController.h; sourceTree = "<group>"; };
+		72F7DF281567EA4100500D63 /* engagementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engagementViewController.h; sourceTree = "<group>"; };
 		72F7DF291567EA4100500D63 /* engagementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = engagementViewController.m; sourceTree = "<group>"; };
+		72F7DF301567EAC900500D63 /* lastName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lastName.h; sourceTree = "<group>"; };
+		72F7DF311567EAC900500D63 /* lastName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lastName.m; sourceTree = "<group>"; };
+		72F7DF331567EC4D00500D63 /* childID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = childID.h; sourceTree = "<group>"; };
+		72F7DF341567EC4D00500D63 /* childID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = childID.m; sourceTree = "<group>"; };
+		72F7DF361567EDA800500D63 /* GroupID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupID.h; sourceTree = "<group>"; };
+		72F7DF371567EDA800500D63 /* GroupID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupID.m; sourceTree = "<group>"; };
+		72F7DF391567EE4200500D63 /* gender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gender.h; sourceTree = "<group>"; };
+		72F7DF3A1567EE4200500D63 /* gender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gender.m; sourceTree = "<group>"; };
+		72F7DF401567F00F00500D63 /* QuestionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionData.h; sourceTree = "<group>"; };
+		72F7DF411567F01000500D63 /* QuestionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionData.m; sourceTree = "<group>"; };
+		72F7DF431567F02F00500D63 /* questionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questionsViewController.h; sourceTree = "<group>"; };
+		72F7DF441567F02F00500D63 /* questionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questionsViewController.m; sourceTree = "<group>"; };
+		72F7DF461567F06400500D63 /* questionList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = questionList.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,9 +66,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				724F080E15741F1F007082CE /* QuartzCore.framework in Frameworks */,
+				724F080C15741858007082CE /* Security.framework in Frameworks */,
 				72F7DF111567EA4000500D63 /* UIKit.framework in Frameworks */,
 				72F7DF131567EA4000500D63 /* Foundation.framework in Frameworks */,
 				72F7DF151567EA4000500D63 /* CoreGraphics.framework in Frameworks */,
+				724F0807157416CB007082CE /* DropboxSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +98,9 @@
 		72F7DF0F1567EA4000500D63 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				724F080D15741F1F007082CE /* QuartzCore.framework */,
+				724F080B15741858007082CE /* Security.framework */,
+				724F0806157416CB007082CE /* DropboxSDK.framework */,
 				72F7DF101567EA4000500D63 /* UIKit.framework */,
 				72F7DF121567EA4000500D63 /* Foundation.framework */,
 				72F7DF141567EA4000500D63 /* CoreGraphics.framework */,
@@ -79,12 +111,24 @@
 		72F7DF161567EA4000500D63 /* engagement */ = {
 			isa = PBXGroup;
 			children = (
+				72F7DF331567EC4D00500D63 /* childID.h */,
+				72F7DF341567EC4D00500D63 /* childID.m */,
 				72F7DF1F1567EA4100500D63 /* engagementAppDelegate.h */,
 				72F7DF201567EA4100500D63 /* engagementAppDelegate.m */,
-				72F7DF221567EA4100500D63 /* MainStoryboard_iPhone.storyboard */,
-				72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */,
 				72F7DF281567EA4100500D63 /* engagementViewController.h */,
 				72F7DF291567EA4100500D63 /* engagementViewController.m */,
+				72F7DF391567EE4200500D63 /* gender.h */,
+				72F7DF3A1567EE4200500D63 /* gender.m */,
+				72F7DF361567EDA800500D63 /* GroupID.h */,
+				72F7DF371567EDA800500D63 /* GroupID.m */,
+				72F7DF301567EAC900500D63 /* lastName.h */,
+				72F7DF311567EAC900500D63 /* lastName.m */,
+				72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */,
+				72F7DF221567EA4100500D63 /* MainStoryboard_iPhone.storyboard */,
+				72F7DF401567F00F00500D63 /* QuestionData.h */,
+				72F7DF411567F01000500D63 /* QuestionData.m */,
+				72F7DF431567F02F00500D63 /* questionsViewController.h */,
+				72F7DF441567F02F00500D63 /* questionsViewController.m */,
 				72F7DF171567EA4100500D63 /* Supporting Files */,
 			);
 			path = engagement;
@@ -93,6 +137,7 @@
 		72F7DF171567EA4100500D63 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				72F7DF461567F06400500D63 /* questionList.txt */,
 				72F7DF181567EA4100500D63 /* engagement-Info.plist */,
 				72F7DF191567EA4100500D63 /* InfoPlist.strings */,
 				72F7DF1C1567EA4100500D63 /* main.m */,
@@ -154,6 +199,7 @@
 				72F7DF1B1567EA4100500D63 /* InfoPlist.strings in Resources */,
 				72F7DF241567EA4100500D63 /* MainStoryboard_iPhone.storyboard in Resources */,
 				72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */,
+				72F7DF471567F06400500D63 /* questionList.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +213,12 @@
 				72F7DF1D1567EA4100500D63 /* main.m in Sources */,
 				72F7DF211567EA4100500D63 /* engagementAppDelegate.m in Sources */,
 				72F7DF2A1567EA4100500D63 /* engagementViewController.m in Sources */,
+				72F7DF321567EAC900500D63 /* lastName.m in Sources */,
+				72F7DF351567EC4D00500D63 /* childID.m in Sources */,
+				72F7DF381567EDA800500D63 /* GroupID.m in Sources */,
+				72F7DF3B1567EE4200500D63 /* gender.m in Sources */,
+				72F7DF421567F01000500D63 /* QuestionData.m in Sources */,
+				72F7DF451567F02F00500D63 /* questionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +273,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -240,6 +293,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -250,6 +304,10 @@
 		72F7DF2E1567EA4100500D63 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/engagement\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engagement/engagement-Prefix.pch";
 				INFOPLIST_FILE = "engagement/engagement-Info.plist";
@@ -261,6 +319,10 @@
 		72F7DF2F1567EA4100500D63 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/engagement\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engagement/engagement-Prefix.pch";
 				INFOPLIST_FILE = "engagement/engagement-Info.plist";
@@ -288,6 +350,7 @@
 				72F7DF2F1567EA4100500D63 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

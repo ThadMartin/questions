@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface gender : UIViewController
+@property (nonatomic, strong) NSString *filePath;
+@property (weak, nonatomic) IBOutlet UIButton *girlButton;
+@property (weak, nonatomic) IBOutlet UIButton *boyButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *buttonOne;
+@property (weak, nonatomic) IBOutlet UILabel *genderLabel;
 
 @end

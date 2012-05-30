@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface engagementViewController : UIViewController
+//@class DBRestClient;
+
+@interface engagementViewController : UIViewController <UITextFieldDelegate>{
+	//DBRestClient* restClient;
+}
+
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UIButton *buttonOne;
+- (IBAction)linkButtonPressed:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *linkButton;
 
 @end
