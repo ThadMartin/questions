@@ -18,7 +18,7 @@
 
 - (IBAction)sliderOneMoved:(id)sender;
 - (IBAction)buttonTwoPressed:(id)sender;
-
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue;
 
 
 @end

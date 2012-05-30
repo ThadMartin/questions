@@ -49,8 +49,9 @@ NSMutableArray * questionAnswers;
     questionList = [thisQuestionData getQuestions];    
     numQuestions = [questionList count];
     
-    if ([[questionList objectAtIndex:numQuestions-1] length] == 0)
+    if ([[questionList objectAtIndex:numQuestions-1] length] < 1)
         numQuestions --;   //incase there is a blank line at the end.
+    NSLog(@"%i",numQuestions);
     
     self.labelOne.text = [questionList objectAtIndex:answerIndex];
     answerIndex ++;
@@ -118,13 +119,21 @@ NSMutableArray * questionAnswers;
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
         [thisQuestionData saveData:questionAnswers: (numQuestions):filePath];
         
+        [NSThread sleepForTimeInterval:2];
         
         [thisQuestionData uploadToDropBox:filePath];
         
-              [NSThread sleepForTimeInterval:15];
+              //[NSThread sleepForTimeInterval:15];
         
          //exit(0);     //if the end is in, file doesn't get uploaded.  uploads but doesn't end otherwise.  Try seguay to "that's all, floks" screen?
+        //[prepareForSegue];
         
+        [NSThread sleepForTimeInterval:2];
+
+        
+        [self performSegueWithIdentifier: @"segExit" 
+                                  sender: self];
+
         NSLog(@"This is where we're supposed to end...");
     }
     else{
@@ -136,6 +145,14 @@ NSMutableArray * questionAnswers;
     }
     
 }
+
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//  	
+//}
+//
+//
+//
 
 
 @end

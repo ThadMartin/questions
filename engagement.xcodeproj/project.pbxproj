@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		720F5D831576702500C74BC5 /* goodbye.m in Sources */ = {isa = PBXBuildFile; fileRef = 720F5D821576702500C74BC5 /* goodbye.m */; };
 		724F0807157416CB007082CE /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F0806157416CB007082CE /* DropboxSDK.framework */; };
 		724F080C15741858007082CE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080B15741858007082CE /* Security.framework */; };
 		724F080E15741F1F007082CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080D15741F1F007082CE /* QuartzCore.framework */; };
@@ -29,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		720F5D811576702500C74BC5 /* goodbye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodbye.h; sourceTree = "<group>"; };
+		720F5D821576702500C74BC5 /* goodbye.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodbye.m; sourceTree = "<group>"; };
 		724F0806157416CB007082CE /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = engagement/DropboxSDK.framework; sourceTree = "<group>"; };
 		724F080B15741858007082CE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		724F080D15741F1F007082CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -129,6 +132,8 @@
 				72F7DF411567F01000500D63 /* QuestionData.m */,
 				72F7DF431567F02F00500D63 /* questionsViewController.h */,
 				72F7DF441567F02F00500D63 /* questionsViewController.m */,
+				720F5D811576702500C74BC5 /* goodbye.h */,
+				720F5D821576702500C74BC5 /* goodbye.m */,
 				72F7DF171567EA4100500D63 /* Supporting Files */,
 			);
 			path = engagement;
@@ -219,6 +224,7 @@
 				72F7DF3B1567EE4200500D63 /* gender.m in Sources */,
 				72F7DF421567F01000500D63 /* QuestionData.m in Sources */,
 				72F7DF451567F02F00500D63 /* questionsViewController.m in Sources */,
+				720F5D831576702500C74BC5 /* goodbye.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
