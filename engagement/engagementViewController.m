@@ -8,7 +8,8 @@
 
 #import "engagementViewController.h"
 #import "QuestionData.h"
-#import "lastName.h"
+//#import "lastName.h"
+#import "engagementAppDelegate.h"
 
 
 
@@ -16,6 +17,8 @@
 
 @synthesize textField;
 @synthesize buttonOne;
+
+NSMutableArray * questionAnswers;
 
 
 - (void)didReceiveMemoryWarning
@@ -30,7 +33,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    [buttonOne setEnabled:NO];
+    // [buttonOne setEnabled:NO];
    
 }
 
@@ -75,36 +78,36 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)TheTextField{
     [TheTextField resignFirstResponder];
-    NSString * firstNameString = self.textField.text;
-    if (firstNameString.length > 0)  //some input...
-            [buttonOne setEnabled:YES];
+//    NSString * studentID = self.textField.text;
+//    if (studentID.length > 0)  //some input...
+           // [buttonOne setEnabled:YES];
     return (YES);
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-	    
-    NSString * sendString = self.textField.text;
-    
-    NSMutableArray * sendName = [[NSMutableArray alloc] init];
-    
-    [sendName addObject:sendString];
-    
-   // QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-   // NSString * docPath = [thisQuestionData createDataPath];
-
-    if ([[segue identifier] isEqualToString:@"firstNameToLast"])
-    {
-        // Get reference to the destination view controller
-        // lastName * svc = [segue destinationViewController];
-        
-        // Pass any objects to the view controller here, like...
-     //   svc.filePath = docPath;   
-    }
-
-    
-	
-}
-
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//	    
+//    NSString * sendString = self.textField.text;
+//    
+//    NSMutableArray * sendName = [[NSMutableArray alloc] init];
+//    
+//    [sendName addObject:sendString];
+//    
+//   // QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+//   // NSString * docPath = [thisQuestionData createDataPath];
+//
+//    if ([[segue identifier] isEqualToString:@"firstNameToLast"])
+//    {
+//        // Get reference to the destination view controller
+//        // lastName * svc = [segue destinationViewController];
+//        
+//        // Pass any objects to the view controller here, like...
+//     //   svc.filePath = docPath;   
+//    }
+//
+//    
+//	
+//}
+//
 
 
 //- (IBAction)linkButtonPressed:(id)sender {
@@ -119,4 +122,23 @@
 //
 //
 
+- (IBAction)submitStudentId:(id)sender {
+    NSString * studentID = self.textField.text;
+    if (studentID.length > 0) {
+        NSString *answerObj = [NSString stringWithFormat:@"%@ \n",studentID];
+        questionAnswers = [[NSMutableArray alloc] init ];
+        [questionAnswers addObject: answerObj];
+        engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];        
+        NSString * theDocPath = delegate.docPath;
+        
+        
+        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+        [thisQuestionData saveData:questionAnswers: 1:theDocPath];
+        //go to next page
+        [self performSegueWithIdentifier: @"toTableView2" 
+                                  sender: self];
+    }
+            
+    
+}
 @end

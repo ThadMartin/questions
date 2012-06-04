@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIView *qSlider;
 @property (weak, nonatomic) IBOutlet UILabel *lowLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sliderSubmit;
+@property (nonatomic, strong) NSString *infile;
 - (IBAction)sliderSubmitPressed:(id)sender;
 //@property (weak, nonatomic) IBOutlet UIView *linkButton;
 - (IBAction)linkButtonPressed:(id)sender;

@@ -46,7 +46,7 @@ NSMutableArray * questionAnswers;
     answerIndex = 0;
     questionAnswers = [[NSMutableArray alloc] init ];  //numbers from slider.
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-    questionList = [thisQuestionData getQuestions];    
+//    questionList = [thisQuestionData getQuestions];    
     numQuestions = [questionList count];
     
     if ([[questionList objectAtIndex:numQuestions-1] length] < 1)

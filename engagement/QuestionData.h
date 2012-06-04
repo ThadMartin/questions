@@ -12,17 +12,8 @@
 DBRestClient* restClient;
 
 
-//@class DBRestClient;
+@interface QuestionData : NSObject 
 
-//@class QuestionData;
-
-
-@interface QuestionData : NSObject //<DBRestClientDelegate> {
- // DBRestClient *_restClient;   
-    
-//}
-
-//@interface QuestionData <DBRestClientDelegate>
 
 @property int answerIndex;
 @property (copy) NSMutableArray * questionAnswers;
@@ -35,7 +26,7 @@ DBRestClient* restClient;
 
 - (void)saveData:(NSMutableArray *)questionAnswers: (int)numQuestions: (NSString *) docPath;
 
-- (NSArray *) getQuestions;
+- (NSArray *) getQuestions:(NSString *) infile;
 
 - (NSString *) createDataPath;
 

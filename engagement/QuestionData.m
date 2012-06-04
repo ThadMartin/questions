@@ -62,14 +62,31 @@
 }
 
 
-- (NSArray *)getQuestions {
+- (NSArray *)getQuestions : (NSString *) infile{
     
-    NSString *questionListPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"questionList.txt"];  //no enpty newline at end? 
+    NSString *questionListPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:infile];  //no enpty newline at end? 
+    //NSString *qListPath = [[NSBundle mainBundle] bundlePath]; 
+    NSLog(@"\n %@ \n",questionListPath);
     NSData *data = [NSData dataWithContentsOfFile:questionListPath];    
     NSString *string = [NSString stringWithUTF8String:[data bytes]];
     NSArray *lines = [string componentsSeparatedByString:@"\r"];  //  or \n?  Each line becomes a question.
     
-    return lines;
+
+    
+    
+//    NSFileManager *filemgr = [NSFileManager defaultManager];
+//    
+//    NSArray *filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:nil];
+//    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
+//    
+//    NSArray *onlyQns = [filelist filteredArrayUsingPredicate:fltr];
+//    
+//    int count = [onlyQns count];
+//    
+//    NSLog (@"NumberOfFiles is %i",count);
+    
+        return lines;
+    
 }
 
 

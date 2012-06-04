@@ -8,6 +8,7 @@
 
 #import "newSlider.h"
 #import "QuestionData.h"
+#import "questionSelector.h"
 #import "engagementAppDelegate.h"
 #import <DropboxSDK/DropboxSDK.h>
 #import "engagementAppDelegate.h"
@@ -23,6 +24,7 @@
 @synthesize sliderSubmit;
 //@synthesize linkButton;
 @synthesize highLabel;
+@synthesize infile;
 //@synthesize answerIndex;
 //@synthesize questionList;
 //@synthesize questionAnswers;
@@ -33,6 +35,7 @@ int currentAnswer;
 NSArray * questionList;
 int answerIndex;
 int numQuestions;
+//NSString * infile;
 
 
 
@@ -53,10 +56,12 @@ int numQuestions;
     [sliderSubmit setEnabled:NO];   //disable submit until there is input.
     [sliderSubmit setTitle: @"touch slider" forState:UIControlStateNormal];
     
+     NSLog(@"This is infile %@",infile);
     
-    questionAnswers = [[NSMutableArray alloc] init ];  //numbers from slider.
+    
+    questionAnswers = [[NSMutableArray alloc] init ];  //numbers from slider.  Need init here?
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-    questionList = [thisQuestionData getQuestions];
+    questionList = [thisQuestionData getQuestions:infile];
     
     //[NSThread sleepForTimeInterval:.5];
     
@@ -70,7 +75,7 @@ int numQuestions;
     while (questionList.count <1 ) {
         NSLog(@"well, that didn't work...");
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-        [thisQuestionData getQuestions];
+        [thisQuestionData getQuestions:infile];
         
     }
         

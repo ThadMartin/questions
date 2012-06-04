@@ -12,6 +12,9 @@
 		724F080C15741858007082CE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080B15741858007082CE /* Security.framework */; };
 		724F080E15741F1F007082CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080D15741F1F007082CE /* QuartzCore.framework */; };
 		7264E49915796595000784A2 /* newSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7264E49815796595000784A2 /* newSlider.m */; };
+		7265C7D1157CB7A7002AFB5C /* questionList3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7265C7D0157CB7A6002AFB5C /* questionList3.txt */; };
+		7265C7D3157CBF19002AFB5C /* questionList4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7265C7D2157CBF18002AFB5C /* questionList4.txt */; };
+		728AFA98157C7D5D005580A9 /* questionSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 728AFA97157C7D5D005580A9 /* questionSelector.m */; };
 		72F7DF111567EA4000500D63 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF101567EA4000500D63 /* UIKit.framework */; };
 		72F7DF131567EA4000500D63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF121567EA4000500D63 /* Foundation.framework */; };
 		72F7DF151567EA4000500D63 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF141567EA4000500D63 /* CoreGraphics.framework */; };
@@ -37,6 +40,10 @@
 		724F080D15741F1F007082CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7264E49715796595000784A2 /* newSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newSlider.h; sourceTree = "<group>"; };
 		7264E49815796595000784A2 /* newSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newSlider.m; sourceTree = "<group>"; };
+		7265C7D0157CB7A6002AFB5C /* questionList3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = questionList3.txt; sourceTree = "<group>"; };
+		7265C7D2157CBF18002AFB5C /* questionList4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = questionList4.txt; sourceTree = "<group>"; };
+		728AFA96157C7D5D005580A9 /* questionSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = questionSelector.h; path = ../questionSelector.h; sourceTree = "<group>"; };
+		728AFA97157C7D5D005580A9 /* questionSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = questionSelector.m; path = ../questionSelector.m; sourceTree = "<group>"; };
 		72F7DF0C1567EA4000500D63 /* questionnaires.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = questionnaires.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72F7DF101567EA4000500D63 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72F7DF121567EA4000500D63 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -62,7 +69,7 @@
 		72F7DF411567F01000500D63 /* QuestionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionData.m; sourceTree = "<group>"; };
 		72F7DF431567F02F00500D63 /* questionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questionsViewController.h; sourceTree = "<group>"; };
 		72F7DF441567F02F00500D63 /* questionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questionsViewController.m; sourceTree = "<group>"; };
-		72F7DF461567F06400500D63 /* questionList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = questionList.txt; sourceTree = "<group>"; };
+		72F7DF461567F06400500D63 /* questionList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; lineEnding = 1; path = questionList.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +124,8 @@
 			children = (
 				72F7DF331567EC4D00500D63 /* childID.h */,
 				72F7DF341567EC4D00500D63 /* childID.m */,
+				728AFA96157C7D5D005580A9 /* questionSelector.h */,
+				728AFA97157C7D5D005580A9 /* questionSelector.m */,
 				72F7DF1F1567EA4100500D63 /* engagementAppDelegate.h */,
 				72F7DF201567EA4100500D63 /* engagementAppDelegate.m */,
 				72F7DF281567EA4100500D63 /* engagementViewController.h */,
@@ -146,6 +155,8 @@
 			children = (
 				72F7DF461567F06400500D63 /* questionList.txt */,
 				72F7DF181567EA4100500D63 /* engagement-Info.plist */,
+				7265C7D2157CBF18002AFB5C /* questionList4.txt */,
+				7265C7D0157CB7A6002AFB5C /* questionList3.txt */,
 				72F7DF191567EA4100500D63 /* InfoPlist.strings */,
 				72F7DF1C1567EA4100500D63 /* main.m */,
 				72F7DF1E1567EA4100500D63 /* engagement-Prefix.pch */,
@@ -206,6 +217,8 @@
 				72F7DF1B1567EA4100500D63 /* InfoPlist.strings in Resources */,
 				72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */,
 				72F7DF471567F06400500D63 /* questionList.txt in Resources */,
+				7265C7D1157CB7A7002AFB5C /* questionList3.txt in Resources */,
+				7265C7D3157CBF19002AFB5C /* questionList4.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +240,7 @@
 				72F7DF451567F02F00500D63 /* questionsViewController.m in Sources */,
 				720F5D831576702500C74BC5 /* goodbye.m in Sources */,
 				7264E49915796595000784A2 /* newSlider.m in Sources */,
+				728AFA98157C7D5D005580A9 /* questionSelector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

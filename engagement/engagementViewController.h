@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *buttonOne;
+- (IBAction)submitStudentId:(id)sender;
 
 @end
