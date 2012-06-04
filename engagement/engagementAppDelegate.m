@@ -25,8 +25,8 @@
         
     DBSession* dbSession =
     [[DBSession alloc]
-    initWithAppKey:@"rghajjw49l47ms7"
-    appSecret:@"fuul8iopy31k3bu"
+    initWithAppKey:@"cuorzhksvg6cucn"
+    appSecret:@"nt6md08yfwu0gwp"
      root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
     
     [DBSession setSharedSession:dbSession];

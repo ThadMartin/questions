@@ -212,7 +212,7 @@ int numQuestions;
         
         //[NSThread sleepForTimeInterval:15];
         
-        //exit(0);     //if the end is in, file doesn't get uploaded.  uploads but doesn't end otherwise.  Try seguay to "that's all, floks" screen?
+        //exit(0);     //if the end is in, file doesn't get uploaded.  uploads but doesn't end otherwise.  Try segue to "that's all, floks" screen?
         //[prepareForSegue];
         
         //[NSThread sleepForTimeInterval:2];

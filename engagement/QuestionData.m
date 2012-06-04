@@ -72,19 +72,6 @@
     NSArray *lines = [string componentsSeparatedByString:@"\r"];  //  or \n?  Each line becomes a question.
     
 
-    
-    
-//    NSFileManager *filemgr = [NSFileManager defaultManager];
-//    
-//    NSArray *filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:nil];
-//    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
-//    
-//    NSArray *onlyQns = [filelist filteredArrayUsingPredicate:fltr];
-//    
-//    int count = [onlyQns count];
-//    
-//    NSLog (@"NumberOfFiles is %i",count);
-    
         return lines;
     
 }

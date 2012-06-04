@@ -84,42 +84,8 @@ NSMutableArray * questionAnswers;
     return (YES);
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-//	    
-//    NSString * sendString = self.textField.text;
-//    
-//    NSMutableArray * sendName = [[NSMutableArray alloc] init];
-//    
-//    [sendName addObject:sendString];
-//    
-//   // QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-//   // NSString * docPath = [thisQuestionData createDataPath];
-//
-//    if ([[segue identifier] isEqualToString:@"firstNameToLast"])
-//    {
-//        // Get reference to the destination view controller
-//        // lastName * svc = [segue destinationViewController];
-//        
-//        // Pass any objects to the view controller here, like...
-//     //   svc.filePath = docPath;   
-//    }
-//
-//    
-//	
-//}
-//
 
 
-//- (IBAction)linkButtonPressed:(id)sender {
-//    
-//    if (![[DBSession sharedSession] isLinked]) {
-//        [[DBSession sharedSession] linkFromController:self];
-//    } 
-//    else 
-//     [[DBSession sharedSession] unlinkAll];
-//    
-//}
-//
 //
 
 - (IBAction)submitStudentId:(id)sender {

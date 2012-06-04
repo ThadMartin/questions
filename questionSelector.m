@@ -177,8 +177,8 @@ NSString * infile;
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     infile = [onlyQns objectAtIndex:indexPath.row];
-     NSLog(@"prepareWith %@",infile);
-    NSLog(@"what's going on?");
+    // NSLog(@"prepareWith %@",infile);
+   // NSLog(@"what's going on?");
     [self performSegueWithIdentifier: @"toNewSlider2" 
                               sender: self];
 
@@ -187,23 +187,10 @@ NSString * infile;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	if ([segue.identifier isEqualToString:@"toNewSlider2"]){
-//        
-//        NSString * sendString = self.textField.text;
-//        
-//        NSMutableArray * sendName = [[NSMutableArray alloc] init];
-//        
-//        [sendName addObject:sendString];
-//        
-//        int numOf = 1;
-//        
-//        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-//        [thisQuestionData saveData:sendName:numOf:filePath];
-//       
-       // infile = [onlyQns objectAtIndex:indexPath.row];
          newSlider * svc = [segue destinationViewController];
         svc.infile = infile; 
     } 
- 	NSLog(@"prepare for aaa  %@  aaa segue runs!",infile);
+ //	NSLog(@"prepare for aaa  %@  aaa segue runs!",infile);
 }
 
 
