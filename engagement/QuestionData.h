@@ -17,10 +17,10 @@ DBRestClient* restClient;
 //@class QuestionData;
 
 
-@interface QuestionData : NSObject <DBRestClientDelegate> {
-  DBRestClient *_restClient;   
+@interface QuestionData : NSObject //<DBRestClientDelegate> {
+ // DBRestClient *_restClient;   
     
-}
+//}
 
 //@interface QuestionData <DBRestClientDelegate>
 

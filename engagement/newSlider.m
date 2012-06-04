@@ -12,7 +12,9 @@
 #import <DropboxSDK/DropboxSDK.h>
 #import "engagementAppDelegate.h"
 
-@implementation newSlider
+@implementation newSlider  // <DBRestClientDelegate>
+
+
 @synthesize linkButton;
 @synthesize questionLabel;
 @synthesize moveBox;
@@ -239,9 +241,24 @@ int numQuestions;
         } 
         else 
             [[DBSession sharedSession] unlinkAll];
-        
-       
-    
-
+  
 }
+
+
+
+- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
+              from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
+    
+    NSLog(@"File uploaded successfully to path: %@", metadata.path);
+    //exit(0);
+}
+
+- (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
+    NSLog(@"File upload failed with error - %@", error);
+}
+
+
+
+
+
 @end

@@ -9,8 +9,9 @@
 #import "QuestionData.h"
 #import "questionsViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
+#import "newSlider.h"
 
-@implementation QuestionData //id<DBRestClientDelegate>
+@implementation QuestionData // : <DBRestClientDelegate>
 
 
 @synthesize docPath = _docPath;
@@ -110,26 +111,26 @@
     restClient =
     [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
     
-    restClient.delegate = self;
+   // restClient.delegate = newSlider ;
 
     
     [restClient uploadFile:filename toPath:destDir
                           withParentRev:nil  fromPath:filePath];
     
-      [NSThread sleepForTimeInterval:6];
+      //[NSThread sleepForTimeInterval:6];
 }
 
-- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
-              from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
-    
-    NSLog(@"File uploaded successfully to path: %@", metadata.path);
-    //exit(0);
-}
-
-- (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
-    NSLog(@"File upload failed with error - %@", error);
-}
-
+//- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
+//              from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
+//    
+//    NSLog(@"File uploaded successfully to path: %@", metadata.path);
+//    //exit(0);
+//}
+//
+//- (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
+//    NSLog(@"File upload failed with error - %@", error);
+//}
+//
 
 
 
