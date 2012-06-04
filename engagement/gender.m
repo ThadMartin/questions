@@ -8,7 +8,7 @@
 
 #import "gender.h"
 #import "QuestionData.h"
-#import "questionsViewController.h"
+//#import "questionsViewController.h"
 
 @implementation gender
 
@@ -100,22 +100,22 @@ NSString * sendString;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 //    NSString *sendString;
-	if ([segue.identifier isEqualToString:@"genderToQuestions"]){
-        
-        
-        NSMutableArray * sendName = [[NSMutableArray alloc] init];
-        
-        [sendName addObject:sendString];
-        
-        int numOf = 1;
-        
-        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-        [thisQuestionData saveData:sendName:numOf:filePath];
-        
-        questionsViewController * svc = [segue destinationViewController];
-        svc.filePath = filePath; 
-    } 
- 	
+//	if ([segue.identifier isEqualToString:@"genderToQuestions"]){
+//        
+//        
+//        NSMutableArray * sendName = [[NSMutableArray alloc] init];
+//        
+//        [sendName addObject:sendString];
+//        
+//        int numOf = 1;
+//        
+//        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+//        [thisQuestionData saveData:sendName:numOf:filePath];
+//        
+//        questionsViewController * svc = [segue destinationViewController];
+//        svc.filePath = filePath; 
+//    } 
+// 	
 }
 
 

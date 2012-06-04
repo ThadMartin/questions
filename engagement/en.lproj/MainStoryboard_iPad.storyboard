@@ -45,21 +45,6 @@
                                     <outlet property="delegate" destination="2" id="zIW-v1-OVI"/>
                                 </connections>
                             </textField>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tAg-eo-KVA">
-                                <rect key="frame" x="424" y="453" width="72" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="skip">
-                                    <color key="titleColor" red="0.19607843458652496" green="0.30980393290519714" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="fe3-Df-ubV" kind="modal" identifier="toTableView" id="DKv-Gw-t9H"/>
-                                </connections>
-                            </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="p5O-zx-rpd">
                                 <rect key="frame" x="530" y="797" width="72" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -82,56 +67,6 @@
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-84" y="-601"/>
-        </scene>
-        <scene sceneID="nMo-RZ-4lm">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sbR-wu-AIF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="vWr-tj-aTw" customClass="lastName" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="XkN-hv-0Ml">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Y1A-Fw-Vsf">
-                                <rect key="frame" x="55" y="104" width="97" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
-                                <connections>
-                                    <outlet property="delegate" destination="vWr-tj-aTw" id="Ckg-uI-gNV"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4OL-JQ-bm5">
-                                <rect key="frame" x="66" y="246" width="74" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="submit">
-                                    <color key="titleColor" red="0.19607843458652496" green="0.30980393290519714" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="xzx-Ll-96E" kind="modal" identifier="lastNameToChildID" id="qFp-TD-vRw"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please enter your last name." lineBreakMode="tailTruncation" minimumFontSize="10" id="XZW-vb-Jad">
-                                <rect key="frame" x="67" y="167" width="348" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="buttonOne" destination="4OL-JQ-bm5" id="3Wa-VO-9Ch"/>
-                        <outlet property="textField" destination="Y1A-Fw-Vsf" id="KvX-r7-ihN"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="797" y="-143"/>
         </scene>
         <scene sceneID="WfS-63-sly">
             <objects>
@@ -175,106 +110,6 @@
             </objects>
             <point key="canvasLocation" x="2664" y="-1557"/>
         </scene>
-        <scene sceneID="POL-ud-0pU">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="c4e-rN-QBV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="xzx-Ll-96E" customClass="childID" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Yqo-Po-Dht">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="81w-2q-5jf">
-                                <rect key="frame" x="55" y="104" width="97" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
-                                <connections>
-                                    <outlet property="delegate" destination="xzx-Ll-96E" id="eOg-D9-jVD"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BDQ-jt-aOv">
-                                <rect key="frame" x="66" y="246" width="74" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="submit">
-                                    <color key="titleColor" red="0.19607843458652496" green="0.30980393290519714" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="zeV-pA-flX" kind="modal" identifier="childIDtoGroupID" id="XHa-3X-RvS"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please enter your child ID." lineBreakMode="tailTruncation" minimumFontSize="10" id="I0i-Ry-bHU">
-                                <rect key="frame" x="67" y="167" width="348" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="buttonOne" destination="BDQ-jt-aOv" id="8d5-XI-aPl"/>
-                        <outlet property="textField" destination="81w-2q-5jf" id="OFM-b1-3Xe"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="1693" y="-143"/>
-        </scene>
-        <scene sceneID="gA8-0p-ddz">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PB8-H8-8tF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="zeV-pA-flX" customClass="GroupID" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dcl-zx-j4F">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="TSW-OX-h6m">
-                                <rect key="frame" x="55" y="104" width="97" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
-                                <connections>
-                                    <outlet property="delegate" destination="zeV-pA-flX" id="66B-ZI-npf"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hzs-3B-GIZ">
-                                <rect key="frame" x="66" y="246" width="74" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="submit">
-                                    <color key="titleColor" red="0.19607843458652496" green="0.30980393290519714" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="IYL-vR-xPh" kind="modal" identifier="groupIDtoGender" id="xeL-cX-2C4"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please enter your Group ID." lineBreakMode="tailTruncation" minimumFontSize="10" id="1zb-Sm-GLb">
-                                <rect key="frame" x="67" y="167" width="348" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="buttonOne" destination="hzs-3B-GIZ" id="V6w-cs-1kA"/>
-                        <outlet property="textField" destination="TSW-OX-h6m" id="3Pw-UU-yuA"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="2583" y="-143"/>
-        </scene>
         <scene sceneID="0u4-4O-Uzb">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oO9-58-w63" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -294,9 +129,6 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="5gK-h2-Ivm" kind="modal" identifier="genderToQuestions" id="abm-Av-lfX"/>
-                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please enter your Gender:" lineBreakMode="tailTruncation" minimumFontSize="10" id="DB0-og-YEh">
                                 <rect key="frame" x="55" y="81" width="216" height="21"/>
@@ -353,83 +185,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="3445" y="-143"/>
-        </scene>
-        <scene sceneID="Xhe-k2-c9a">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="esz-k3-4t9" sceneMemberID="firstResponder"/>
-                <viewController id="5gK-h2-Ivm" customClass="questionsViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4eQ-Vv-GLQ">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" id="pSv-xs-rbj">
-                                <rect key="frame" x="103" y="192" width="695" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" id="UwH-H0-jMf">
-                                <rect key="frame" x="101" y="382" width="567" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="sliderOneMoved:" destination="5gK-h2-Ivm" eventType="valueChanged" id="3bU-3G-IDc"/>
-                                </connections>
-                            </slider>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kaP-y3-Doj" userLabel="buttonTwo">
-                                <rect key="frame" x="103" y="29" width="197" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" label="buttonTwo"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843458652496" green="0.30980393290519714" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonTwoPressed:" destination="5gK-h2-Ivm" eventType="touchUpInside" id="sto-e8-Z52"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="No, not at all true." lineBreakMode="tailTruncation" minimumFontSize="10" id="VNz-LW-Yvo">
-                                <rect key="frame" x="103" y="412" width="186" height="88"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Yes, very true." lineBreakMode="tailTruncation" minimumFontSize="10" id="dmf-zT-MKV">
-                                <rect key="frame" x="555" y="412" width="118" height="88"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yU4-7R-GmA">
-                                <rect key="frame" x="376" y="121" width="290" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="continue">
-                                    <color key="titleColor" red="0.19607843458652496" green="0.30980393290519714" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="butonTwo" destination="kaP-y3-Doj" id="QUq-3p-prF"/>
-                        <outlet property="labelOne" destination="pSv-xs-rbj" id="vVT-h0-Yu1"/>
-                        <outlet property="sliderOne" destination="UwH-H0-jMf" id="JRj-87-j7V"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="4412" y="-143"/>
+            <point key="canvasLocation" x="2653" y="-55"/>
         </scene>
         <scene sceneID="Ego-VI-76v">
             <objects>
@@ -586,7 +342,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="6521" y="-491"/>
+            <point key="canvasLocation" x="5297" y="-555"/>
         </scene>
         <scene sceneID="2r3-6z-YIx">
             <objects>
@@ -606,12 +362,52 @@
             <point key="canvasLocation" x="1646" y="-1557"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="engagementViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/engagementViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="submitStudentId:"/>
+                <relationship kind="outlet" name="buttonOne" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="gender" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/gender.h"/>
+            <relationships>
+                <relationship kind="outlet" name="boyButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonOne" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="genderLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="girlButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="goodbye" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/goodbye.h"/>
+            <relationships>
+                <relationship kind="action" name="leave:"/>
+                <relationship kind="outlet" name="exitButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="newSlider" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/newSlider.h"/>
+            <relationships>
+                <relationship kind="action" name="linkButtonPressed:"/>
+                <relationship kind="action" name="sliderSubmitPressed:"/>
+                <relationship kind="outlet" name="highLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="linkButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="lowLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="moveBox" candidateClass="UIView"/>
+                <relationship kind="outlet" name="qSlider" candidateClass="UIView"/>
+                <relationship kind="outlet" name="questionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="sliderSubmit" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="questionSelector" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/questionSelector.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="T0l-dS-Orw"/>
-    </inferredMetricsTieBreakers>
 </document>
