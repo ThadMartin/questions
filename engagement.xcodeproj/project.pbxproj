@@ -11,13 +11,13 @@
 		724F0807157416CB007082CE /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F0806157416CB007082CE /* DropboxSDK.framework */; };
 		724F080C15741858007082CE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080B15741858007082CE /* Security.framework */; };
 		724F080E15741F1F007082CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080D15741F1F007082CE /* QuartzCore.framework */; };
+		7264E49915796595000784A2 /* newSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7264E49815796595000784A2 /* newSlider.m */; };
 		72F7DF111567EA4000500D63 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF101567EA4000500D63 /* UIKit.framework */; };
 		72F7DF131567EA4000500D63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF121567EA4000500D63 /* Foundation.framework */; };
 		72F7DF151567EA4000500D63 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF141567EA4000500D63 /* CoreGraphics.framework */; };
 		72F7DF1B1567EA4100500D63 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF191567EA4100500D63 /* InfoPlist.strings */; };
 		72F7DF1D1567EA4100500D63 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF1C1567EA4100500D63 /* main.m */; };
 		72F7DF211567EA4100500D63 /* engagementAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF201567EA4100500D63 /* engagementAppDelegate.m */; };
-		72F7DF241567EA4100500D63 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF221567EA4100500D63 /* MainStoryboard_iPhone.storyboard */; };
 		72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */; };
 		72F7DF2A1567EA4100500D63 /* engagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF291567EA4100500D63 /* engagementViewController.m */; };
 		72F7DF321567EAC900500D63 /* lastName.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF311567EAC900500D63 /* lastName.m */; };
@@ -35,7 +35,9 @@
 		724F0806157416CB007082CE /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = engagement/DropboxSDK.framework; sourceTree = "<group>"; };
 		724F080B15741858007082CE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		724F080D15741F1F007082CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		72F7DF0C1567EA4000500D63 /* engagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = engagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7264E49715796595000784A2 /* newSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newSlider.h; sourceTree = "<group>"; };
+		7264E49815796595000784A2 /* newSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newSlider.m; sourceTree = "<group>"; };
+		72F7DF0C1567EA4000500D63 /* questionnaires.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = questionnaires.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72F7DF101567EA4000500D63 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72F7DF121567EA4000500D63 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		72F7DF141567EA4000500D63 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -45,7 +47,6 @@
 		72F7DF1E1567EA4100500D63 /* engagement-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "engagement-Prefix.pch"; sourceTree = "<group>"; };
 		72F7DF1F1567EA4100500D63 /* engagementAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engagementAppDelegate.h; sourceTree = "<group>"; };
 		72F7DF201567EA4100500D63 /* engagementAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = engagementAppDelegate.m; sourceTree = "<group>"; };
-		72F7DF231567EA4100500D63 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		72F7DF261567EA4100500D63 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		72F7DF281567EA4100500D63 /* engagementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engagementViewController.h; sourceTree = "<group>"; };
 		72F7DF291567EA4100500D63 /* engagementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = engagementViewController.m; sourceTree = "<group>"; };
@@ -93,7 +94,7 @@
 		72F7DF0D1567EA4000500D63 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				72F7DF0C1567EA4000500D63 /* engagement.app */,
+				72F7DF0C1567EA4000500D63 /* questionnaires.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,7 +128,8 @@
 				72F7DF301567EAC900500D63 /* lastName.h */,
 				72F7DF311567EAC900500D63 /* lastName.m */,
 				72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */,
-				72F7DF221567EA4100500D63 /* MainStoryboard_iPhone.storyboard */,
+				7264E49715796595000784A2 /* newSlider.h */,
+				7264E49815796595000784A2 /* newSlider.m */,
 				72F7DF401567F00F00500D63 /* QuestionData.h */,
 				72F7DF411567F01000500D63 /* QuestionData.m */,
 				72F7DF431567F02F00500D63 /* questionsViewController.h */,
@@ -154,9 +156,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		72F7DF0B1567EA4000500D63 /* engagement */ = {
+		72F7DF0B1567EA4000500D63 /* questionnaires */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 72F7DF2D1567EA4100500D63 /* Build configuration list for PBXNativeTarget "engagement" */;
+			buildConfigurationList = 72F7DF2D1567EA4100500D63 /* Build configuration list for PBXNativeTarget "questionnaires" */;
 			buildPhases = (
 				72F7DF081567EA4000500D63 /* Sources */,
 				72F7DF091567EA4000500D63 /* Frameworks */,
@@ -166,9 +168,9 @@
 			);
 			dependencies = (
 			);
-			name = engagement;
+			name = questionnaires;
 			productName = engagement;
-			productReference = 72F7DF0C1567EA4000500D63 /* engagement.app */;
+			productReference = 72F7DF0C1567EA4000500D63 /* questionnaires.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -191,7 +193,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				72F7DF0B1567EA4000500D63 /* engagement */,
+				72F7DF0B1567EA4000500D63 /* questionnaires */,
 			);
 		};
 /* End PBXProject section */
@@ -202,7 +204,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				72F7DF1B1567EA4100500D63 /* InfoPlist.strings in Resources */,
-				72F7DF241567EA4100500D63 /* MainStoryboard_iPhone.storyboard in Resources */,
 				72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */,
 				72F7DF471567F06400500D63 /* questionList.txt in Resources */,
 			);
@@ -225,6 +226,7 @@
 				72F7DF421567F01000500D63 /* QuestionData.m in Sources */,
 				72F7DF451567F02F00500D63 /* questionsViewController.m in Sources */,
 				720F5D831576702500C74BC5 /* goodbye.m in Sources */,
+				7264E49915796595000784A2 /* newSlider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,14 +239,6 @@
 				72F7DF1A1567EA4100500D63 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		72F7DF221567EA4100500D63 /* MainStoryboard_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				72F7DF231567EA4100500D63 /* en */,
-			);
-			name = MainStoryboard_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 		72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */ = {
@@ -349,7 +343,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		72F7DF2D1567EA4100500D63 /* Build configuration list for PBXNativeTarget "engagement" */ = {
+		72F7DF2D1567EA4100500D63 /* Build configuration list for PBXNativeTarget "questionnaires" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				72F7DF2E1567EA4100500D63 /* Debug */,

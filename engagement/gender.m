@@ -15,8 +15,6 @@
 @synthesize filePath;
 @synthesize girlButton;
 @synthesize boyButton;
-//@synthesize buttonThree;
-//@synthesize buttonFour;
 @synthesize buttonOne;
 @synthesize genderLabel;
 
@@ -104,12 +102,6 @@ NSString * sendString;
 //    NSString *sendString;
 	if ([segue.identifier isEqualToString:@"genderToQuestions"]){
         
-//        if ([buttonThree isHighlighted ]){ 
-//            sendString = @"Boy";
-//        }
-//        else {
-//            sendString = @"Girl";
-//        }
         
         NSMutableArray * sendName = [[NSMutableArray alloc] init];
         

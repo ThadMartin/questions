@@ -11,5 +11,6 @@
 @interface engagementAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong) NSString * docPath;
 
 @end

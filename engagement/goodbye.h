@@ -12,5 +12,4 @@
 - (IBAction)leave:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *exitButton;
 
-
 @end

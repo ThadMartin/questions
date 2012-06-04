@@ -56,11 +56,16 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 - (IBAction)leave:(id)sender {
     exit(0);
 }
 
+- (IBAction)uploadDropboxNow:(id)sender {
+}
+
+- (IBAction)linkDropboxNow:(id)sender {
+}
 @end

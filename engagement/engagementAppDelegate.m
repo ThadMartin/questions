@@ -9,11 +9,14 @@
 #import "engagementAppDelegate.h"
 #import <DropboxSDK/DropboxSDK.h>
 //You need to add QuartzCore.framework.
+#import "QuestionData.h"
 
 @implementation engagementAppDelegate
 
 @synthesize window = _window;
 
+//NSString * docPath;
+@synthesize docPath;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -27,6 +30,10 @@
      root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
     
     [DBSession setSharedSession:dbSession];
+    
+    QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+    
+    docPath = [thisQuestionData createDataPath];
     
     return YES;
 
