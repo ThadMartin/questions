@@ -210,10 +210,26 @@
                                     <segue destination="72J-Rq-pLQ" kind="modal" identifier="toNewSlider" id="kdE-Dr-LbI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FQZ-Io-iAi">
+                                <rect key="frame" x="68" y="245" width="331" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="link">
+                                    <color key="titleColor" red="0.19607843458652496" green="0.30980393290519714" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="linkButtonPressed:" destination="vQp-9g-wP9" eventType="touchUpInside" id="GKJ-l8-mHP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="linkButton" destination="FQZ-Io-iAi" id="x9X-jO-GAD"/>
                         <segue destination="nMM-Nh-SCP" kind="modal" identifier="toGoodbye" id="LU2-8Q-zus"/>
                         <segue destination="9jv-FZ-mKI" kind="modal" identifier="toWordFill" id="asY-Z0-LoH"/>
                     </connections>
@@ -427,62 +443,12 @@
             <point key="canvasLocation" x="1646" y="-1557"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="engagementViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/engagementViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="submitStudentId:"/>
-                <relationship kind="outlet" name="buttonOne" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="gender" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/gender.h"/>
-            <relationships>
-                <relationship kind="outlet" name="boyButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="buttonOne" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="genderLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="girlButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="goodbye" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/goodbye.h"/>
-            <relationships>
-                <relationship kind="action" name="leave:"/>
-                <relationship kind="outlet" name="exitButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="newSlider" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/newSlider.h"/>
-            <relationships>
-                <relationship kind="action" name="sliderSubmitPressed:"/>
-                <relationship kind="outlet" name="highLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lowLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="moveBox" candidateClass="UIView"/>
-                <relationship kind="outlet" name="qSlider" candidateClass="UIView"/>
-                <relationship kind="outlet" name="questionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="sliderSubmit" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="questionParser" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/questionParser.h"/>
-        </class>
-        <class className="questionSelector" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/questionSelector.h"/>
-        </class>
-        <class className="wordFill" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/wordFill.h"/>
-            <relationships>
-                <relationship kind="action" name="wordFillSubmitPressed:"/>
-                <relationship kind="outlet" name="wordFillLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wordFillSubmit" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="wordFillText" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="o7b-qC-rcB"/>
+    </inferredMetricsTieBreakers>
 </document>

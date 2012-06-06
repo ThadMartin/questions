@@ -12,6 +12,7 @@
 #import "engagementAppDelegate.h"
 #import "newSlider.h"
 #import "wordFill.h"
+#import <DropboxSDK/DropboxSDK.h>
 
 
 @implementation questionParser
@@ -19,6 +20,7 @@
 @synthesize infile;
 
 @synthesize questionLine;
+@synthesize linkButton;
 
 int lineNumber = 0;
 
@@ -57,6 +59,8 @@ NSArray *fields;
 {
     [super viewDidLoad];
     
+    [linkButton setHidden:true];
+    
     if (lineNumber == 0){
         
         NSString *questionListPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:infile];
@@ -91,7 +95,7 @@ NSArray *fields;
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    
+    //[[DBSession sharedSession] unlinkAll];
     
     NSString *questionListPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:infile];
     
@@ -114,7 +118,7 @@ NSArray *fields;
         
         fields = [line componentsSeparatedByString:@"\t"];
         
-               //    }
+        //    }
         
         
         NSString * tester1 =@"numberline";
@@ -124,7 +128,7 @@ NSArray *fields;
         NSString * tester5 =[fields objectAtIndex:2];
         
         NSLog (@"something wrong? %@ ",tester5);
-
+        
         
         
         if ([tester1 isEqualToString:tester5]){
@@ -132,34 +136,40 @@ NSArray *fields;
             lineNumber ++;
             [self performSegueWithIdentifier: @"toNewSlider" sender: self];
         }
-       
+        
         if ([tester2 isEqualToString:tester5]){
             lineNumber ++;
             NSLog(@"toWordFill");
             [self performSegueWithIdentifier: @"toWordFill" sender: self];
             
         }
-
+        
     }//done with all questions       
     
     else{
-        engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
         
-        NSString * theDocPath = delegate.docPath;
-        
-        
-        
-        [NSThread sleepForTimeInterval:1];
-        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-        [thisQuestionData uploadToDropBox:theDocPath];
-        NSLog(@"this is where we upload");
-        [NSThread sleepForTimeInterval:1]; 
-        
-        [self performSegueWithIdentifier: @"toGoodbye" sender: self];
-        
-        
+        if (![[DBSession sharedSession] isLinked])
+            [linkButton setHidden:false];
+        else{
+            
+            
+            engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
+            
+            NSString * theDocPath = delegate.docPath;
+            
+            
+            
+            [NSThread sleepForTimeInterval:1];
+            QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+            [thisQuestionData uploadToDropBox:theDocPath];
+            NSLog(@"this is where we upload");
+            [NSThread sleepForTimeInterval:1]; 
+            
+            [self performSegueWithIdentifier: @"toGoodbye" sender: self];
+            
+            
+        }
     }
-    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -174,16 +184,42 @@ NSArray *fields;
         svc.fields = fields; 
         svc.infile = infile;
     } 
-
+    
     
     
     
 }
 
+- (IBAction)linkButtonPressed:(id)sender {
+    
+    
+    //if (![[DBSession sharedSession] isLinked]) {
+    [[DBSession sharedSession] linkFromController:self];
+    //} 
+    //else 
+    //    [[DBSession sharedSession] unlinkAll];
+    NSLog(@"is linked.");
+}
+
+
+
+- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
+              from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
+    
+    NSLog(@"File uploaded successfully to path: %@", metadata.path);
+    //exit(0);
+}
+
+- (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
+    NSLog(@"File upload failed with error - %@", error);
+}
+
+
 
 
 - (void)viewDidUnload
 {
+    [self setLinkButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

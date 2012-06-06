@@ -14,5 +14,7 @@
 
 @property (nonatomic, retain) NSString *infile;
 @property (assign) NSArray * questionLine;
+@property (weak, nonatomic) IBOutlet UIButton *linkButton;
+- (IBAction)linkButtonPressed:(id)sender;
 
 @end
