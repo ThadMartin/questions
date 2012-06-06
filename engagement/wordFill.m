@@ -16,6 +16,7 @@
 @implementation wordFill
 
 @synthesize wordFillText;
+
 @synthesize wordFillLabel;
 @synthesize wordFillSubmit;
 @synthesize fields;
@@ -57,8 +58,14 @@
     //[wordFillSubmit setEnabled:NO];
     //[wordFillSubmit setTitle:@"Enter answer" forState:normal];
     self.wordFillLabel.text = [fields objectAtIndex:3];
+//    [disablesAutomaticKeyboardDismissal NO];
     
 }
+
+- (BOOL)disablesAutomaticKeyboardDismissal {
+    return NO;
+}
+
 
 
 - (void)viewDidUnload
