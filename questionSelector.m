@@ -8,6 +8,7 @@
 
 #import "questionSelector.h"
 #import "newSlider.h"
+#import "questionParser.h"
 
 NSArray *onlyQns;
 NSString * infile;
@@ -179,18 +180,19 @@ NSString * infile;
     infile = [onlyQns objectAtIndex:indexPath.row];
     // NSLog(@"prepareWith %@",infile);
    // NSLog(@"what's going on?");
-    [self performSegueWithIdentifier: @"toNewSlider2" 
-                              sender: self];
+        [self performSegueWithIdentifier: @"toQuestionParser" 
+                                  sender: self];
+    //[self performSegueWithIdentifier: @"toNewSlider2" 
+    //                          sender: self];
 
     
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	if ([segue.identifier isEqualToString:@"toNewSlider2"]){
-         newSlider * svc = [segue destinationViewController];
+	if ([segue.identifier isEqualToString:@"toQuestionParser"]){
+          questionParser * svc = [segue destinationViewController];
         svc.infile = infile; 
     } 
- //	NSLog(@"prepare for aaa  %@  aaa segue runs!",infile);
 }
 
 

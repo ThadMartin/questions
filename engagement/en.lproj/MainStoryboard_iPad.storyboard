@@ -87,9 +87,6 @@
                             <state key="highlighted">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <connections>
-                                <segue destination="72J-Rq-pLQ" kind="modal" identifier="toNewSlider2" id="Gtu-R0-sWx"/>
-                            </connections>
                         </button>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="n7L-ee-sEr">
@@ -106,6 +103,9 @@
                         <sections/>
                     </tableView>
                     <navigationItem key="navigationItem" id="Nwe-g2-ETJ"/>
+                    <connections>
+                        <segue destination="vQp-9g-wP9" kind="modal" identifier="toQuestionParser" id="o7b-qC-rcB"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="2664" y="-1557"/>
@@ -186,6 +186,39 @@
                 </viewController>
             </objects>
             <point key="canvasLocation" x="2653" y="-55"/>
+        </scene>
+        <scene sceneID="hNc-md-7MI">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rfb-gG-vrJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="vQp-9g-wP9" customClass="questionParser" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JIp-SO-w2G">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ubp-68-Zxo">
+                                <rect key="frame" x="322" y="704" width="72" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843458652496" green="0.30980393290519714" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="72J-Rq-pLQ" kind="modal" identifier="toNewSlider" id="kdE-Dr-LbI"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="nMM-Nh-SCP" kind="modal" identifier="toGoodbye" id="LU2-8Q-zus"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="4860" y="-2701"/>
         </scene>
         <scene sceneID="Ego-VI-76v">
             <objects>
@@ -269,40 +302,22 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="nMM-Nh-SCP" kind="modal" identifier="newSliderToEnd" id="0cq-wa-AUJ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5zk-z8-rba">
-                                <rect key="frame" x="613" y="619" width="72" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="link">
-                                    <color key="titleColor" red="0.19607843458652496" green="0.30980393290519714" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="linkButtonPressed:" destination="72J-Rq-pLQ" eventType="touchUpInside" id="a8T-dk-zxe"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="highLabel" destination="fll-7Z-nab" id="m1v-Cn-uQO"/>
-                        <outlet property="linkButton" destination="5zk-z8-rba" id="Car-fI-gNf"/>
                         <outlet property="lowLabel" destination="ZOU-Nt-Vae" id="ZBo-6T-xBm"/>
                         <outlet property="moveBox" destination="CCh-Eo-cVT" id="RMu-tm-Nvn"/>
                         <outlet property="qSlider" destination="1On-Lu-J9p" id="jiS-72-HVc"/>
                         <outlet property="questionLabel" destination="ztg-3f-Yc5" id="45x-4b-zov"/>
                         <outlet property="sliderSubmit" destination="Tx2-Hi-Lh2" id="0Yj-tv-ImN"/>
+                        <segue destination="vQp-9g-wP9" kind="modal" identifier="backToQuestionParser" id="0pi-hW-rsU"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="3792" y="-1531"/>
+            <point key="canvasLocation" x="3822" y="-1723"/>
         </scene>
         <scene sceneID="TtM-Ww-5Wn">
             <objects>
@@ -362,52 +377,12 @@
             <point key="canvasLocation" x="1646" y="-1557"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="engagementViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/engagementViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="submitStudentId:"/>
-                <relationship kind="outlet" name="buttonOne" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="gender" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/gender.h"/>
-            <relationships>
-                <relationship kind="outlet" name="boyButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="buttonOne" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="genderLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="girlButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="goodbye" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/goodbye.h"/>
-            <relationships>
-                <relationship kind="action" name="leave:"/>
-                <relationship kind="outlet" name="exitButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="newSlider" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/newSlider.h"/>
-            <relationships>
-                <relationship kind="action" name="linkButtonPressed:"/>
-                <relationship kind="action" name="sliderSubmitPressed:"/>
-                <relationship kind="outlet" name="highLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="linkButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="lowLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="moveBox" candidateClass="UIView"/>
-                <relationship kind="outlet" name="qSlider" candidateClass="UIView"/>
-                <relationship kind="outlet" name="questionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="sliderSubmit" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="questionSelector" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/questionSelector.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="o7b-qC-rcB"/>
+    </inferredMetricsTieBreakers>
 </document>

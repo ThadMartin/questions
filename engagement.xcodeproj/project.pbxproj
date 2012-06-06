@@ -12,8 +12,8 @@
 		724F080C15741858007082CE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080B15741858007082CE /* Security.framework */; };
 		724F080E15741F1F007082CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080D15741F1F007082CE /* QuartzCore.framework */; };
 		7264E49915796595000784A2 /* newSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7264E49815796595000784A2 /* newSlider.m */; };
-		7265C7D1157CB7A7002AFB5C /* questionList3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7265C7D0157CB7A6002AFB5C /* questionList3.txt */; };
-		7265C7D3157CBF19002AFB5C /* questionList4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7265C7D2157CBF18002AFB5C /* questionList4.txt */; };
+		727B5500157E55DA004D13D1 /* questionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 727B54FF157E55DA004D13D1 /* questionParser.m */; };
+		727B5502157E638B004D13D1 /* newQuestionList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 727B5501157E638B004D13D1 /* newQuestionList.txt */; };
 		728AFA98157C7D5D005580A9 /* questionSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 728AFA97157C7D5D005580A9 /* questionSelector.m */; };
 		72F7DF111567EA4000500D63 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF101567EA4000500D63 /* UIKit.framework */; };
 		72F7DF131567EA4000500D63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF121567EA4000500D63 /* Foundation.framework */; };
@@ -25,7 +25,6 @@
 		72F7DF2A1567EA4100500D63 /* engagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF291567EA4100500D63 /* engagementViewController.m */; };
 		72F7DF3B1567EE4200500D63 /* gender.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF3A1567EE4200500D63 /* gender.m */; };
 		72F7DF421567F01000500D63 /* QuestionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF411567F01000500D63 /* QuestionData.m */; };
-		72F7DF471567F06400500D63 /* questionList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF461567F06400500D63 /* questionList.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,8 +35,9 @@
 		724F080D15741F1F007082CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7264E49715796595000784A2 /* newSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newSlider.h; sourceTree = "<group>"; };
 		7264E49815796595000784A2 /* newSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newSlider.m; sourceTree = "<group>"; };
-		7265C7D0157CB7A6002AFB5C /* questionList3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = questionList3.txt; sourceTree = "<group>"; };
-		7265C7D2157CBF18002AFB5C /* questionList4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = questionList4.txt; sourceTree = "<group>"; };
+		727B54FE157E55DA004D13D1 /* questionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questionParser.h; sourceTree = "<group>"; };
+		727B54FF157E55DA004D13D1 /* questionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questionParser.m; sourceTree = "<group>"; };
+		727B5501157E638B004D13D1 /* newQuestionList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = newQuestionList.txt; sourceTree = "<group>"; };
 		728AFA96157C7D5D005580A9 /* questionSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = questionSelector.h; path = ../questionSelector.h; sourceTree = "<group>"; };
 		728AFA97157C7D5D005580A9 /* questionSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = questionSelector.m; path = ../questionSelector.m; sourceTree = "<group>"; };
 		72F7DF0C1567EA4000500D63 /* questionnaires.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = questionnaires.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,7 +57,6 @@
 		72F7DF3A1567EE4200500D63 /* gender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gender.m; sourceTree = "<group>"; };
 		72F7DF401567F00F00500D63 /* QuestionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionData.h; sourceTree = "<group>"; };
 		72F7DF411567F01000500D63 /* QuestionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionData.m; sourceTree = "<group>"; };
-		72F7DF461567F06400500D63 /* questionList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; lineEnding = 1; path = questionList.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +120,8 @@
 				72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */,
 				7264E49715796595000784A2 /* newSlider.h */,
 				7264E49815796595000784A2 /* newSlider.m */,
+				727B54FE157E55DA004D13D1 /* questionParser.h */,
+				727B54FF157E55DA004D13D1 /* questionParser.m */,
 				72F7DF401567F00F00500D63 /* QuestionData.h */,
 				72F7DF411567F01000500D63 /* QuestionData.m */,
 				720F5D811576702500C74BC5 /* goodbye.h */,
@@ -133,10 +134,8 @@
 		72F7DF171567EA4100500D63 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				72F7DF461567F06400500D63 /* questionList.txt */,
 				72F7DF181567EA4100500D63 /* engagement-Info.plist */,
-				7265C7D2157CBF18002AFB5C /* questionList4.txt */,
-				7265C7D0157CB7A6002AFB5C /* questionList3.txt */,
+				727B5501157E638B004D13D1 /* newQuestionList.txt */,
 				72F7DF191567EA4100500D63 /* InfoPlist.strings */,
 				72F7DF1C1567EA4100500D63 /* main.m */,
 				72F7DF1E1567EA4100500D63 /* engagement-Prefix.pch */,
@@ -196,9 +195,7 @@
 			files = (
 				72F7DF1B1567EA4100500D63 /* InfoPlist.strings in Resources */,
 				72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */,
-				72F7DF471567F06400500D63 /* questionList.txt in Resources */,
-				7265C7D1157CB7A7002AFB5C /* questionList3.txt in Resources */,
-				7265C7D3157CBF19002AFB5C /* questionList4.txt in Resources */,
+				727B5502157E638B004D13D1 /* newQuestionList.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +214,7 @@
 				720F5D831576702500C74BC5 /* goodbye.m in Sources */,
 				7264E49915796595000784A2 /* newSlider.m in Sources */,
 				728AFA98157C7D5D005580A9 /* questionSelector.m in Sources */,
+				727B5500157E55DA004D13D1 /* questionParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
