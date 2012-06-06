@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import <DropboxSDK/DropboxSDK.h>
 
-@interface newSlider : UIViewController //<DBRestClientDelegate>
+@interface newSlider : UIViewController 
 
 @property (weak, nonatomic) IBOutlet UILabel *questionLabel;
 @property (weak, nonatomic) IBOutlet UIView *moveBox;

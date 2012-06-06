@@ -12,7 +12,6 @@
 #import "engagementAppDelegate.h"
 #import <DropboxSDK/DropboxSDK.h>
 #import "questionParser.h"
-//#import "engagementAppDelegate.h"
 
 @implementation newSlider  // <DBRestClientDelegate>
 
@@ -31,7 +30,7 @@
 int currentAnswer;
 NSArray * questionList;
 int answerIndex;
-int numQuestions;
+//int numQuestions;
 //NSString * infile;
 
 
