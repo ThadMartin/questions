@@ -211,17 +211,30 @@ int answerIndex;
     }
     
     
-    NSString *answerObj = [NSString stringWithFormat:@"\t%d\n",currentAnswer];  //NSArray likes objects.
+    NSString *answerObj = [NSString stringWithFormat:@"\t%d",currentAnswer];  //NSArray likes objects.
     
     [questionAnswers addObject: answerObj];
+    
+     [questionAnswers addObject:tabStr]; 
     
     engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
             
            NSString * theDocPath = delegate.docPath;
     
-            int length = [questionAnswers count];
-            
+                
+                      
             QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+    
+    NSString * time1 = [thisQuestionData getDateNow];
+    
+    time1  = [time1 stringByAppendingString:@"\n"]; 
+    
+    [questionAnswers addObject:time1]; 
+
+    
+    int length = [questionAnswers count];
+
+    
             [thisQuestionData saveData:questionAnswers:length:theDocPath];
            
     [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];

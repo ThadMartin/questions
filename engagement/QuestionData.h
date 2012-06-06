@@ -32,5 +32,6 @@ DBRestClient* restClient;
 
 - (void) uploadToDropBox:(NSString *) filePath;
 
+- (NSString*) getDateNow;
 
 @end
