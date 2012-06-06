@@ -95,7 +95,7 @@ NSArray *fields;
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    //[[DBSession sharedSession] unlinkAll];
+    [[DBSession sharedSession] unlinkAll];
     
     NSString *questionListPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:infile];
     

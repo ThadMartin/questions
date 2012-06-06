@@ -62,10 +62,10 @@
     
 }
 
-- (BOOL)disablesAutomaticKeyboardDismissal {
-    return NO;
-}
-
+//- (BOOL)disablesAutomaticKeyboardDismissal {
+//    return NO;
+//}
+//
 
 
 - (void)viewDidUnload
@@ -85,7 +85,7 @@
 }
 
 
--(BOOL)wordFillTextShouldReturn:(UITextField *)theTextField{
+- (BOOL)wordFillTextShouldReturn:(UITextField *)theTextField{
     [theTextField resignFirstResponder];
     return (YES);
 }

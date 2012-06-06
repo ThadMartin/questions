@@ -165,7 +165,7 @@ int answerIndex;
         [sliderSubmit setTitle: @"submit" forState:UIControlStateNormal];
         NSLog(@"point %f",touchPoint.x/moveBox.bounds.size.width*100);
         
-        currentAnswer = (int)touchPoint.x/moveBox.bounds.size.width*100;
+        currentAnswer = (int)touchPoint.x/moveBox.bounds.size.width*100000;
     }
     
 }
@@ -181,7 +181,7 @@ int answerIndex;
             touchPoint.y = moveBox.bounds.size.height/2;
             qSlider.center = touchPoint;
             NSLog(@"%f", (touchPoint.x/moveBox.bounds.size.width)*100);
-            currentAnswer = (int)touchPoint.x/moveBox.bounds.size.width*100;
+            currentAnswer = (int)touchPoint.x/moveBox.bounds.size.width*100000;
         }
         //  [buttonTap setEnabled:NO];
     }
