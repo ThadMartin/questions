@@ -67,6 +67,15 @@ NSArray *fields;
         
         NSData *data = [NSData dataWithContentsOfFile:questionListPath];
         NSString *string = [NSString stringWithUTF8String:[data bytes]];
+        
+        while ([string length] == 0){
+            NSLog(@"reloading worked##############################################################");
+            questionListPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:infile];
+            data = [NSData dataWithContentsOfFile:questionListPath];
+            string = [NSString stringWithUTF8String:[data bytes]];
+        }
+
+        
         NSArray *lines = [string componentsSeparatedByString:@"\r"];
         
         NSString * headerLine = [lines objectAtIndex:0];

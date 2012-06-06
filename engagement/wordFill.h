@@ -10,7 +10,7 @@
 
 @interface wordFill : UIViewController <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *wordFillText;
+@property (weak, nonatomic) IBOutlet UITextField *textField;
 
 @property (nonatomic, strong) NSString *infile;
 @property (weak, nonatomic) NSArray * fields;

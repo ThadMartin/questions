@@ -267,22 +267,22 @@
                                     <action selector="wordFillSubmitPressed:" destination="9jv-FZ-mKI" eventType="touchUpInside" id="kuU-R0-1ey"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="z8I-Gk-2Bp">
-                                <rect key="frame" x="20" y="249" width="728" height="31"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Tnv-4d-BWr">
+                                <rect key="frame" x="20" y="276" width="671" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
+                                <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="9jv-FZ-mKI" id="ljT-dY-Jpl"/>
+                                    <outlet property="delegate" destination="9jv-FZ-mKI" id="6Hx-kq-fVJ"/>
                                 </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="textField" destination="Tnv-4d-BWr" id="4CG-OB-vnJ"/>
                         <outlet property="wordFillLabel" destination="Eba-L9-O7p" id="6vK-gO-8MW"/>
                         <outlet property="wordFillSubmit" destination="TIG-hI-cAC" id="cfN-0r-E6d"/>
-                        <outlet property="wordFillText" destination="z8I-Gk-2Bp" id="doq-8J-8Ya"/>
                         <segue destination="vQp-9g-wP9" kind="modal" identifier="backToQuestionParser" id="147-kB-p3e"/>
                     </connections>
                 </viewController>
@@ -500,9 +500,9 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/wordFill.h"/>
             <relationships>
                 <relationship kind="action" name="wordFillSubmitPressed:"/>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="wordFillLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="wordFillSubmit" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="wordFillText" candidateClass="UITextField"/>
             </relationships>
         </class>
     </classes>

@@ -15,7 +15,8 @@
 
 @implementation wordFill
 
-@synthesize wordFillText;
+//@synthesize wordFillText;
+@synthesize textField;
 
 @synthesize wordFillLabel;
 @synthesize wordFillSubmit;
@@ -72,7 +73,8 @@
 {
     [self setWordFillLabel:nil];
     [self setWordFillSubmit:nil];
-    [self setWordFillText:nil];
+//    [self setWordFillText:nil];
+    [self setTextField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -85,7 +87,7 @@
 }
 
 
-- (BOOL)wordFillTextShouldReturn:(UITextField *)theTextField{
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField{
     [theTextField resignFirstResponder];
     return (YES);
 }
@@ -93,7 +95,7 @@
 
 - (IBAction)wordFillSubmitPressed:(id)sender {
     
-    NSString * wordFillAnswer = self.wordFillText.text;
+    NSString * wordFillAnswer = self.textField.text;
 
     
             if (wordFillAnswer.length > 0) {
