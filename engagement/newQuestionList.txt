@@ -1,1 +1,11 @@
-header line, header line.21	15	numberline	Please place the indicated value at the proper location on the numberline: 1,000,100	0	1 billion22	15	wordFill	Please enter some words.21	15	numberline	Please place the indicated value at the proper location on the numberline: 1,000,300	0	1 billion21	15	numberline	Please place the indicated value at the proper location on the numberline: 1,000,400	0	1 billion
+header line, header line.
+21	15	numberline	Please place the indicated value at the proper location on the numberline: 1,000,100	0	1 billion
+22	15	wordFill	Please enter some words.
+23	15	numberFill	Please enter some numbers.
+24	15	instruction	Please pay attention. Or don't.
+25	15	multipleChoice	which thing do you prefer?	thing1	thing2	thing3	thing4
+26	15	multipleChoice	which new thing do you prefer?	thing1	thing2	thing3	thing4	thing5	thing6	thing7	thing8	thing9
+27	15	numberline	Please place the indicated value at the proper location on the numberline: 1,000,200	0	1 billion
+28	15	numberline	Please place the indicated value at the proper location on the numberline: 1,000,100	0	1 billion
+29	15	wordFill	Please enter some more words.
+30	15	numberFill	Please enter some more numbers.

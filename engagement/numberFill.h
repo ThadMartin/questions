@@ -12,6 +12,11 @@
 
 @property (weak, nonatomic) NSArray * fields;
 
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+- (IBAction)submitButtonPressed:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UITextField *numberFillText;
+@property (weak, nonatomic) IBOutlet UILabel *numberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numbersPlease;
 
 @end

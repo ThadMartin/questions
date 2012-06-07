@@ -11,8 +11,12 @@
 #import "engagementAppDelegate.h"
 
 
-@implementation goodbye
+@implementation goodbye{
+    DBRestClient * restClient;
+}
+
 @synthesize exitButton;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,81 +38,19 @@
 #pragma mark - View lifecycle
 
 
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-//    engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
-//    
-//    NSString * theDocPath = delegate.docPath;
-    
-    
-    
-   // [NSThread sleepForTimeInterval:1];
-    
-//    QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-//    [thisQuestionData uploadToDropBox:theDocPath];
-    NSLog(@"this is where we upload");
-    [NSThread sleepForTimeInterval:1]; 
-    exit (0);
-    
 
-}
-
-
-- (void) uploadToDropBox: (NSString *) filePath{
-    
-    //- (IBAction)linkButtonPressed:(id)sender {
-    //    
-    //    
-    //    //if (![[DBSession sharedSession] isLinked]) {
-    //    [[DBSession sharedSession] linkFromController:self];
-    //    //} 
-    //    //else 
-    //    //    [[DBSession sharedSession] unlinkAll];
-    //    NSLog(@"is linked.");
-    //}
-    //
-   
-//    
-//    NSString *filename = [filePath lastPathComponent];
-//    NSLog(@"filename,%@", filename);
-//    NSLog(@"docPath %@", filePath);
-//    
-//    NSString *destDir = @"/";
-//    
-//   restClient =
-//    [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
-    
-    // restClient.delegate = newSlider ;
-    
-    
-//    [restClient uploadFile:filename toPath:destDir
-//             withParentRev:nil  fromPath:filePath];
-    
-    //[NSThread sleepForTimeInterval:6];
-}
-
-//- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
-//              from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
-//    
-//    NSLog(@"File uploaded successfully to path: %@", metadata.path);
-//    //exit(0);
-//}
-//
-//- (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
-//    NSLog(@"File upload failed with error - %@", error);
-//}
-//
-
-
-
-/*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
+    
+    NSString * theDocPath = delegate.docPath;
+    NSLog(@"uploading...");
+    [self uploadToDropbox:theDocPath];
+    
 }
-*/
+
 
 - (void)viewDidUnload
 {
@@ -125,23 +67,42 @@
 }
 
 - (IBAction)leave:(id)sender {
+    [NSThread sleepForTimeInterval:1]; //give dropbox a sec to upload.
     exit(0);
 }
 
-- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
-              from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
+-(void)uploadToDropbox:(NSString *)docPath {
+    
+    if ([[DBSession sharedSession] isLinked]) {
+        
+        NSLog(@"Still linked.");
+        NSString *destDir = @"/";
+        
+        restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+        
+        NSString * filename = [docPath lastPathComponent]; 
+        
+        restClient.delegate = self;
+        
+        [restClient uploadFile:filename toPath:destDir withParentRev:nil  fromPath:docPath];
+        
+    }
+    else{
+        NSLog(@"Perhaps not linked.");
+    }
+    
+}    
+
+
+- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
     
     NSLog(@"File uploaded successfully to path: %@", metadata.path);
-    //exit(0);
 }
 
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
     NSLog(@"File upload failed with error - %@", error);
 }
 
-
-- (IBAction)uploadDropboxNow:(id)sender {
-}
 
 
 @end

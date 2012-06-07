@@ -7,20 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import <DropboxSDK/DropboxSDK.h>
-
-//DBRestClient* restClient;
-
 
 @interface QuestionData : NSObject 
-
 
 @property int answerIndex;
 @property (copy) NSMutableArray * questionAnswers;
 @property (copy) NSString * docPath;
 @property (retain) QuestionData * thisQuestionData;
-
-- (id)init;
 
 - (void)saveData:(NSMutableArray *)questionAnswers;
 
@@ -28,6 +21,8 @@
 
 - (NSString *) createDataPath;
 
-- (NSString*) getDateNow;
+- (NSString *) getDateNow;
+
+- (id)init;
 
 @end

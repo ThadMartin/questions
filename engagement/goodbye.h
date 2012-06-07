@@ -14,4 +14,6 @@
 - (IBAction)leave:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *exitButton;
 
+-(void)uploadToDropbox:(NSString *)docPath;
+
 @end

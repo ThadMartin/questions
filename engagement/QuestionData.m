@@ -69,8 +69,6 @@
 }
 
 
-
-
 - (void)saveData: (NSMutableArray *)questionAnswers{
     
     int answerLength = [questionAnswers count];
@@ -95,9 +93,6 @@
     
     
 }
-
-
-
 
 
 @end

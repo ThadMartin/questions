@@ -12,6 +12,7 @@
 #import "newSlider.h"
 #import "wordFill.h"
 #import "numberFill.h"
+#import "multipleChoice.h"
 
 
 @implementation questionParser{
@@ -69,8 +70,6 @@ NSString * stringOfFile;
     
     if (lineNumber == 0){  //first execution
         
-        NSLog(@"_infile %@ infile %@",_infile,infile);
-        
         infile = _infile;
         
         NSData *data = [NSData dataWithContentsOfFile:infile];
@@ -113,8 +112,8 @@ NSString * stringOfFile;
         NSString * tester1 =@"numberline";
         NSString * tester2 =@"wordFill";
         NSString * tester3 =@"numberFill";
-//        NSString * tester4 =@"multipleChoice";
-//        NSString * tester5 =@"instruction";
+        NSString * tester4 =@"multipleChoice";
+        NSString * tester5 =@"instruction";
 
         NSString * tester6 =[fields objectAtIndex:2];
         
@@ -136,19 +135,19 @@ NSString * stringOfFile;
             lineNumber ++;
             [self performSegueWithIdentifier: @"toNumberFill" sender: self];
         }
-//        
-//        if ([tester4 isEqualToString:tester6]){
-//            NSLog(@"going toMultipleChoice");
-//            lineNumber ++;
-//            [self performSegueWithIdentifier: @"toMultipleChoice" sender: self];
-//            
-//        }
-//        if ([tester5 isEqualToString:tester6]){
-//            NSLog(@"going toInstruction");
-//            lineNumber ++;
-//            [self performSegueWithIdentifier: @"toInstruction" sender: self];
-//            
-//        }
+        
+        if ([tester4 isEqualToString:tester6]){
+            NSLog(@"going toMultipleChoice");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toMultipleChoice" sender: self];
+            
+        }
+        if ([tester5 isEqualToString:tester6]){
+            NSLog(@"going toInstruction");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toInstruction" sender: self];
+            
+        }
         
     }//done with all questions       
     [self performSegueWithIdentifier: @"toGoodbye" sender: self];
@@ -166,6 +165,14 @@ NSString * stringOfFile;
         svc.fields = fields; 
     } 
     if ([segue.identifier isEqualToString:@"toNumberFill"]){
+        numberFill * svc = [segue destinationViewController];
+        svc.fields = fields; 
+    }
+    if ([segue.identifier isEqualToString:@"toMultipleChoice"]){
+        multipleChoice * svc = [segue destinationViewController];
+        svc.fields = fields; 
+    }
+    if ([segue.identifier isEqualToString:@"toInstruction"]){
         numberFill * svc = [segue destinationViewController];
         svc.fields = fields; 
     }

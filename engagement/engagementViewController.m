@@ -54,6 +54,11 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    //comment the lines below to show the screen to unlink from a dropbox account.
+    
+    // if ([[DBSession sharedSession] isLinked])
+     //    [self performSegueWithIdentifier: @"toQuestionSelector" sender: self]; 
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -79,8 +84,7 @@
         
         [NSThread sleepForTimeInterval:1]; 
         
-        if ([[DBSession sharedSession] isLinked])
-            linkLabel.text = @"app is linked to dropbox";
+        linkLabel.text = @"";
     }
     else 
         linkLabel.text = @"app is linked to dropbox";
