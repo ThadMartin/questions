@@ -7,18 +7,14 @@
 //
 
 #import "engagementViewController.h"
-#import "QuestionData.h"
-//#import "lastName.h"
-#import "engagementAppDelegate.h"
-
 
 
 @implementation engagementViewController 
 
-@synthesize textField;
-@synthesize buttonOne;
-
-NSMutableArray * questionAnswers;
+@synthesize linkLabel;
+@synthesize continueButton;
+@synthesize linkButton;
+@synthesize unlinkButton;
 
 
 - (void)didReceiveMemoryWarning
@@ -32,15 +28,19 @@ NSMutableArray * questionAnswers;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    // [buttonOne setEnabled:NO];
-   
+	if (([[DBSession sharedSession] isLinked])){
+       linkLabel.text = @"app is linked to dropbox";
+    }
+    else
+        linkLabel.text = @"app not linked to dropbox";
 }
 
 - (void)viewDidUnload
 {
-    [self setTextField:nil];
-    [self setButtonOne:nil];
+    [self setLinkButton:nil];
+    [self setUnlinkButton:nil];
+    [self setContinueButton:nil];
+    [self setLinkLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -68,43 +68,41 @@ NSMutableArray * questionAnswers;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-//        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-//    } else {
+ 
         return YES;
-//    }
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)TheTextField{
-    [TheTextField resignFirstResponder];
-//    NSString * studentID = self.textField.text;
-//    if (studentID.length > 0)  //some input...
-           // [buttonOne setEnabled:YES];
-    return (YES);
 }
 
 
-
-//
-
-- (IBAction)submitStudentId:(id)sender {
-    NSString * studentID = self.textField.text;
-    if (studentID.length > 0) {
-        NSString *answerObj = [NSString stringWithFormat:@"%@ \n",studentID];
-        questionAnswers = [[NSMutableArray alloc] init ];
-        [questionAnswers addObject: answerObj];
-        engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];        
-        NSString * theDocPath = delegate.docPath;
+- (IBAction)linkButtonPressed:(id)sender {
+    if (![[DBSession sharedSession] isLinked]) {
+        [[DBSession sharedSession] linkFromController:self];
         
+        [NSThread sleepForTimeInterval:1]; 
         
-        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-        [thisQuestionData saveData:questionAnswers: 1:theDocPath];
-        //go to next page
-        [self performSegueWithIdentifier: @"toTableView2" 
-                                  sender: self];
+        if ([[DBSession sharedSession] isLinked])
+            linkLabel.text = @"app is linked to dropbox";
     }
-            
-    
+    else 
+        linkLabel.text = @"app is linked to dropbox";
+}
+
+
+- (IBAction)unlinkButtonPressed:(id)sender {
+    if ([[DBSession sharedSession] isLinked]) {
+        [[DBSession sharedSession] unlinkAll];
+        
+        [NSThread sleepForTimeInterval:1]; 
+        
+        if (![[DBSession sharedSession] isLinked])
+            linkLabel.text = @"app not linked to dropbox";
+    }
+ 
+}
+
+- (IBAction)continueButtonPressed:(id)sender {
+   [self performSegueWithIdentifier: @"toQuestionSelector" sender: self]; 
 }
 @end
+
+
+

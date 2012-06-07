@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface questionSelector : UITableViewController <UITableViewDelegate,UITableViewDataSource>
+@interface questionSelector : UITableViewController <UITableViewDelegate,UITableViewDataSource>{
+    NSString * infile;
+}
 
 @end

@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <DropboxSDK/DropboxSDK.h>
 
-
-@interface questionParser : UIViewController <DBRestClientDelegate>
+@interface questionParser : UIViewController
 
 @property (nonatomic, retain) NSString *infile;
 @property (assign) NSArray * questionLine;
-@property (weak, nonatomic) IBOutlet UIButton *linkButton;
-- (IBAction)linkButtonPressed:(id)sender;
+//@property (weak, nonatomic) IBOutlet UIButton *linkButton;
+//- (IBAction)linkButtonPressed:(id)sender;
+//
 
 @end

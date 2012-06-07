@@ -7,6 +7,9 @@
 //
 
 #import "goodbye.h"
+#import <DropboxSDK/DropboxSDK.h>
+#import "engagementAppDelegate.h"
+
 
 @implementation goodbye
 @synthesize exitButton;
@@ -30,12 +33,74 @@
 
 #pragma mark - View lifecycle
 
-/*
+
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
+//    engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
+//    
+//    NSString * theDocPath = delegate.docPath;
+    
+    
+    
+   // [NSThread sleepForTimeInterval:1];
+    
+//    QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+//    [thisQuestionData uploadToDropBox:theDocPath];
+    NSLog(@"this is where we upload");
+    [NSThread sleepForTimeInterval:1]; 
+    exit (0);
+    
+
 }
-*/
+
+
+- (void) uploadToDropBox: (NSString *) filePath{
+    
+    //- (IBAction)linkButtonPressed:(id)sender {
+    //    
+    //    
+    //    //if (![[DBSession sharedSession] isLinked]) {
+    //    [[DBSession sharedSession] linkFromController:self];
+    //    //} 
+    //    //else 
+    //    //    [[DBSession sharedSession] unlinkAll];
+    //    NSLog(@"is linked.");
+    //}
+    //
+   
+//    
+//    NSString *filename = [filePath lastPathComponent];
+//    NSLog(@"filename,%@", filename);
+//    NSLog(@"docPath %@", filePath);
+//    
+//    NSString *destDir = @"/";
+//    
+//   restClient =
+//    [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+    
+    // restClient.delegate = newSlider ;
+    
+    
+//    [restClient uploadFile:filename toPath:destDir
+//             withParentRev:nil  fromPath:filePath];
+    
+    //[NSThread sleepForTimeInterval:6];
+}
+
+//- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
+//              from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
+//    
+//    NSLog(@"File uploaded successfully to path: %@", metadata.path);
+//    //exit(0);
+//}
+//
+//- (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
+//    NSLog(@"File upload failed with error - %@", error);
+//}
+//
+
+
 
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -63,9 +128,20 @@
     exit(0);
 }
 
+- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
+              from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
+    
+    NSLog(@"File uploaded successfully to path: %@", metadata.path);
+    //exit(0);
+}
+
+- (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
+    NSLog(@"File upload failed with error - %@", error);
+}
+
+
 - (IBAction)uploadDropboxNow:(id)sender {
 }
 
-- (IBAction)linkDropboxNow:(id)sender {
-}
+
 @end

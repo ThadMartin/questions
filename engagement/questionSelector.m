@@ -5,15 +5,17 @@
 //  Created by Thad Martin on 6/4/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
+//  selects the questionnaire to use.
 
 #import "questionSelector.h"
-#import "newSlider.h"
 #import "questionParser.h"
 
-NSArray *onlyQns;
-NSString * infile;
-
-@implementation questionSelector
+@implementation questionSelector{
+    NSArray * onlyQns;
+    int numInfiles;
+    NSMutableArray * onlyQnsNoTxt;
+    NSString * qListPath; 
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -23,6 +25,8 @@ NSString * infile;
     }
     return self;
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -37,23 +41,43 @@ NSString * infile;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    
     NSFileManager *filemgr = [NSFileManager defaultManager];
-    NSString *qListPath = [[NSBundle mainBundle] bundlePath];
+    qListPath = [[NSBundle mainBundle] bundlePath];
     NSArray *filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:nil];
     NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
+    //In that directory, there weren't any other .txt files.
     
     onlyQns = [filelist filteredArrayUsingPredicate:fltr];
     
-    int count = [onlyQns count];
-    
-    NSLog (@"NumberOfFiles is %i",count);
+    numInfiles = [onlyQns count];
 
+    onlyQnsNoTxt = [[NSMutableArray alloc] init];
+    
+        
+    for (int noTxt = 0; noTxt < numInfiles; noTxt++){
+        NSString * firstName = [onlyQns objectAtIndex:noTxt];
+        int nLength = [firstName length];
+        
+        firstName = [firstName substringToIndex:(nLength -4)];
+        [onlyQnsNoTxt addObject:firstName];
+    
+    }
+
+        
+    NSLog (@"NumberOfFiles is %i",numInfiles);
+    
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
+    footer.backgroundColor = [UIColor clearColor];
+    [self.tableView setTableFooterView:footer];
+    
 }
 
 - (void)viewDidUnload
@@ -85,7 +109,6 @@ NSString * infile;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
     return YES;
 }
 
@@ -93,74 +116,69 @@ NSString * infile;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    int count = [onlyQns count];
-    NSLog(@"inFiles...%i",count);
-    return count;
+    return numInfiles;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",[onlyQns objectAtIndex:indexPath.row]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@",[onlyQnsNoTxt objectAtIndex:indexPath.row]];
     
     return cell;
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }   
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }   
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 #pragma mark - Table view delegate
 
@@ -168,8 +186,8 @@ NSString * infile;
 {
     
     infile = [onlyQns objectAtIndex:indexPath.row];
-    NSLog(@"prepareWith %@",infile);
-
+    infile = [qListPath stringByAppendingPathComponent:infile];
+    NSLog(@"Selected for input:%@",infile);
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -177,20 +195,15 @@ NSString * infile;
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-    infile = [onlyQns objectAtIndex:indexPath.row];
-    // NSLog(@"prepareWith %@",infile);
-   // NSLog(@"what's going on?");
-        [self performSegueWithIdentifier: @"toQuestionParser" 
-                                  sender: self];
-    //[self performSegueWithIdentifier: @"toNewSlider2" 
-    //                          sender: self];
-
+     [self performSegueWithIdentifier: @"toQuestionParser" sender: self];
     
 }
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	if ([segue.identifier isEqualToString:@"toQuestionParser"]){
-          questionParser * svc = [segue destinationViewController];
+        questionParser * svc = [segue destinationViewController];
         svc.infile = infile; 
     } 
 }

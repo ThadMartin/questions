@@ -11,34 +11,36 @@
 //You need to add QuartzCore.framework.
 #import "QuestionData.h"
 
-@implementation engagementAppDelegate
+@implementation engagementAppDelegate{
+    NSString * docPath;
+}
 
-@synthesize window = _window;
-
-//NSString * docPath;
+@synthesize window;
 @synthesize docPath;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-        
-    DBSession* dbSession =
+     DBSession* dbSession =
     [[DBSession alloc]
-    initWithAppKey:@"cuorzhksvg6cucn"
-    appSecret:@"nt6md08yfwu0gwp"
-     root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
-    
+//    initWithAppKey:@"cuorzhksvg6cucn"     //atr dropbox
+//    appSecret:@"nt6md08yfwu0gwp"
+     
+     initWithAppKey:@"rghajjw49l47ms7"      //thad dropbox
+     appSecret:@"fuul8iopy31k3bu"
+
+    root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox    
     [DBSession setSharedSession:dbSession];
     
-    QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+    QuestionData * thisQuestionData = [[QuestionData alloc] init];     
+    docPath = [thisQuestionData createDataPath];  //includes full path.
     
-    docPath = [thisQuestionData createDataPath];
+    NSLog(@"docPath is: %@",docPath);
     
     return YES;
-
      
 }
+
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -79,7 +81,7 @@
      */
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {   //from dropbox
     if ([[DBSession sharedSession] handleOpenURL:url]) {
         if ([[DBSession sharedSession] isLinked]) {
             NSLog(@"App linked successfully!");

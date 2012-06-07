@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <DropboxSDK/DropboxSDK.h>
+//#import <DropboxSDK/DropboxSDK.h>
 
-DBRestClient* restClient;
+//DBRestClient* restClient;
 
 
 @interface QuestionData : NSObject 
@@ -19,18 +19,14 @@ DBRestClient* restClient;
 @property (copy) NSMutableArray * questionAnswers;
 @property (copy) NSString * docPath;
 @property (retain) QuestionData * thisQuestionData;
-//@property (nonatomic, retain) DBRestClient* restClient;
-//@property (nonatomic, retain) DBRestClient *restClient;
 
 - (id)init;
 
-- (void)saveData:(NSMutableArray *)questionAnswers: (int)numQuestions: (NSString *) docPath;
+- (void)saveData:(NSMutableArray *)questionAnswers;
 
 - (NSArray *) getQuestions:(NSString *) infile;
 
 - (NSString *) createDataPath;
-
-- (void) uploadToDropBox:(NSString *) filePath;
 
 - (NSString*) getDateNow;
 

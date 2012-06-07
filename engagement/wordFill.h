@@ -12,7 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 
-@property (nonatomic, strong) NSString *infile;
 @property (weak, nonatomic) NSArray * fields;
 @property (weak, nonatomic) IBOutlet UILabel *wordFillLabel;
 @property (weak, nonatomic) IBOutlet UIButton *wordFillSubmit;

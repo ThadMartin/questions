@@ -8,15 +8,11 @@
 
 #import "newSlider.h"
 #import "QuestionData.h"
-#import "questionSelector.h"
-#import "engagementAppDelegate.h"
 #import <DropboxSDK/DropboxSDK.h>
 #import "questionParser.h"
 
-@implementation newSlider  // <DBRestClientDelegate>
+@implementation newSlider  
 
-
-//@synthesize linkButton;
 @synthesize questionLabel;
 @synthesize moveBox;
 @synthesize qSlider;
@@ -27,13 +23,9 @@
 @synthesize fields;
 
 
-int currentAnswer;
+float currentAnswer;
 NSArray * questionList;
 int answerIndex;
-//int numQuestions;
-//NSString * infile;
-
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,50 +43,11 @@ int answerIndex;
     NSLog(@"toNewSliderWorked");
     
     [sliderSubmit setEnabled:NO];   //disable submit until there is input.
-    [sliderSubmit setTitle: @"touch slider" forState:UIControlStateNormal];
-    
-   
-
-       
- //    NSLog(@"This is infile %@",infile);
-    
-    
-   // questionAnswers = [[NSMutableArray alloc] init ];  //numbers from slider.  Need init here?
-  //  QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-  //  questionList = [thisQuestionData getQuestions:infile];
-    
-    //[NSThread sleepForTimeInterval:.5];
+    [sliderSubmit setTitle: @"touch slider" forState:UIControlStateNormal];    
     
     self.lowLabel.text = [fields objectAtIndex:4];
-    self.highLabel.text = [fields objectAtIndex:5];
-   // answerIndex = 3;
-    
-    
-  //  numQuestions = ([questionList count]);
-    
-  //  while (questionList.count <1 ) {
-   //     NSLog(@"well, that didn't work...");
-   //     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-    //    [thisQuestionData getQuestions:infile];
-        
-  //  }
-        
-//    if ([[DBSession sharedSession] isLinked])
-//            [linkButton setTitle:@"is linked" forState:UIControlStateNormal];
-//    else
-//            [linkButton setTitle:@"is unLinked" forState:UIControlStateNormal];
-//        
-
-
-        
-    //NSString * lastLine = [questionList objectAtIndex:numQuestions-1];
-    
-    //if ([[questionList objectAtIndex:numQuestions-1] length] < 4)
-//        numQuestions --;   //assume one blank line at the end.
-//    NSLog(@"numQuestions%i",numQuestions);
-    
+    self.highLabel.text = [fields objectAtIndex:5];   
     self.questionLabel.text = [fields objectAtIndex:3];
-//    answerIndex ++;
     
 }
 
@@ -131,8 +84,6 @@ int answerIndex;
     [self setQuestionLabel:nil];
     [self setLowLabel:nil];
     [self setHighLabel:nil];
-//    [self setLinkButton:nil];
-//    [self setLinkButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -165,7 +116,7 @@ int answerIndex;
         [sliderSubmit setTitle: @"submit" forState:UIControlStateNormal];
         NSLog(@"point %f",touchPoint.x/moveBox.bounds.size.width*100);
         
-        currentAnswer = (int)touchPoint.x/moveBox.bounds.size.width*100000;
+        currentAnswer = touchPoint.x/moveBox.bounds.size.width*100;
     }
     
 }
@@ -181,140 +132,45 @@ int answerIndex;
             touchPoint.y = moveBox.bounds.size.height/2;
             qSlider.center = touchPoint;
             NSLog(@"%f", (touchPoint.x/moveBox.bounds.size.width)*100);
-            currentAnswer = (int)touchPoint.x/moveBox.bounds.size.width*100000;
+            currentAnswer = touchPoint.x/moveBox.bounds.size.width*100;
         }
-        //  [buttonTap setEnabled:NO];
     }
 }
 
 
 - (IBAction)sliderSubmitPressed:(id)sender {
-   // int answer = (int) touchPoint.x/moveBox.bounds.size.width*100; //  0 to 100
     
-    //    NSNumber *answerObj = [NSNumber numberWithInt:_answer];
+    NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
     
-    NSMutableArray * questionAnswers;// = [(NSArray*)[fields objectAtIndex:0] mutableCopy];
+    NSString *answerObj = [NSString stringWithFormat:@"%f",currentAnswer];
     
-    //NSMutableArray * questionAnswers;
-    questionAnswers = [[NSMutableArray alloc] init ]; 
+    [questionAnswers2 addObject:answerObj];
     
-    NSString * tabStr =@"\t"; 
+    NSDate *myDate = [NSDate date];
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"HH_mm_ss"];
+    NSString * timeNow = [df stringFromDate:myDate];
     
-    //[questionAnswers addObject:tabStr]; 
+    [questionAnswers2 addObject:timeNow];
     
-    int retab = [fields count];
+    NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
+
+    int retab = [questionAnswers2 count];
     
     for (int retabCounter = 0;retabCounter<retab;retabCounter++){
-        
-        [questionAnswers addObject:[fields objectAtIndex:retabCounter]];
-        [questionAnswers addObject:tabStr]; 
+        NSString * retabWhatever = [questionAnswers2 objectAtIndex:retabCounter];
+        retabWhatever = [retabWhatever stringByAppendingString:@"\t"];
+        [questionAnswers addObject:retabWhatever];
     }
     
-    
-    NSString *answerObj = [NSString stringWithFormat:@"\t%d",currentAnswer];  //NSArray likes objects.
-    
-    [questionAnswers addObject: answerObj];
-    
-     [questionAnswers addObject:tabStr]; 
-    
-    engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
-            
-           NSString * theDocPath = delegate.docPath;
-    
-                
-                      
-            QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-    
-    NSString * time1 = [thisQuestionData getDateNow];
-    
-    time1  = [time1 stringByAppendingString:@"\n"]; 
-    
-    [questionAnswers addObject:time1]; 
+    NSString * newLn = @"\n";
+    [questionAnswers addObject:newLn];
 
+    QuestionData * thisQuestionData = [[QuestionData alloc] init];
+    [thisQuestionData saveData:questionAnswers];
     
-    int length = [questionAnswers count];
-
-    
-            [thisQuestionData saveData:questionAnswers:length:theDocPath];
-           
     [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
     
-    
-//    
-//    if (answerIndex == numQuestions){
-//        
-//        engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
-//        
-//        NSString * theDocPath = delegate.docPath;
-//
-//        
-//        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-//        [thisQuestionData saveData:questionAnswers: (numQuestions-3):theDocPath];
-//        
-//        [NSThread sleepForTimeInterval:1];
-//        
-//        [thisQuestionData uploadToDropBox:theDocPath];
-//        
-//        //[NSThread sleepForTimeInterval:15];
-//        
-//        //exit(0);     //if the end is in, file doesn't get uploaded.  uploads but doesn't end otherwise.  Try segue to "that's all, floks" screen?
-//        //[prepareForSegue];
-//        
-//        //[NSThread sleepForTimeInterval:2];
-//        
-//        
-//        [self performSegueWithIdentifier: @"newSliderToEnd" 
-//                                  sender: self];
-//        
-//        NSLog(@"This is where we're supposed to end...");
-//    }
-//    else{
-//        NSLog(@"%i",answerIndex);
-//        //NSLog(@"%@",questionList);
-//        self.questionLabel.text = [questionList objectAtIndex:answerIndex];
-//        //self.questionLabel.text = @"number 2";
-//        [sliderSubmit setEnabled:NO];
-//        qSlider.hidden = YES;
-//        [sliderSubmit setTitle: @"touch slider" forState:UIControlStateNormal];
-//        answerIndex ++;
-//    }
-//    
-//  
-//    
-//    
-//}
-//- (IBAction)linkButtonPressed:(id)sender {
-//  
-//        
-//        if (![[DBSession sharedSession] isLinked]) {
-//            [[DBSession sharedSession] linkFromController:self];
-//        } 
-//        else 
-//            [[DBSession sharedSession] unlinkAll];
-//  
-//}
-//
-//
-//
-//- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
-//              from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
-//    
-//    NSLog(@"File uploaded successfully to path: %@", metadata.path);
-//    //exit(0);
-//}
-//
-//- (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
-//    NSLog(@"File upload failed with error - %@", error);
-//}
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-	if ([segue.identifier isEqualToString:@"backToQuestionParser"]){
-        questionParser * svc = [segue destinationViewController];
-        svc.infile = infile; 
-     //   svc.
-    } 
 }
 
 

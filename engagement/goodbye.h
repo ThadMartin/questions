@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DropboxSDK/DropboxSDK.h>
 
-@interface goodbye : UIViewController
+@interface goodbye : UIViewController  <DBRestClientDelegate>
+
 - (IBAction)leave:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *exitButton;
 

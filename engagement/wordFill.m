@@ -7,21 +7,16 @@
 //
 
 #import "wordFill.h"
-#import "QuestionData.h"
-#import "questionSelector.h"
-#import "engagementAppDelegate.h"
 #import "questionParser.h"
+#import "QuestionData.h"
 
 
 @implementation wordFill
 
-//@synthesize wordFillText;
 @synthesize textField;
-
 @synthesize wordFillLabel;
 @synthesize wordFillSubmit;
 @synthesize fields;
-@synthesize infile;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -44,11 +39,11 @@
 #pragma mark - View lifecycle
 
 /*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
+ // Implement loadView to create a view hierarchy programmatically, without using a nib.
+ - (void)loadView
+ {
+ }
+ */
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -56,24 +51,15 @@
 {
     [super viewDidLoad];
     
-    //[wordFillSubmit setEnabled:NO];
-    //[wordFillSubmit setTitle:@"Enter answer" forState:normal];
     self.wordFillLabel.text = [fields objectAtIndex:3];
-//    [disablesAutomaticKeyboardDismissal NO];
     
 }
-
-//- (BOOL)disablesAutomaticKeyboardDismissal {
-//    return NO;
-//}
-//
 
 
 - (void)viewDidUnload
 {
     [self setWordFillLabel:nil];
     [self setWordFillSubmit:nil];
-//    [self setWordFillText:nil];
     [self setTextField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -96,49 +82,41 @@
 - (IBAction)wordFillSubmitPressed:(id)sender {
     
     NSString * wordFillAnswer = self.textField.text;
-
     
-            if (wordFillAnswer.length > 0) {
-    
-    NSMutableArray * questionAnswers = [[NSMutableArray alloc] init ];
-    
-    NSString * tabStr =@"\t"; 
-    
-    int retab = [fields count];
-    
-    for (int retabCounter = 0;retabCounter<retab;retabCounter++){
+    if (wordFillAnswer.length > 0) {
+        NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
         
-        [questionAnswers addObject:[fields objectAtIndex:retabCounter]];
-        [questionAnswers addObject:tabStr]; 
+        NSString *answerObj = [NSString stringWithFormat:@"%@",wordFillAnswer];
+        
+        [questionAnswers2 addObject:answerObj];
+        
+        NSDate *myDate = [NSDate date];
+        NSDateFormatter *df = [NSDateFormatter new];
+        [df setDateFormat:@"HH_mm_ss"];
+        NSString * timeNow2 = [df stringFromDate:myDate];
+        
+        [questionAnswers2 addObject:timeNow2];
+        
+        NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
+        
+        int retab = [questionAnswers2 count];
+        
+        for (int retabCounter = 0;retabCounter<retab;retabCounter++){
+            NSString * retabWhatever = [questionAnswers2 objectAtIndex:retabCounter];
+            retabWhatever = [retabWhatever stringByAppendingString:@"\t"];
+            [questionAnswers addObject:retabWhatever];
+        }
+        
+        NSString * newLn = @"\n";
+        [questionAnswers addObject:newLn];
+
+        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+        [thisQuestionData saveData:questionAnswers];
+        
+        [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
     }
     
-    
-
-            NSString *answerObj = [NSString stringWithFormat:@"\t%@\n",wordFillAnswer];
-            [questionAnswers addObject: answerObj];
-            engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];        
-            NSString * theDocPath = delegate.docPath;
-            
-           int answerLen = [questionAnswers count];
-            
-            QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-            [thisQuestionData saveData:questionAnswers: answerLen:theDocPath];
-
-            [self performSegueWithIdentifier: @"backToQuestionParser" 
-                                      sender: self];
-        }
- 
-    
 }
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-	if ([segue.identifier isEqualToString:@"backToQuestionParser"]){
-        questionParser * svc = [segue destinationViewController];
-        svc.infile = infile; 
-    } 
-}
-
 
 
 @end

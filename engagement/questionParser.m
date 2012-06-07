@@ -9,22 +9,29 @@
 #import "questionParser.h"
 #import "QuestionData.h"
 #import "questionSelector.h"
-#import "engagementAppDelegate.h"
 #import "newSlider.h"
 #import "wordFill.h"
-#import <DropboxSDK/DropboxSDK.h>
 
 
-@implementation questionParser
+@implementation questionParser{
 
-@synthesize infile;
+    NSArray * fields;
+    
+}
 
-@synthesize questionLine;
-@synthesize linkButton;
+@synthesize infile = _infile;
+@synthesize questionLine = _questionLine;
 
 int lineNumber = 0;
 
-NSArray *fields;
+NSString * infile;
+
+NSString * docPath;
+
+QuestionData * thisQuestionData;
+
+NSString * stringOfFile;
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -59,43 +66,33 @@ NSArray *fields;
 {
     [super viewDidLoad];
     
-    [linkButton setHidden:true];
-    
-    if (lineNumber == 0){
+    if (lineNumber == 0){  //first execution
         
-        NSString *questionListPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:infile];
+        NSLog(@"_infile %@ infile %@",_infile,infile);
         
-        NSData *data = [NSData dataWithContentsOfFile:questionListPath];
-        NSString *string = [NSString stringWithUTF8String:[data bytes]];
+        infile = _infile;
         
-        while ([string length] == 0){
-            NSLog(@"reloading worked##############################################################");
-            questionListPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:infile];
-            data = [NSData dataWithContentsOfFile:questionListPath];
-            string = [NSString stringWithUTF8String:[data bytes]];
+        NSData *data = [NSData dataWithContentsOfFile:infile];
+        stringOfFile = [NSString stringWithUTF8String:[data bytes]];
+        
+        while ([stringOfFile length] == 0){
+            NSLog(@"reloading working ##########################");
+            data = [NSData dataWithContentsOfFile:infile];
+            stringOfFile = [NSString stringWithUTF8String:[data bytes]];
         }
-
         
-        NSArray *lines = [string componentsSeparatedByString:@"\r"];
         
-        NSString * headerLine = [lines objectAtIndex:0];
+        NSArray *linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
+        
+        NSString * headerLine = [linesOfFile objectAtIndex:0];
         headerLine = [headerLine stringByAppendingString:@"\n"];    
         
-        
-        NSMutableArray * headerLineArray;
-        headerLineArray = [[NSMutableArray alloc] init ];
+        NSMutableArray * headerLineArray = [[NSMutableArray alloc] init];
         
         [headerLineArray addObject:headerLine];
-        
-        engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
-        
-        NSString * theDocPath = delegate.docPath;
-        
-        
+                
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-        [thisQuestionData saveData:headerLineArray:1:theDocPath];
-        
-        
+        [thisQuestionData saveData:headerLineArray];
         
         lineNumber ++;
     }
@@ -104,81 +101,57 @@ NSArray *fields;
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    [[DBSession sharedSession] unlinkAll];
+    NSArray * linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
     
-    NSString *questionListPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:infile];
-    
-    NSLog(@"%@",questionListPath);
-    
-    NSData *data = [NSData dataWithContentsOfFile:questionListPath];
-    NSString *string = [NSString stringWithUTF8String:[data bytes]];
-    while ([string length] == 0){
-        NSLog(@"reloading worked##############################################################");
-        questionListPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:infile];
-        data = [NSData dataWithContentsOfFile:questionListPath];
-        string = [NSString stringWithUTF8String:[data bytes]];
-    }
-    
-    
-    NSArray *lines = [string componentsSeparatedByString:@"\r"];
-    if (lineNumber < ([lines count]-1)){
+    if (lineNumber < ([linesOfFile count]-1)){
         
-        NSString * line = [lines objectAtIndex:lineNumber];
+        NSString * line = [linesOfFile objectAtIndex:lineNumber];
         
         fields = [line componentsSeparatedByString:@"\t"];
-        
-        //    }
-        
-        
+          
         NSString * tester1 =@"numberline";
-        
         NSString * tester2 =@"wordFill";
+//        NSString * tester3 =@"numberFill";
+//        NSString * tester4 =@"multipleChoice";
+//        NSString * tester5 =@"instruction";
+
+        NSString * tester6 =[fields objectAtIndex:2];
         
-        NSString * tester5 =[fields objectAtIndex:2];
         
-        NSLog (@"something wrong? %@ ",tester5);
-        
-        
-        
-        if ([tester1 isEqualToString:tester5]){
-            // NSLog(@"seems equal");
+        if ([tester1 isEqualToString:tester6]){
+            NSLog(@"Going toNewSlider");
             lineNumber ++;
             [self performSegueWithIdentifier: @"toNewSlider" sender: self];
         }
         
-        if ([tester2 isEqualToString:tester5]){
+        if ([tester2 isEqualToString:tester6]){
+            NSLog(@"going toWordFill");
             lineNumber ++;
-            NSLog(@"toWordFill");
             [self performSegueWithIdentifier: @"toWordFill" sender: self];
             
         }
+//        if ([tester3 isEqualToString:tester6]){
+//            NSLog(@"Going toNumberFill");
+//            lineNumber ++;
+//            [self performSegueWithIdentifier: @"toNumberFill" sender: self];
+//        }
+//        
+//        if ([tester4 isEqualToString:tester6]){
+//            NSLog(@"going toMultipleChoice");
+//            lineNumber ++;
+//            [self performSegueWithIdentifier: @"toMultipleChoice" sender: self];
+//            
+//        }
+//        if ([tester5 isEqualToString:tester6]){
+//            NSLog(@"going toInstruction");
+//            lineNumber ++;
+//            [self performSegueWithIdentifier: @"toInstruction" sender: self];
+//            
+//        }
         
     }//done with all questions       
+    [self performSegueWithIdentifier: @"toGoodbye" sender: self];
     
-    else{
-        
-        if (![[DBSession sharedSession] isLinked])
-            [linkButton setHidden:false];
-        else{
-            
-            
-            engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
-            
-            NSString * theDocPath = delegate.docPath;
-            
-            
-            
-            [NSThread sleepForTimeInterval:1];
-            QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-            [thisQuestionData uploadToDropBox:theDocPath];
-            NSLog(@"this is where we upload");
-            [NSThread sleepForTimeInterval:1]; 
-            
-            [self performSegueWithIdentifier: @"toGoodbye" sender: self];
-            
-            
-        }
-    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -186,49 +159,20 @@ NSArray *fields;
 	if ([segue.identifier isEqualToString:@"toNewSlider"]){
         newSlider * svc = [segue destinationViewController];
         svc.fields = fields; 
-        svc.infile = infile;
+        //svc.infile = infile;
     } 
     if ([segue.identifier isEqualToString:@"toWordFill"]){
         wordFill * svc = [segue destinationViewController];
         svc.fields = fields; 
-        svc.infile = infile;
+        //svc.infile = infile;
     } 
-    
-    
-    
-    
+  
 }
-
-- (IBAction)linkButtonPressed:(id)sender {
-    
-    
-    //if (![[DBSession sharedSession] isLinked]) {
-    [[DBSession sharedSession] linkFromController:self];
-    //} 
-    //else 
-    //    [[DBSession sharedSession] unlinkAll];
-    NSLog(@"is linked.");
-}
-
-
-
-- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
-              from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
-    
-    NSLog(@"File uploaded successfully to path: %@", metadata.path);
-    //exit(0);
-}
-
-- (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
-    NSLog(@"File upload failed with error - %@", error);
-}
-
-
 
 
 - (void)viewDidUnload
 {
-    [self setLinkButton:nil];
+    //[self setLinkButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
