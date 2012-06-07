@@ -11,6 +11,7 @@
 #import "questionSelector.h"
 #import "newSlider.h"
 #import "wordFill.h"
+#import "numberFill.h"
 
 
 @implementation questionParser{
@@ -111,7 +112,7 @@ NSString * stringOfFile;
           
         NSString * tester1 =@"numberline";
         NSString * tester2 =@"wordFill";
-//        NSString * tester3 =@"numberFill";
+        NSString * tester3 =@"numberFill";
 //        NSString * tester4 =@"multipleChoice";
 //        NSString * tester5 =@"instruction";
 
@@ -130,11 +131,11 @@ NSString * stringOfFile;
             [self performSegueWithIdentifier: @"toWordFill" sender: self];
             
         }
-//        if ([tester3 isEqualToString:tester6]){
-//            NSLog(@"Going toNumberFill");
-//            lineNumber ++;
-//            [self performSegueWithIdentifier: @"toNumberFill" sender: self];
-//        }
+        if ([tester3 isEqualToString:tester6]){
+            NSLog(@"Going toNumberFill");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toNumberFill" sender: self];
+        }
 //        
 //        if ([tester4 isEqualToString:tester6]){
 //            NSLog(@"going toMultipleChoice");
@@ -159,14 +160,15 @@ NSString * stringOfFile;
 	if ([segue.identifier isEqualToString:@"toNewSlider"]){
         newSlider * svc = [segue destinationViewController];
         svc.fields = fields; 
-        //svc.infile = infile;
     } 
     if ([segue.identifier isEqualToString:@"toWordFill"]){
         wordFill * svc = [segue destinationViewController];
         svc.fields = fields; 
-        //svc.infile = infile;
     } 
-  
+    if ([segue.identifier isEqualToString:@"toNumberFill"]){
+        numberFill * svc = [segue destinationViewController];
+        svc.fields = fields; 
+    }
 }
 
 
