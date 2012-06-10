@@ -1,2 +1,46 @@
-header row, header row
-1	1	multipleChoice	How much did this affect the budget? Barack Obama cut the deficit by $4 trillion dollars. The move came after he visited a factory in Ohio and decided to cut the deficit by more than its original value.  A lot   A little    Not a lot   Realy not a lot
+header line, header line.
+1	15	numberFill	Participant #																
+2	15	multipleChoice	Please select your gender	Male	Female	Other
+3	15	numberFill	Please enter your age								
+4	15	multipleChoice	Which of the following best describes you?	Strong Democrat	Democrat	Independent Leaning Democrat	Independent Independent Leaning Republican	Republican	Strong Republican									
+5	15	multipleChoice	Which best describes your ethnic background	African American	Latino	White/Caucasian	Asian/Pacific Islander	Indian	Native American	Other
+6	15	multipleChoice	"When is the last time that you voted in a national, state, or local election?"	2012	2011	2010	2009	2008	2007	2006	2005	2004	2003	2002	Before 2002	I have never voted			
+7	15	multipleChoice	Are you registered to vote in the United States?	yes	no														
+8	15	multipleChoice	"If so, are you registered as a Republican, Democrat, or Independent?"	Republican	Democrat	Indepenent													
+9	15	wordFill	Do you happen to know what job or political office is now held by Joe Biden?																
+10	15	multipleChoice	Whose responsibility is it to determine if a law is constitutional or not?	The President	The Congress	The Supreme Court
+11	15	wordFill	How much of a majority is required for the U.S. Senate and House to override a presidential veto?                                                                                                                               You may touch the bottom left bottom on the keyboard to insert numbers in your response.											
+12	15	multipleChoice	Do you happen to know which party had the most members of the House of Representatives in Washington before the 2010 election?	Democratic Party	Republican Party														
+13	15	multipleChoice	What is the difference between the deficit and the debt?	The debt is the combination of previous annual deficits	The deficit is the combination of previous annual debts														
+14	15	multipleChoice	In 2011, my household income (total amount of money made by household members) was:	less than $20,000	between $20,000 and $40,000	between $40,000 and $60,000	between $60,000 and $80,000	"between $80,000 and 100,000"	"between $100,000 and $150,000"	"over $150,000									
+15	15	multipleChoice	Which best describes your highest level of formal education?	No high school	Some high school	Completed high school	Some college	Completed college	Some graduate or professional school	Completed graduate or professional school			
+16	15	instruction																	
+17	15	multipleChoice	How much did this affect the budget?                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Barack Obama cut the deficit by $4 trillion dollars.  The move came after he visited a factory in Ohio and decided to cut the deficit by more than its original value. 	A lot	A little	Not a lot	Realy not a lot												
+18	15	instruction																	
+19	15	instruction	You will now see a series of number lines, ranging from 0 to 1 billion.  Please place the given number on each number line by touching anywhere on the number line and dragging the indicator to where the number belongs."																
+20	15	numberline	280 million	1 Thousand	1 Billion														
+21	15	numberline	3 million	1 Thousand	1 Billion														
+22	15	numberline	670 thousand	1 Thousand	1 Billion														
+23	15	numberline	840 million	1 Thousand	1 Billion														
+24	15	numberline	470 thousand	1 Thousand	1 Billion														
+25	15	numberline	260 thousand	1 Thousand	1 Billion														
+26	15	numberline	530 million	1 Thousand	1 Billion														
+27	15	numberline	920 thousand	1 Thousand	1 Billion														
+28	15	instruction																	
+29	15	numberline	230 thousand	1 Thousand	1 Billion														
+30	15	numberline	320 million	1 Thousand	1 Billion														
+31	15	numberline	710 thousand	1 Thousand	1 Billion														
+32	15	numberline	850 million	1 Thousand	1 Billion														
+33	15	numberline	490 million	1 Thousand	1 Billion														
+34	15	numberline	510 thousand	1 Thousand	1 Billion														
+35	15	numberline	7 million	1 Thousand	1 Billion														
+36	15	numberline	960 thousand	1 Thousand	1 Billion														
+37	15	instruction																	
+38	15	instruction	Here's a warm cookie																
+39	15	instruction	Hey, idiot!																
+40	15	instruction																	
+41	15	instruction	"You will now see a series of number lines, ranging from 0 to 1 billion.  Please place the given number on each number line by touching anywhere on the numberline and dragging the indicator to where the number belongs."																
+42	15	numberline	"Please place the indicated value at the proper location on the numberline: 1,000,200"	0	1 billion														
+43	15	multipleChoice	How much did this affect the budget?																
+44	15	instruction	Thank you for your participation																
+45	15																		

@@ -74,7 +74,16 @@
     self.multipleChoiceQuestion.text = [fields objectAtIndex:3];
     numOfChoices = ([fields count] -4);
     NSLog(@"numOfchoices =%i",numOfChoices);
-    
+    [choice1 setHidden:false];
+    [choice2 setHidden:false];
+    [choice3 setHidden:false];
+    [choice4 setHidden:false];
+    [choice5 setHidden:false];
+    [choice6 setHidden:false];
+    [choice7 setHidden:false];
+    [choice8 setHidden:false];
+    [choice9 setHidden:false];
+
     switch (numOfChoices) {
         case 1:
             self.choice1Label.text = [fields objectAtIndex:4];
@@ -195,8 +204,18 @@
             break;
  
         default:
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
+            self.choice4Label.text = [fields objectAtIndex:7];
+            self.choice5Label.text = [fields objectAtIndex:8];
+            self.choice6Label.text = [fields objectAtIndex:9];
+            self.choice7Label.text = [fields objectAtIndex:10];
+            self.choice8Label.text = [fields objectAtIndex:11];
+            self.choice9Label.text = [fields objectAtIndex:12];
             
             break;
+            
     }
     
     
