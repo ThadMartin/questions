@@ -1,6 +1,2 @@
-1	1	multipleChoice	How much did this affect the budget? Barack Obama cut the deficit by $4 trillion dollars.  The move came after he visited a factory in Ohio and decided to cut the deficit by more than its original value. 	A lot	A little	Not a lot	Realy not a lot
-2	1	multipleChoice	How much did this affect the budget?                                                                                                    Barack Obama cut the deficit by $4 trillion dollars.  The move came after he visited a factory in Ohio and decided to cut the deficit by more than its original value. 	A lot	A little	Not a lot	Realy not a lot
-3	1	multipleChoice	"How much did this affect the budget?
-
-Barack Obama cut the deficit by $4 trillion dollars.  The move came after he visited a factory in Ohio and decided to cut the deficit by more than its original value.
-"	A lot	A little	Not a lot	Realy not a lot
+header row, header row
+1	1	multipleChoice	How much did this affect the budget? Barack Obama cut the deficit by $4 trillion dollars. The move came after he visited a factory in Ohio and decided to cut the deficit by more than its original value.  A lot   A little    Not a lot   Realy not a lot

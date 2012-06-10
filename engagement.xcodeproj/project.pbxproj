@@ -28,6 +28,7 @@
 		72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */; };
 		72F7DF2A1567EA4100500D63 /* engagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF291567EA4100500D63 /* engagementViewController.m */; };
 		72F7DF421567F01000500D63 /* QuestionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF411567F01000500D63 /* QuestionData.m */; };
+		E4440364158516660046C49C /* Questions1.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4440363158516660046C49C /* Questions1.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		72F7DF291567EA4100500D63 /* engagementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = engagementViewController.m; sourceTree = "<group>"; };
 		72F7DF401567F00F00500D63 /* QuestionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionData.h; sourceTree = "<group>"; };
 		72F7DF411567F01000500D63 /* QuestionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionData.m; sourceTree = "<group>"; };
+		E4440363158516660046C49C /* Questions1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Questions1.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 		72F7DF171567EA4100500D63 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E4440363158516660046C49C /* Questions1.txt */,
 				72F7DF181567EA4100500D63 /* engagement-Info.plist */,
 				727B5501157E638B004D13D1 /* newQuestionList.txt */,
 				72F7DF191567EA4100500D63 /* InfoPlist.strings */,
@@ -212,6 +215,7 @@
 				72F7DF1B1567EA4100500D63 /* InfoPlist.strings in Resources */,
 				72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */,
 				727B5502157E638B004D13D1 /* newQuestionList.txt in Resources */,
+				E4440364158516660046C49C /* Questions1.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
