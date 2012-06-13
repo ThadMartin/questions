@@ -15,6 +15,7 @@
     int numOfChoices;
     NSString * choiceSelection;
 }
+
 @synthesize choice1Label;
 @synthesize choice2Label;
 @synthesize choice3Label;
@@ -59,11 +60,11 @@
 #pragma mark - View lifecycle
 
 /*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
+ // Implement loadView to create a view hierarchy programmatically, without using a nib.
+ - (void)loadView
+ {
+ }
+ */
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -72,7 +73,16 @@
     [super viewDidLoad];
     choiceSelection = nil;
     self.multipleChoiceQuestion.text = [fields objectAtIndex:3];
-    numOfChoices = ([fields count] -4);
+    
+    for (int choiceCounter = 4;choiceCounter < [fields count];choiceCounter++){
+        NSString * theChoice = [fields objectAtIndex:choiceCounter];
+        //NSLog(@"theChoice = %@",theChoice);
+        if([theChoice length] >0)
+            numOfChoices ++;
+    }
+    
+    
+    //numOfChoices = ([fields count] -4);
     NSLog(@"numOfchoices =%i",numOfChoices);
     [choice1 setHidden:false];
     [choice2 setHidden:false];
@@ -83,7 +93,7 @@
     [choice7 setHidden:false];
     [choice8 setHidden:false];
     [choice9 setHidden:false];
-
+    
     switch (numOfChoices) {
         case 1:
             self.choice1Label.text = [fields objectAtIndex:4];
@@ -97,7 +107,7 @@
             [choice9 setHidden:true];
             
             break;
-   
+            
         case 2:
             self.choice1Label.text = [fields objectAtIndex:4];
             self.choice2Label.text = [fields objectAtIndex:5];
@@ -136,7 +146,7 @@
             [choice9 setHidden:true];
             
             break;
-
+            
         case 5:
             self.choice1Label.text = [fields objectAtIndex:4];
             self.choice2Label.text = [fields objectAtIndex:5];
@@ -150,7 +160,7 @@
             [choice9 setHidden:true];
             
             break;
-
+            
         case 6:
             self.choice1Label.text = [fields objectAtIndex:4];
             self.choice2Label.text = [fields objectAtIndex:5];
@@ -202,7 +212,7 @@
             self.choice9Label.text = [fields objectAtIndex:12];
             
             break;
- 
+            
         default:
             self.choice1Label.text = [fields objectAtIndex:4];
             self.choice2Label.text = [fields objectAtIndex:5];
@@ -258,47 +268,187 @@
 
 - (IBAction)choice1pressed:(id)sender {
     choiceSelection = [fields objectAtIndex:(3+1)];
+    [choice1 setHighlighted:YES];
+    self.choice1.selected = YES;
+    self.choice2.selected = NO;
+    self.choice3.selected = NO;
+    self.choice4.selected = NO;
+    self.choice5.selected = NO;
+    self.choice6.selected = NO;
+    self.choice7.selected = NO;
+    self.choice8.selected = NO;
+    self.choice9.selected = NO;
+    [self performSelector:@selector(highlightButton) withObject:sender afterDelay:0.0];
     self.multipleChoiceSelection.text = [fields objectAtIndex:(3+1)];
+    
 }
+
+
 - (IBAction)choice2pressed:(id)sender {
     choiceSelection = [fields objectAtIndex:(3+2)];
     self.multipleChoiceSelection.text = [fields objectAtIndex:(3+2)];
+    [choice2 setHighlighted:YES];
+    self.choice1.selected = NO;
+    self.choice2.selected = YES;
+    self.choice3.selected = NO;
+    self.choice4.selected = NO;
+    self.choice5.selected = NO;
+    self.choice6.selected = NO;
+    self.choice7.selected = NO;
+    self.choice8.selected = NO;
+    self.choice9.selected = NO;
+    [self performSelector:@selector(highlightButton) withObject:sender afterDelay:0.0];
+    
 }
 - (IBAction)choice3pressed:(id)sender {
     choiceSelection = [fields objectAtIndex:(3+3)];
     self.multipleChoiceSelection.text = [fields objectAtIndex:(3+3)];
+    [choice3 setHighlighted:YES];
+    self.choice1.selected = NO;
+    self.choice2.selected = NO;
+    self.choice3.selected = YES;
+    self.choice4.selected = NO;
+    self.choice5.selected = NO;
+    self.choice6.selected = NO;
+    self.choice7.selected = NO;
+    self.choice8.selected = NO;
+    self.choice9.selected = NO;
+    [self performSelector:@selector(highlightButton) withObject:sender afterDelay:0.0];
+    
 }
 - (IBAction)choice4pressed:(id)sender {
     choiceSelection = [fields objectAtIndex:(3+4)];
     self.multipleChoiceSelection.text = [fields objectAtIndex:(3+4)];
+    self.choice1.selected = NO;
+    self.choice2.selected = NO;
+    self.choice3.selected = NO;
+    self.choice4.selected = YES;
+    self.choice5.selected = NO;
+    self.choice6.selected = NO;
+    self.choice7.selected = NO;
+    self.choice8.selected = NO;
+    self.choice9.selected = NO;
+    [self performSelector:@selector(highlightButton) withObject:sender afterDelay:0.0];
+    
 }
 - (IBAction)choice5pressed:(id)sender {
     choiceSelection = [fields objectAtIndex:(3+5)];
     self.multipleChoiceSelection.text = [fields objectAtIndex:(3+5)];
+    self.choice1.selected = NO;
+    self.choice2.selected = NO;
+    self.choice3.selected = NO;
+    self.choice4.selected = NO;
+    self.choice5.selected = YES;
+    self.choice6.selected = NO;
+    self.choice7.selected = NO;
+    self.choice8.selected = NO;
+    self.choice9.selected = NO;
+    [self performSelector:@selector(highlightButton) withObject:sender afterDelay:0.0];
+    
 }
 - (IBAction)choice6pressed:(id)sender {
     choiceSelection = [fields objectAtIndex:(3+6)];
     self.multipleChoiceSelection.text = [fields objectAtIndex:(3+6)];
+    self.choice1.selected = NO;
+    self.choice2.selected = NO;
+    self.choice3.selected = NO;
+    self.choice4.selected = NO;
+    self.choice5.selected = NO;
+    self.choice6.selected = YES;
+    self.choice7.selected = NO;
+    self.choice8.selected = NO;
+    self.choice9.selected = NO;
+    [self performSelector:@selector(highlightButton) withObject:sender afterDelay:0.0];
+    
 }
 - (IBAction)choice7pressed:(id)sender {
     choiceSelection = [fields objectAtIndex:(3+7)];
     self.multipleChoiceSelection.text = [fields objectAtIndex:(3+7)];
+    self.choice1.selected = NO;
+    self.choice2.selected = NO;
+    self.choice3.selected = NO;
+    self.choice4.selected = NO;
+    self.choice5.selected = NO;
+    self.choice6.selected = NO;
+    self.choice7.selected = YES;
+    self.choice8.selected = NO;
+    self.choice9.selected = NO;
+    [self performSelector:@selector(highlightButton) withObject:sender afterDelay:0.0];
+    
 }
 - (IBAction)choice8pressed:(id)sender {
     choiceSelection = [fields objectAtIndex:(3+8)];
     self.multipleChoiceSelection.text = [fields objectAtIndex:(3+8)];
+    self.choice1.selected = NO;
+    self.choice2.selected = NO;
+    self.choice3.selected = NO;
+    self.choice4.selected = NO;
+    self.choice5.selected = NO;
+    self.choice6.selected = NO;
+    self.choice7.selected = NO;
+    self.choice8.selected = YES;
+    self.choice9.selected = NO;
+    [self performSelector:@selector(highlightButton) withObject:sender afterDelay:0.0];
+    
 }
 - (IBAction)choice9pressed:(id)sender {
     choiceSelection = [fields objectAtIndex:(3+9)];
     self.multipleChoiceSelection.text = [fields objectAtIndex:(3+9)];
+    self.choice1.selected = NO;
+    self.choice2.selected = NO;
+    self.choice3.selected = NO;
+    self.choice4.selected = NO;
+    self.choice5.selected = NO;
+    self.choice6.selected = NO;
+    self.choice7.selected = NO;
+    self.choice8.selected = NO;
+    self.choice9.selected = YES;
+    [self performSelector:@selector(highlightButton) withObject:sender afterDelay:0.0];
+    
+}
+
+- (void)highlightButton {
+    if ( self.choice1.selected ) 
+        self.choice1.highlighted = YES;
+    else
+        self.choice1.highlighted = NO;
+    if ( self.choice2.selected ) 
+        self.choice2.highlighted = YES;
+    else
+        self.choice2.highlighted = NO;
+    if ( self.choice3.selected ) 
+        self.choice3.highlighted = YES;
+    else
+        self.choice3.highlighted = NO;
+    if ( self.choice4.selected ) 
+        self.choice4.highlighted = YES;
+    else
+        self.choice4.highlighted = NO;
+    if ( self.choice5.selected ) 
+        self.choice5.highlighted = YES;
+    else
+        self.choice5.highlighted = NO;
+    if ( self.choice6.selected ) 
+        self.choice6.highlighted = YES;
+    else
+        self.choice6.highlighted = NO;
+    if ( self.choice7.selected ) 
+        self.choice7.highlighted = YES;
+    else
+        self.choice7.highlighted = NO;
+    if ( self.choice8.selected ) 
+        self.choice8.highlighted = YES;
+    else
+        self.choice8.highlighted = NO;
+    if ( self.choice9.selected ) 
+        self.choice9.highlighted = YES;
+    else
+        self.choice9.highlighted = NO;
+    
 }
 
 
-
-
 - (IBAction)submitButtonPressed:(id)sender {
-    
-    NSLog(@"submitted multipleAnswer");
     
     if (choiceSelection.length > 0) {
         
@@ -331,10 +481,13 @@
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
         [thisQuestionData saveData:questionAnswers];
         
+        NSLog(@"submitted multipleChoice");
+        
         NSLog(@"going back toQuestionParser");
         
         [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-    }   
+        
+    }  // otherwise submit was pushed w/o selecting anything, don't do anything. 
     
 }
 

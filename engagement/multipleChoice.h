@@ -55,7 +55,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *choice9Label;
 
 
-
+- (void)highlightButton;
 
 
 

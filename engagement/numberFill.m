@@ -83,47 +83,47 @@
     
     if (numberFillAnswer.length > 0) {
         
-        NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-        if ([numberFillAnswer rangeOfCharacterFromSet:notDigits].location == NSNotFound){
-            
-            NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
-            
-            NSString *answerObj = [NSString stringWithFormat:@"%@",numberFillAnswer];
-            
-            [questionAnswers2 addObject:answerObj];
-            
-            NSDate *myDate = [NSDate date];
-            NSDateFormatter *df = [NSDateFormatter new];
-            [df setDateFormat:@"HH_mm_ss"];
-            NSString * timeNow2 = [df stringFromDate:myDate];
-            
-            [questionAnswers2 addObject:timeNow2];
-            
-            NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
-            
-            int retab = [questionAnswers2 count];
-            
-            for (int retabCounter = 0;retabCounter<retab;retabCounter++){
-                NSString * retabWhatever = [questionAnswers2 objectAtIndex:retabCounter];
-                retabWhatever = [retabWhatever stringByAppendingString:@"\t"];
-                [questionAnswers addObject:retabWhatever];
-            }
-            
-            NSString * newLn = @"\n";
-            [questionAnswers addObject:newLn];
-            
-            QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-            [thisQuestionData saveData:questionAnswers];
-            
-            [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-            
-        }//numbers only, saved.
+        //        NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+        //        if ([numberFillAnswer rangeOfCharacterFromSet:notDigits].location == NSNotFound){
         
-        else{
-            numbersPlease.text = @"Numbers only, please.";
-            self.numberFillText.text = @"";
+        NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
+        
+        NSString *answerObj = [NSString stringWithFormat:@"%@",numberFillAnswer];
+        
+        [questionAnswers2 addObject:answerObj];
+        
+        NSDate *myDate = [NSDate date];
+        NSDateFormatter *df = [NSDateFormatter new];
+        [df setDateFormat:@"HH_mm_ss"];
+        NSString * timeNow2 = [df stringFromDate:myDate];
+        
+        [questionAnswers2 addObject:timeNow2];
+        
+        NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
+        
+        int retab = [questionAnswers2 count];
+        
+        for (int retabCounter = 0;retabCounter<retab;retabCounter++){
+            NSString * retabWhatever = [questionAnswers2 objectAtIndex:retabCounter];
+            retabWhatever = [retabWhatever stringByAppendingString:@"\t"];
+            [questionAnswers addObject:retabWhatever];
         }
-            
+        
+        NSString * newLn = @"\n";
+        [questionAnswers addObject:newLn];
+        
+        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+        [thisQuestionData saveData:questionAnswers];
+        
+        [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+        //            
+        //        }//numbers only, saved.
+        //        
+        //        else{
+        //            numbersPlease.text = @"Numbers only, please.";
+        //            self.numberFillText.text = @"";
+        //        }
+        
     }//nothing submitted
     
 }
