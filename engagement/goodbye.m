@@ -78,7 +78,10 @@
         NSLog(@"Still linked.");
         NSString *destDir = @"/";
         
-        restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+        if (!restClient) {
+            
+            restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+        }
         
         NSString * filename = [docPath lastPathComponent]; 
         
