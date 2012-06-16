@@ -3,8 +3,8 @@ header line, header line.
 22	15	wordFill	Please enter some words.
 23	15	numberFill	Please enter some numbers.
 24	15	instruction	Please pay attention. Or don't.
-25	15	multipleChoice	which thing do you prefer?	thing1	thing2	thing3	thing4
-26	15	multipleChoice	which new thing do you prefer?	thing1	thing2	thing3	thing4	thing5	thing6	thing7	thing8	thing9
+25	15	multipleChoice	Think about some things.	which thing do you prefer?	thing1	thing2	thing3	thing4
+26	15	multipleChoice	which new thing do you prefer?		thing1	thing2	thing3	thing4	thing5	thing6	thing7	thing8	thing9	thing 10	thing 11	thing 12
 27	15	numberline	Please place the indicated value at the proper location on the numberline: 1,000,200	0	1 billion
 28	15	numberline	Please place the indicated value at the proper location on the numberline: 1,000,100	0	1 billion
 29	15	wordFill	Please enter some more words.

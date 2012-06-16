@@ -73,14 +73,14 @@ NSString * stringOfFile;
         infile = _infile;
         
         NSData *data = [NSData dataWithContentsOfFile:infile];
-        stringOfFile = [NSString stringWithUTF8String:[data bytes]];
         
+        stringOfFile = [NSString stringWithUTF8String:[data bytes]];
+ 
         while ([stringOfFile length] == 0){
             NSLog(@"reloading working ##########################");
             data = [NSData dataWithContentsOfFile:infile];
             stringOfFile = [NSString stringWithUTF8String:[data bytes]];
         }
-        
         
         NSArray *linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
         
@@ -116,6 +116,7 @@ NSString * stringOfFile;
         NSString * tester5 =@"instruction";
 
         NSString * tester6 =[fields objectAtIndex:2];
+        NSLog(@"selector is:  %@",tester6);
         
         
         if ([tester1 isEqualToString:tester6]){

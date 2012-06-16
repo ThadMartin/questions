@@ -13,7 +13,8 @@
 @property (weak, nonatomic) NSArray * fields;
 
 @property (weak, nonatomic) IBOutlet UILabel *multipleChoiceQuestion;
-@property (weak, nonatomic) IBOutlet UILabel *multipleChoiceSelection;
+@property (weak, nonatomic) IBOutlet UILabel *multipleLineTwo;
+
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 - (IBAction)submitButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *choice1;
@@ -34,6 +35,15 @@
 - (IBAction)choice8pressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *choice9;
 - (IBAction)choice9pressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *choice10;
+- (IBAction)choice10pressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *choice11;
+- (IBAction)choice11pressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *choice12;
+- (IBAction)choice12pressed:(id)sender;
+
+
+
 
 
 @property (weak, nonatomic) IBOutlet UILabel *choice1Label;
@@ -53,6 +63,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *choice8Label;
 
 @property (weak, nonatomic) IBOutlet UILabel *choice9Label;
+
+@property (weak, nonatomic) IBOutlet UILabel *choice10Label;
+
+@property (weak, nonatomic) IBOutlet UILabel *choice11Label;
+
+@property (weak, nonatomic) IBOutlet UILabel *choice12Label;
 
 
 - (void)highlightButton;
