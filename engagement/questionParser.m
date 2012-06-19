@@ -105,7 +105,9 @@ NSString * stringOfFile;
     
     if (lineNumber < ([linesOfFile count]-1)){
         
-        NSString * line = [linesOfFile objectAtIndex:lineNumber];
+        NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
+        
+        NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
         
         fields = [line componentsSeparatedByString:@"\t"];
           

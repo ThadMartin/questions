@@ -13,7 +13,6 @@
 @property (weak, nonatomic) NSArray * fields;
 
 @property (weak, nonatomic) IBOutlet UILabel *multipleChoiceQuestion;
-@property (weak, nonatomic) IBOutlet UILabel *multipleLineTwo;
 
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 - (IBAction)submitButtonPressed:(id)sender;

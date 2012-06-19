@@ -43,7 +43,6 @@
 @synthesize choice2;
 @synthesize fields;
 @synthesize multipleChoiceQuestion;
-@synthesize multipleLineTwo;
 @synthesize submitButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -79,9 +78,8 @@
     [super viewDidLoad];
     choiceSelection = nil;
     self.multipleChoiceQuestion.text = [fields objectAtIndex:3];
-    self.multipleLineTwo.text = [fields objectAtIndex:4];
     
-    for (int choiceCounter = 5;choiceCounter < [fields count];choiceCounter++){
+    for (int choiceCounter = 4;choiceCounter < [fields count];choiceCounter++){
         NSString * theChoice = [fields objectAtIndex:choiceCounter];
         if([theChoice length] >0)
             numOfChoices ++;
@@ -92,7 +90,7 @@
     
     switch (numOfChoices) {
         case 1:
-            self.choice1Label.text = [fields objectAtIndex:5];
+            self.choice1Label.text = [fields objectAtIndex:4];
             [choice2 setHidden:true];
             [choice3 setHidden:true];
             [choice4 setHidden:true];
@@ -108,8 +106,8 @@
             break;
             
         case 2:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
             [choice3 setHidden:true];
             [choice4 setHidden:true];
             [choice5 setHidden:true];
@@ -124,9 +122,9 @@
             break;
             
         case 3:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
-            self.choice3Label.text = [fields objectAtIndex:7];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
             [choice4 setHidden:true];
             [choice5 setHidden:true];
             [choice6 setHidden:true];
@@ -140,10 +138,10 @@
             break;
             
         case 4:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
-            self.choice3Label.text = [fields objectAtIndex:7];
-            self.choice4Label.text = [fields objectAtIndex:8];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
+            self.choice4Label.text = [fields objectAtIndex:7];
             [choice5 setHidden:true];
             [choice6 setHidden:true];
             [choice7 setHidden:true];
@@ -156,11 +154,11 @@
             break;
             
         case 5:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
-            self.choice3Label.text = [fields objectAtIndex:7];
-            self.choice4Label.text = [fields objectAtIndex:8];
-            self.choice5Label.text = [fields objectAtIndex:9];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
+            self.choice4Label.text = [fields objectAtIndex:7];
+            self.choice5Label.text = [fields objectAtIndex:8];
             [choice6 setHidden:true];
             [choice7 setHidden:true];
             [choice8 setHidden:true];
@@ -172,12 +170,12 @@
             break;
             
         case 6:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
-            self.choice3Label.text = [fields objectAtIndex:7];
-            self.choice4Label.text = [fields objectAtIndex:8];
-            self.choice5Label.text = [fields objectAtIndex:9];
-            self.choice6Label.text = [fields objectAtIndex:10];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
+            self.choice4Label.text = [fields objectAtIndex:7];
+            self.choice5Label.text = [fields objectAtIndex:8];
+            self.choice6Label.text = [fields objectAtIndex:9];
             [choice7 setHidden:true];
             [choice8 setHidden:true];
             [choice9 setHidden:true];
@@ -188,13 +186,13 @@
             break;
             
         case 7:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
-            self.choice3Label.text = [fields objectAtIndex:7];
-            self.choice4Label.text = [fields objectAtIndex:8];
-            self.choice5Label.text = [fields objectAtIndex:9];
-            self.choice6Label.text = [fields objectAtIndex:10];
-            self.choice7Label.text = [fields objectAtIndex:11];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
+            self.choice4Label.text = [fields objectAtIndex:7];
+            self.choice5Label.text = [fields objectAtIndex:8];
+            self.choice6Label.text = [fields objectAtIndex:9];
+            self.choice7Label.text = [fields objectAtIndex:10];
             [choice8 setHidden:true];
             [choice9 setHidden:true];
             [choice10 setHidden:true];
@@ -204,14 +202,14 @@
             break;
             
         case 8:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
-            self.choice3Label.text = [fields objectAtIndex:7];
-            self.choice4Label.text = [fields objectAtIndex:8];
-            self.choice5Label.text = [fields objectAtIndex:9];
-            self.choice6Label.text = [fields objectAtIndex:10];
-            self.choice7Label.text = [fields objectAtIndex:11];
-            self.choice8Label.text = [fields objectAtIndex:12];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
+            self.choice4Label.text = [fields objectAtIndex:7];
+            self.choice5Label.text = [fields objectAtIndex:8];
+            self.choice6Label.text = [fields objectAtIndex:9];
+            self.choice7Label.text = [fields objectAtIndex:10];
+            self.choice8Label.text = [fields objectAtIndex:11];
             [choice9 setHidden:true];
             [choice10 setHidden:true];
             [choice11 setHidden:true];
@@ -220,15 +218,15 @@
             break;
             
         case 9:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
-            self.choice3Label.text = [fields objectAtIndex:7];
-            self.choice4Label.text = [fields objectAtIndex:8];
-            self.choice5Label.text = [fields objectAtIndex:9];
-            self.choice6Label.text = [fields objectAtIndex:10];
-            self.choice7Label.text = [fields objectAtIndex:11];
-            self.choice8Label.text = [fields objectAtIndex:12];
-            self.choice9Label.text = [fields objectAtIndex:13];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
+            self.choice4Label.text = [fields objectAtIndex:7];
+            self.choice5Label.text = [fields objectAtIndex:8];
+            self.choice6Label.text = [fields objectAtIndex:9];
+            self.choice7Label.text = [fields objectAtIndex:10];
+            self.choice8Label.text = [fields objectAtIndex:11];
+            self.choice9Label.text = [fields objectAtIndex:12];
             [choice10 setHidden:true];
             [choice11 setHidden:true];
             [choice12 setHidden:true];
@@ -236,16 +234,16 @@
             break;
             
         case 10:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
-            self.choice3Label.text = [fields objectAtIndex:7];
-            self.choice4Label.text = [fields objectAtIndex:8];
-            self.choice5Label.text = [fields objectAtIndex:9];
-            self.choice6Label.text = [fields objectAtIndex:10];
-            self.choice7Label.text = [fields objectAtIndex:11];
-            self.choice8Label.text = [fields objectAtIndex:12];
-            self.choice9Label.text = [fields objectAtIndex:13];
-            self.choice10Label.text = [fields objectAtIndex:14];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
+            self.choice4Label.text = [fields objectAtIndex:7];
+            self.choice5Label.text = [fields objectAtIndex:8];
+            self.choice6Label.text = [fields objectAtIndex:9];
+            self.choice7Label.text = [fields objectAtIndex:10];
+            self.choice8Label.text = [fields objectAtIndex:11];
+            self.choice9Label.text = [fields objectAtIndex:12];
+            self.choice10Label.text = [fields objectAtIndex:13];
             [choice11 setHidden:true];
             [choice12 setHidden:true];
             
@@ -253,51 +251,51 @@
             
             
         case 11:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
-            self.choice3Label.text = [fields objectAtIndex:7];
-            self.choice4Label.text = [fields objectAtIndex:8];
-            self.choice5Label.text = [fields objectAtIndex:9];
-            self.choice6Label.text = [fields objectAtIndex:10];
-            self.choice7Label.text = [fields objectAtIndex:11];
-            self.choice8Label.text = [fields objectAtIndex:12];
-            self.choice9Label.text = [fields objectAtIndex:13];
-            self.choice10Label.text = [fields objectAtIndex:14];
-            self.choice11Label.text = [fields objectAtIndex:15];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
+            self.choice4Label.text = [fields objectAtIndex:7];
+            self.choice5Label.text = [fields objectAtIndex:8];
+            self.choice6Label.text = [fields objectAtIndex:9];
+            self.choice7Label.text = [fields objectAtIndex:10];
+            self.choice8Label.text = [fields objectAtIndex:11];
+            self.choice9Label.text = [fields objectAtIndex:12];
+            self.choice10Label.text = [fields objectAtIndex:13];
+            self.choice11Label.text = [fields objectAtIndex:14];
             [choice12 setHidden:true];
             
             break;
             
         case 12:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
-            self.choice3Label.text = [fields objectAtIndex:7];
-            self.choice4Label.text = [fields objectAtIndex:8];
-            self.choice5Label.text = [fields objectAtIndex:9];
-            self.choice6Label.text = [fields objectAtIndex:10];
-            self.choice7Label.text = [fields objectAtIndex:11];
-            self.choice8Label.text = [fields objectAtIndex:12];
-            self.choice9Label.text = [fields objectAtIndex:13];
-            self.choice10Label.text = [fields objectAtIndex:14];
-            self.choice11Label.text = [fields objectAtIndex:15];
-            self.choice12Label.text = [fields objectAtIndex:16];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
+            self.choice4Label.text = [fields objectAtIndex:7];
+            self.choice5Label.text = [fields objectAtIndex:8];
+            self.choice6Label.text = [fields objectAtIndex:9];
+            self.choice7Label.text = [fields objectAtIndex:10];
+            self.choice8Label.text = [fields objectAtIndex:11];
+            self.choice9Label.text = [fields objectAtIndex:12];
+            self.choice10Label.text = [fields objectAtIndex:13];
+            self.choice11Label.text = [fields objectAtIndex:14];
+            self.choice12Label.text = [fields objectAtIndex:15];
             
             break;
             
             
         default:
-            self.choice1Label.text = [fields objectAtIndex:5];
-            self.choice2Label.text = [fields objectAtIndex:6];
-            self.choice3Label.text = [fields objectAtIndex:7];
-            self.choice4Label.text = [fields objectAtIndex:8];
-            self.choice5Label.text = [fields objectAtIndex:9];
-            self.choice6Label.text = [fields objectAtIndex:10];
-            self.choice7Label.text = [fields objectAtIndex:11];
-            self.choice8Label.text = [fields objectAtIndex:12];
-            self.choice9Label.text = [fields objectAtIndex:13];
-            self.choice10Label.text = [fields objectAtIndex:14];
-            self.choice11Label.text = [fields objectAtIndex:15];
-            self.choice12Label.text = [fields objectAtIndex:16];
+            self.choice1Label.text = [fields objectAtIndex:4];
+            self.choice2Label.text = [fields objectAtIndex:5];
+            self.choice3Label.text = [fields objectAtIndex:6];
+            self.choice4Label.text = [fields objectAtIndex:7];
+            self.choice5Label.text = [fields objectAtIndex:8];
+            self.choice6Label.text = [fields objectAtIndex:9];
+            self.choice7Label.text = [fields objectAtIndex:10];
+            self.choice8Label.text = [fields objectAtIndex:11];
+            self.choice9Label.text = [fields objectAtIndex:12];
+            self.choice10Label.text = [fields objectAtIndex:13];
+            self.choice11Label.text = [fields objectAtIndex:14];
+            self.choice12Label.text = [fields objectAtIndex:15];
             
             break;
             
@@ -335,7 +333,6 @@
     [self setChoice10Label:nil];
     [self setChoice11Label:nil];
     [self setChoice12Label:nil];
-    [self setMultipleLineTwo:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -348,7 +345,7 @@
 }
 
 - (IBAction)choice1pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+1)];
+    choiceSelection = [fields objectAtIndex:(3+1)];
     [choice1 setHighlighted:YES];
     self.choice1.selected = YES;
     self.choice2.selected = NO;
@@ -368,7 +365,7 @@
 
 
 - (IBAction)choice2pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+2)];
+    choiceSelection = [fields objectAtIndex:(3+2)];
     [choice2 setHighlighted:YES];
     self.choice1.selected = NO;
     self.choice2.selected = YES;
@@ -386,7 +383,7 @@
     
 }
 - (IBAction)choice3pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+3)];
+    choiceSelection = [fields objectAtIndex:(3+3)];
     [choice3 setHighlighted:YES];
     self.choice1.selected = NO;
     self.choice2.selected = NO;
@@ -404,7 +401,7 @@
     
 }
 - (IBAction)choice4pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+4)];
+    choiceSelection = [fields objectAtIndex:(3+4)];
     self.choice1.selected = NO;
     self.choice2.selected = NO;
     self.choice3.selected = NO;
@@ -421,7 +418,7 @@
     
 }
 - (IBAction)choice5pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+5)];
+    choiceSelection = [fields objectAtIndex:(3+5)];
     self.choice1.selected = NO;
     self.choice2.selected = NO;
     self.choice3.selected = NO;
@@ -438,7 +435,7 @@
     
 }
 - (IBAction)choice6pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+6)];
+    choiceSelection = [fields objectAtIndex:(3+6)];
     self.choice1.selected = NO;
     self.choice2.selected = NO;
     self.choice3.selected = NO;
@@ -455,7 +452,7 @@
     
 }
 - (IBAction)choice7pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+7)];
+    choiceSelection = [fields objectAtIndex:(3+7)];
     self.choice1.selected = NO;
     self.choice2.selected = NO;
     self.choice3.selected = NO;
@@ -472,7 +469,7 @@
     
 }
 - (IBAction)choice8pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+8)];
+    choiceSelection = [fields objectAtIndex:(3+8)];
     self.choice1.selected = NO;
     self.choice2.selected = NO;
     self.choice3.selected = NO;
@@ -489,7 +486,7 @@
     
 }
 - (IBAction)choice9pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+9)];
+    choiceSelection = [fields objectAtIndex:(3+9)];
     self.choice1.selected = NO;
     self.choice2.selected = NO;
     self.choice3.selected = NO;
@@ -507,7 +504,7 @@
 }
 
 - (IBAction)choice10pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+10)];
+    choiceSelection = [fields objectAtIndex:(3+10)];
     self.choice1.selected = NO;
     self.choice2.selected = NO;
     self.choice3.selected = NO;
@@ -524,7 +521,7 @@
     
 }
 - (IBAction)choice11pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+11)];
+    choiceSelection = [fields objectAtIndex:(3+11)];
     self.choice1.selected = NO;
     self.choice2.selected = NO;
     self.choice3.selected = NO;
@@ -540,7 +537,7 @@
     [self performSelector:@selector(highlightButton) withObject:sender afterDelay:0.0];
 }
 - (IBAction)choice12pressed:(id)sender {
-    choiceSelection = [fields objectAtIndex:(4+12)];
+    choiceSelection = [fields objectAtIndex:(3+12)];
     self.choice1.selected = NO;
     self.choice2.selected = NO;
     self.choice3.selected = NO;
@@ -613,6 +610,12 @@
     if (choiceSelection.length > 0) {
         
         NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
+        
+        NSString * removeNLs = [questionAnswers2 objectAtIndex:3];
+        
+        removeNLs = [removeNLs stringByReplacingOccurrencesOfString:@"\n" withString:@"&NL"];
+        
+        [questionAnswers2 replaceObjectAtIndex:3 withObject:removeNLs];
         
         NSString *answerObj = [NSString stringWithFormat:@"%@",choiceSelection];
         
