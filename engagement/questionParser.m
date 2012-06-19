@@ -76,16 +76,23 @@ NSString * stringOfFile;
         
         stringOfFile = [NSString stringWithUTF8String:[data bytes]];
  
+        stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
+
+        stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
+
+ 
         while ([stringOfFile length] == 0){
             NSLog(@"reloading working ##########################");
             data = [NSData dataWithContentsOfFile:infile];
             stringOfFile = [NSString stringWithUTF8String:[data bytes]];
+            stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
+            stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
         }
         
         NSArray *linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
         
         NSString * headerLine = [linesOfFile objectAtIndex:0];
-        headerLine = [headerLine stringByAppendingString:@"\n"];    
+        headerLine = [headerLine stringByAppendingString:@"\r"];    
         
         NSMutableArray * headerLineArray = [[NSMutableArray alloc] init];
         
@@ -105,11 +112,11 @@ NSString * stringOfFile;
     
     if (lineNumber < ([linesOfFile count]-1)){
         
-        NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
+       NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
         
-        NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
+       NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
         
-        fields = [line componentsSeparatedByString:@"\t"];
+       fields = [line componentsSeparatedByString:@"\t"];
           
         NSString * tester1 =@"numberline";
         NSString * tester2 =@"wordFill";

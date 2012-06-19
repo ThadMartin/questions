@@ -87,7 +87,7 @@
         [questionAnswers addObject:retabWhatever];
     }
     
-    NSString * newLn = @"\n";
+    NSString * newLn = @"\r";
     [questionAnswers addObject:newLn];
     
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 

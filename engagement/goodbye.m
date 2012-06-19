@@ -67,7 +67,7 @@
 }
 
 - (IBAction)leave:(id)sender {
-    [NSThread sleepForTimeInterval:1]; //give dropbox a sec to upload.
+    [NSThread sleepForTimeInterval:3]; //give dropbox a sec to upload.
     exit(0);
 }
 
@@ -76,7 +76,7 @@
     if ([[DBSession sharedSession] isLinked]) {
         
         NSLog(@"Still linked.");
-        NSString *destDir = @"/";
+        NSString *destDir = @"/upload/";
         
         if (!restClient) {
             

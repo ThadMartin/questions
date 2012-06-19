@@ -611,11 +611,11 @@
         
         NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
         
-        NSString * removeNLs = [questionAnswers2 objectAtIndex:3];
+       // NSString * removeNLs = [questionAnswers2 objectAtIndex:3];
         
-        removeNLs = [removeNLs stringByReplacingOccurrencesOfString:@"\n" withString:@"&NL"];
+        //removeNLs = [removeNLs stringByReplacingOccurrencesOfString:@"\n" withString:@"&NL"];
         
-        [questionAnswers2 replaceObjectAtIndex:3 withObject:removeNLs];
+        //[questionAnswers2 replaceObjectAtIndex:3 withObject:removeNLs];
         
         NSString *answerObj = [NSString stringWithFormat:@"%@",choiceSelection];
         
@@ -638,7 +638,7 @@
             [questionAnswers addObject:retabWhatever];
         }
         
-        NSString * newLn = @"\n";
+        NSString * newLn = @"\r";
         [questionAnswers addObject:newLn];
         
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 

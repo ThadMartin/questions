@@ -77,20 +77,23 @@
     
     NSString * docPath = delegate.docPath;
 
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:docPath];
     
     
     for (int writeIndex =0;writeIndex < answerLength;writeIndex++){          
         
-        NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:docPath];
+
         [fileHandle seekToEndOfFile];
         NSString *element = [questionAnswers objectAtIndex:writeIndex] ;
+        
+        element = [element stringByReplacingOccurrencesOfString:@"\n" withString:@"&NL"];
+        
         NSData *textData = [element dataUsingEncoding:NSUTF8StringEncoding];
         [fileHandle writeData:textData];
-        
-        [fileHandle closeFile];
-        
+                
     } //end of step through writing file.
     
+    [fileHandle closeFile];    
     
 }
 
