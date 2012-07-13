@@ -104,7 +104,20 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.restClient loadMetadata:@"/download/"];
+    if (!restClient) {
+        restClient =
+        [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+        restClient.delegate = self;
+    }
+   
+    NSString * directory = @"/download/";
+    
+    [restClient loadMetadata:directory];
+    
+  //  DBMetadata * dirMeta = (DBMetadata *) directory;
+
+    
+   // [self getInFiles:dirMeta];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -119,7 +132,11 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    
+    if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight) 
+        return NO;   
+    else
+        return YES;
 }
 
 #pragma mark - Table view data source
@@ -194,10 +211,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    //infile = [onlyQns objectAtIndex:indexPath.row];
-    //infile = [qListPath stringByAppendingPathComponent:infile];
-    
     infile = [allQnsAndPaths objectAtIndex:indexPath.row];
     
     NSLog(@"Selected for input:%@",infile);
@@ -227,17 +240,26 @@
 
 #pragma mark - Dropbox methods
 
-// overide getter
-- (DBRestClient *)restClient {
-    if (!restClient) {
-        restClient =
-        [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
-        restClient.delegate = self;
-    }
-    return restClient;
-}
+//// overide getter
+//- (DBRestClient *)restClient {
+//    if (!restClient) {
+//        restClient =
+//        [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+//        restClient.delegate = self;
+//    }
+//    return restClient;
+//}
 
-- (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata {
+- (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata{
+//    if (!restClient) {
+//                restClient =
+//                [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+//               restClient.delegate = self;
+//           }
+    
+    
+   // DBMetadata * loadedMetaData = (DBMetadata *) metadata; 
+
     downloadCount = 0;
     newQuestions = [[NSMutableArray alloc] init];
     if (metadata.isDirectory) {
@@ -258,7 +280,7 @@
 
                 
                 NSString * localPath = [documentsDirectory stringByAppendingPathComponent:file.filename];
-                [self.restClient loadFile:dropboxPath intoPath:localPath];
+                [restClient loadFile:dropboxPath intoPath:localPath];
             }
         }
     }

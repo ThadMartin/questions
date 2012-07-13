@@ -11,7 +11,9 @@
 #import <DropboxSDK/DropboxSDK.h>
 #import "questionParser.h"
 
-@implementation newSlider  
+@implementation newSlider  {
+    NSTimer * timer;
+}
 
 @synthesize questionLabel;
 @synthesize moveBox;
@@ -23,7 +25,7 @@
 @synthesize fields;
 
 
-float currentAnswer;
+float currentAnswer = -1;
 NSArray * questionList;
 int answerIndex;
 
@@ -45,9 +47,55 @@ int answerIndex;
     [sliderSubmit setEnabled:NO];   //disable submit until there is input.
     [sliderSubmit setTitle: @"touch slider" forState:UIControlStateNormal];    
     
-    self.lowLabel.text = [fields objectAtIndex:4];
-    self.highLabel.text = [fields objectAtIndex:5];   
-    self.questionLabel.text = [fields objectAtIndex:3];
+    self.lowLabel.text = [fields objectAtIndex:5];
+    self.highLabel.text = [fields objectAtIndex:6];   
+    self.questionLabel.text = [fields objectAtIndex:4];
+    
+    NSString * timerTime = [fields objectAtIndex:3];
+    int timerTimeNumber = [timerTime intValue];
+    if (timerTimeNumber > 0){
+        timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
+        NSRunLoop *runner = [NSRunLoop currentRunLoop];
+        [runner addTimer: timer forMode: NSDefaultRunLoopMode];
+    }
+
+    
+}
+
+-(void) timeIsUp:(NSTimer*)timer{
+    NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
+    
+    NSString *answerObj = [NSString stringWithFormat:@"Time ran out.  %f",currentAnswer];
+    
+    [questionAnswers2 addObject:answerObj];
+    
+    NSDate *myDate = [NSDate date];
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"HH_mm_ss"];
+    NSString * timeNow = [df stringFromDate:myDate];
+    
+    [questionAnswers2 addObject:timeNow];
+    
+    NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
+    
+    int retab = [questionAnswers2 count];
+    
+    for (int retabCounter = 0;retabCounter<retab;retabCounter++){
+        NSString * retabWhatever = [questionAnswers2 objectAtIndex:retabCounter];
+        retabWhatever = [retabWhatever stringByAppendingString:@"\t"];
+        [questionAnswers addObject:retabWhatever];
+    }
+    
+    NSString * newLn = @"\r";
+    [questionAnswers addObject:newLn];
+    
+    QuestionData * thisQuestionData = [[QuestionData alloc] init];
+    [thisQuestionData saveData:questionAnswers];
+    
+    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    
+ 
+    
     
 }
 
@@ -91,8 +139,11 @@ int answerIndex;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return YES;
+    
+    if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight) 
+        return NO;   
+    else
+        return YES;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -139,6 +190,8 @@ int answerIndex;
 
 
 - (IBAction)sliderSubmitPressed:(id)sender {
+    
+        [timer invalidate];
     
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
     

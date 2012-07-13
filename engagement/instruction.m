@@ -9,7 +9,9 @@
 #import "instruction.h"
 #import "QuestionData.h"
 
-@implementation instruction
+@implementation instruction{
+    NSTimer * timer;
+}
 
 @synthesize fields;
 @synthesize instructionLabel;
@@ -46,7 +48,51 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.instructionLabel.text = [fields objectAtIndex:3]; 
+    //NSLog(@"fields:  %@",fields);
+    self.instructionLabel.text = [fields objectAtIndex:4]; 
+    NSString * timerTime = [fields objectAtIndex:3];
+    int timerTimeNumber = [timerTime intValue];
+    if (timerTimeNumber > 0){
+        timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
+        NSRunLoop *runner = [NSRunLoop currentRunLoop];
+        [runner addTimer: timer forMode: NSDefaultRunLoopMode];
+    }
+
+}
+
+
+-(void) timeIsUp:(NSTimer*)timer{
+    NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
+    
+    NSString *answerObj = [NSString stringWithFormat:@"time ran out."];
+    
+    [questionAnswers2 addObject:answerObj];
+    
+    NSDate *myDate = [NSDate date];
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"HH_mm_ss"];
+    NSString * timeNow2 = [df stringFromDate:myDate];
+    
+    [questionAnswers2 addObject:timeNow2];
+    
+    NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
+    
+    int retab = [questionAnswers2 count];
+    
+    for (int retabCounter = 0;retabCounter<retab;retabCounter++){
+        NSString * retabWhatever = [questionAnswers2 objectAtIndex:retabCounter];
+        retabWhatever = [retabWhatever stringByAppendingString:@"\t"];
+        [questionAnswers addObject:retabWhatever];
+    }
+    
+    NSString * newLn = @"\r";
+    [questionAnswers addObject:newLn];
+    
+    QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+    [thisQuestionData saveData:questionAnswers];
+    
+    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    
 }
 
 
@@ -61,11 +107,16 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return YES;
+    
+    if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight) 
+        return NO;   
+    else
+        return YES;
 }
 
 - (IBAction)continueButtonPressed:(id)sender {
+    
+    [timer invalidate];
     
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
     

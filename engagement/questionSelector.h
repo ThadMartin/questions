@@ -13,8 +13,8 @@
     NSString * infile;
 }
 
-@property (nonatomic, retain) DBRestClient *restClient;
 
+//- (void)getInFiles:(DBMetadata *)metadata ;
 - (void)insertNewTableRows:(NSArray *)newFiles;
 - (void)addNewQuestionsToTable;
 

@@ -11,7 +11,9 @@
 #import "QuestionData.h"
 
 
-@implementation wordFill
+@implementation wordFill{
+    NSTimer * timer;
+}
 
 @synthesize textField;
 @synthesize wordFillLabel;
@@ -51,9 +53,56 @@
 {
     [super viewDidLoad];
     
-    self.wordFillLabel.text = [fields objectAtIndex:3];
+    self.wordFillLabel.text = [fields objectAtIndex:4];
+    NSString * timerTime = [fields objectAtIndex:3];
+    int timerTimeNumber = [timerTime intValue];
+    if (timerTimeNumber > 0){
+        timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
+        NSRunLoop *runner = [NSRunLoop currentRunLoop];
+        [runner addTimer: timer forMode: NSDefaultRunLoopMode];
+    }
     
 }
+
+-(void) timeIsUp:(NSTimer*)timer{
+    NSString * wordFillAnswer2 = self.textField.text;
+    NSString * wordFillAnswer;
+    
+    wordFillAnswer = [@"time ran out. " stringByAppendingString:wordFillAnswer2];    
+    
+    NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
+    
+    NSString *answerObj = [NSString stringWithFormat:@"%@",wordFillAnswer];
+    
+    [questionAnswers2 addObject:answerObj];
+    
+    NSDate *myDate = [NSDate date];
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"HH_mm_ss"];
+    NSString * timeNow2 = [df stringFromDate:myDate];
+    
+    [questionAnswers2 addObject:timeNow2];
+    
+    NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
+    
+    int retab = [questionAnswers2 count];
+    
+    for (int retabCounter = 0;retabCounter<retab;retabCounter++){
+        NSString * retabWhatever = [questionAnswers2 objectAtIndex:retabCounter];
+        retabWhatever = [retabWhatever stringByAppendingString:@"\t"];
+        [questionAnswers addObject:retabWhatever];
+    }
+    
+    NSString * newLn = @"\r";
+    [questionAnswers addObject:newLn];
+    
+    QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+    [thisQuestionData saveData:questionAnswers];
+    
+    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    
+}
+
 
 
 - (void)viewDidUnload
@@ -68,8 +117,11 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return YES;
+    
+    if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight) 
+        return NO;   
+    else
+        return YES;
 }
 
 
@@ -80,6 +132,8 @@
 
 
 - (IBAction)wordFillSubmitPressed:(id)sender {
+    
+        [timer invalidate];
     
     NSString * wordFillAnswer = self.textField.text;
     

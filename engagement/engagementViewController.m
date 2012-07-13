@@ -57,8 +57,8 @@
     
     //comment the lines below to show the screen to unlink from a dropbox account.
     
-     if ([[DBSession sharedSession] isLinked])
-         [self performSegueWithIdentifier: @"toQuestionSelector" sender: self]; 
+   //  if ([[DBSession sharedSession] isLinked])
+   //      [self performSegueWithIdentifier: @"toQuestionSelector" sender: self]; 
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -74,6 +74,9 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
  
+    if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight) 
+        return NO;   
+    else
         return YES;
 }
 
