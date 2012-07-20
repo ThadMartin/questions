@@ -123,41 +123,49 @@ NSString * stringOfFile;
         NSString * tester3 =@"numberFill";
         NSString * tester4 =@"multipleChoice";
         NSString * tester5 =@"instruction";
+        NSString * tester6 =@"picture";
 
-        NSString * tester6 =[fields objectAtIndex:2];
-        NSLog(@"selector is:  %@",tester6);
+        NSString * tester0 =[fields objectAtIndex:2];
+        NSLog(@"selector is:  %@",tester0);
         
         
-        if ([tester1 isEqualToString:tester6]){
+        if ([tester1 isEqualToString:tester0]){
             NSLog(@"Going toNewSlider");
             lineNumber ++;
             [self performSegueWithIdentifier: @"toNewSlider" sender: self];
         }
         
-        if ([tester2 isEqualToString:tester6]){
+        if ([tester2 isEqualToString:tester0]){
             NSLog(@"going toWordFill");
             lineNumber ++;
             [self performSegueWithIdentifier: @"toWordFill" sender: self];
             
         }
-        if ([tester3 isEqualToString:tester6]){
+        if ([tester3 isEqualToString:tester0]){
             NSLog(@"Going toNumberFill");
             lineNumber ++;
             [self performSegueWithIdentifier: @"toNumberFill" sender: self];
         }
         
-        if ([tester4 isEqualToString:tester6]){
+        if ([tester4 isEqualToString:tester0]){
             NSLog(@"going toMultipleChoice");
             lineNumber ++;
             [self performSegueWithIdentifier: @"toMultipleChoice" sender: self];
             
         }
-        if ([tester5 isEqualToString:tester6]){
+        if ([tester5 isEqualToString:tester0]){
             NSLog(@"going toInstruction");
             lineNumber ++;
             [self performSegueWithIdentifier: @"toInstruction" sender: self];
             
         }
+        if ([tester6 isEqualToString:tester0]){
+            NSLog(@"going toPicture");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toPicture" sender: self];
+            
+        }
+
         
     }//done with all questions       
     [self performSegueWithIdentifier: @"toGoodbye" sender: self];
@@ -183,6 +191,10 @@ NSString * stringOfFile;
         svc.fields = fields; 
     }
     if ([segue.identifier isEqualToString:@"toInstruction"]){
+        numberFill * svc = [segue destinationViewController];
+        svc.fields = fields; 
+    }
+    if ([segue.identifier isEqualToString:@"toPicture"]){
         numberFill * svc = [segue destinationViewController];
         svc.fields = fields; 
     }

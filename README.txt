@@ -2,13 +2,13 @@ Using the questionnaires app:
 
 The app will only rotate to portrait and portrait upside down, so that the formatting for multiple choice works.The text input file must be UTF-8 plain text.  NL, CR, and NL CR newlines should work, but this is not thoroughly tested.
 
-Entries are separated by a <tab>.  Some text editors enter several spaces when you push the tab key, this will not parse correctly.
+Entries are separated by a <tab>.  Some text editors enter several spaces when you push the tab key, this will not work correctly.
 
 There should be a single newline at the end of the input file.
 
 The first line of the input file is a header line, use it to keep track of what is in which place.
 
-On the next lines, the first entry is the question number.  The second entry is the condition. The third entry is the type of question.  The question type is case sensitive.  Currently the valid question types are: numberline, wordFill, numberFill, instruction, and multipleChoice.
+On the next lines, the first entry is the question number.  The second entry is the condition. The third entry is the type of question.  The question type is case sensitive.  Currently the valid question types are: numberline, wordFill, numberFill, instruction, picture, and multipleChoice.
 
 The fourth entry is the time limit.  A time limit of -1 means there is no time limit.  
 
@@ -23,6 +23,8 @@ In a wordFill question, the fifth entry is the question.
 In a numberFill question, the fifth entry is the question.  The difference between this and a wordFill question is that the default keyboard is the one with numbers.
 
 In an instruction, the fifth entry is the instruction.
+
+In a picture, the fifth entry is the filename of the picture.  The picture area is about 768 by 990 pixels, so if the ratio is about like that, the picture will take up most of the space it can.  
 
 In a multipleChoice question, the fifth entry is the question.  This can be followed by up to 12 entries, which are choices.
 
@@ -46,6 +48,6 @@ A question list can be local, or on dropbox.  If it is in dropbox, it must be in
 
 Take a look at "sampleQuestionList.txt" for an idea how the question list should look.  A question list must have the extension .txt to work.
 
-As of 7-2012, this code has not been tested much (it worked once or twice…) and I'm new at iOS programming.  If you find any bugs, or have any suggestions, you can email me at martin_thad@yahoo.com
+As of 7-2012, this code has not been tested much (it worked once or twice) and I'm new at iOS programming.  If you find any bugs, or have any suggestions, you can email me at martin_thad@yahoo.com
 
 

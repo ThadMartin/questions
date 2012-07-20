@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		720F5D831576702500C74BC5 /* goodbye.m in Sources */ = {isa = PBXBuildFile; fileRef = 720F5D821576702500C74BC5 /* goodbye.m */; };
+		7217E46E15B9B2EF00B09FD6 /* forge.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7217E46A15B9B2EF00B09FD6 /* forge.jpg */; };
+		7217E46F15B9B2EF00B09FD6 /* picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7217E46C15B9B2EF00B09FD6 /* picture.m */; };
+		7217E47015B9B2EF00B09FD6 /* pie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7217E46D15B9B2EF00B09FD6 /* pie.png */; };
 		724118A51580EB7E002FC139 /* instruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 724118A41580EB7E002FC139 /* instruction.m */; };
 		724118A91580F03B002FC139 /* multipleChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 724118A81580F03A002FC139 /* multipleChoice.m */; };
 		7243CCB215B0502D00C9E9EB /* sampleQuestionList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7243CCB115B0502D00C9E9EB /* sampleQuestionList.txt */; };
@@ -33,6 +36,10 @@
 /* Begin PBXFileReference section */
 		720F5D811576702500C74BC5 /* goodbye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodbye.h; sourceTree = "<group>"; };
 		720F5D821576702500C74BC5 /* goodbye.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodbye.m; sourceTree = "<group>"; };
+		7217E46A15B9B2EF00B09FD6 /* forge.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = forge.jpg; sourceTree = "<group>"; };
+		7217E46B15B9B2EF00B09FD6 /* picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = picture.h; sourceTree = "<group>"; };
+		7217E46C15B9B2EF00B09FD6 /* picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = picture.m; sourceTree = "<group>"; };
+		7217E46D15B9B2EF00B09FD6 /* pie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pie.png; sourceTree = "<group>"; };
 		724118A31580EB7E002FC139 /* instruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = instruction.h; sourceTree = "<group>"; };
 		724118A41580EB7E002FC139 /* instruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = instruction.m; sourceTree = "<group>"; };
 		724118A71580F03A002FC139 /* multipleChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multipleChoice.h; sourceTree = "<group>"; };
@@ -118,30 +125,32 @@
 		72F7DF161567EA4000500D63 /* engagement */ = {
 			isa = PBXGroup;
 			children = (
-				727362CD1580E0C600F4B689 /* numberFill.h */,
-				727362CE1580E0C600F4B689 /* numberFill.m */,
 				72F7DF1F1567EA4100500D63 /* engagementAppDelegate.h */,
 				72F7DF201567EA4100500D63 /* engagementAppDelegate.m */,
 				72F7DF281567EA4100500D63 /* engagementViewController.h */,
 				72F7DF291567EA4100500D63 /* engagementViewController.m */,
-				72BB7865158142C200047EEA /* questionSelector.h */,
-				72BB7866158142C200047EEA /* questionSelector.m */,
-				72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */,
-				724118A31580EB7E002FC139 /* instruction.h */,
-				724118A41580EB7E002FC139 /* instruction.m */,
-				7264E49715796595000784A2 /* newSlider.h */,
-				7264E49815796595000784A2 /* newSlider.m */,
-				72973526157F6D640051AD29 /* wordFill.h */,
-				72973527157F6D640051AD29 /* wordFill.m */,
-				727B54FE157E55DA004D13D1 /* questionParser.h */,
-				727B54FF157E55DA004D13D1 /* questionParser.m */,
-				724118A71580F03A002FC139 /* multipleChoice.h */,
-				724118A81580F03A002FC139 /* multipleChoice.m */,
-				72F7DF401567F00F00500D63 /* QuestionData.h */,
-				72F7DF411567F01000500D63 /* QuestionData.m */,
 				720F5D811576702500C74BC5 /* goodbye.h */,
 				720F5D821576702500C74BC5 /* goodbye.m */,
+				724118A31580EB7E002FC139 /* instruction.h */,
+				724118A41580EB7E002FC139 /* instruction.m */,
+				72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */,
+				724118A71580F03A002FC139 /* multipleChoice.h */,
+				724118A81580F03A002FC139 /* multipleChoice.m */,
+				7264E49715796595000784A2 /* newSlider.h */,
+				7264E49815796595000784A2 /* newSlider.m */,
+				727362CD1580E0C600F4B689 /* numberFill.h */,
+				727362CE1580E0C600F4B689 /* numberFill.m */,
+				7217E46B15B9B2EF00B09FD6 /* picture.h */,
+				7217E46C15B9B2EF00B09FD6 /* picture.m */,
+				72F7DF401567F00F00500D63 /* QuestionData.h */,
+				72F7DF411567F01000500D63 /* QuestionData.m */,
+				727B54FE157E55DA004D13D1 /* questionParser.h */,
+				727B54FF157E55DA004D13D1 /* questionParser.m */,
+				72BB7865158142C200047EEA /* questionSelector.h */,
+				72BB7866158142C200047EEA /* questionSelector.m */,
 				72F7DF171567EA4100500D63 /* Supporting Files */,
+				72973526157F6D640051AD29 /* wordFill.h */,
+				72973527157F6D640051AD29 /* wordFill.m */,
 			);
 			path = engagement;
 			sourceTree = "<group>";
@@ -150,10 +159,12 @@
 			isa = PBXGroup;
 			children = (
 				72F7DF181567EA4100500D63 /* engagement-Info.plist */,
+				72F7DF1E1567EA4100500D63 /* engagement-Prefix.pch */,
+				7217E46A15B9B2EF00B09FD6 /* forge.jpg */,
 				72F7DF191567EA4100500D63 /* InfoPlist.strings */,
 				72F7DF1C1567EA4100500D63 /* main.m */,
+				7217E46D15B9B2EF00B09FD6 /* pie.png */,
 				7243CCB115B0502D00C9E9EB /* sampleQuestionList.txt */,
-				72F7DF1E1567EA4100500D63 /* engagement-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -212,6 +223,8 @@
 				72F7DF1B1567EA4100500D63 /* InfoPlist.strings in Resources */,
 				72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */,
 				7243CCB215B0502D00C9E9EB /* sampleQuestionList.txt in Resources */,
+				7217E46E15B9B2EF00B09FD6 /* forge.jpg in Resources */,
+				7217E47015B9B2EF00B09FD6 /* pie.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +247,7 @@
 				724118A51580EB7E002FC139 /* instruction.m in Sources */,
 				724118A91580F03B002FC139 /* multipleChoice.m in Sources */,
 				72BB7867158142C200047EEA /* questionSelector.m in Sources */,
+				7217E46F15B9B2EF00B09FD6 /* picture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

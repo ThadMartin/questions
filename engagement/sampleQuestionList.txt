@@ -1,11 +1,12 @@
 header line, header line.
 1	15	numberline	15	Please place the indicated value at the proper location on the numberline: 1,000,100	0	1 billion
-2	15	wordFill	30	Please enter some words.
-3	15	numberFill	30	Please enter some numbers.
-4	15	instruction	-1	Please pay attention. Or don't.
-5	15	multipleChoice	10	Think about some things. &NL &NL &NL which thing do you prefer?	thing1	thing2	thing3	thing4
-6	15	multipleChoice	10	which new thing do you prefer?	thing1	thing2	thing3	thing4	thing5	thing6	thing7	thing8	thing9	thing 10	thing 11	thing 12
-7	15	numberline	30	Please place the indicated value at the proper location on the numberline: 1,000,200	0	1 billion
-8	15	numberline	30	Please place the indicated value at the proper location on the numberline: 1,000,100	0	1 billion
-9	15	wordFill	-1	Please enter some more words.
-10	15	numberFill	10	Please enter some more numbers.
+2	15	picture	-1	pie.png
+3	15	wordFill	30	Please enter some words.
+4	15	picture	10	forge.jpg
+5	15	wordFill	-1	Please enter some more words.
+6	15	numberFill	30	Please enter some numbers.
+7	15	instruction	-1	Please pay attention. Or don't.
+8	15	multipleChoice	10	Think about some things. &NL &NL &NL which thing do you prefer?	thing1	thing2	thing3	thing4
+9	15	multipleChoice	10	which new thing do you prefer?	thing1	thing2	thing3	thing4	thing5	thing6	thing7	thing8	thing9	thing 10	thing 11	thing 12
+10	15	numberline	30	Please place the indicated value at the proper location on the numberline: 1,000,200	0	1 billion
+11	15	numberFill	10	Please enter some more numbers.
