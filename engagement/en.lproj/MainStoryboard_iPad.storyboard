@@ -949,4 +949,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="o7b-qC-rcB"/>
+    </inferredMetricsTieBreakers>
 </document>
