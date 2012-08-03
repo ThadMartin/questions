@@ -10,7 +10,8 @@
 
 @interface questionParser : UIViewController
 
-@property (nonatomic, retain) NSString *infile;
+@property (nonatomic, weak) NSString *infile;
 @property (assign) NSArray * questionLine;
+@property (nonatomic) int lineNumber;
 
 @end

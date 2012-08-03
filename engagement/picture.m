@@ -70,13 +70,8 @@
    NSData *imageData = [NSData dataWithContentsOfFile:picPath];
    UIImage *image = [UIImage imageWithData:imageData];
     
-    NSLog(@"sfsg");
-    
+       
     [imgView setImage:image];
-    
-    //[picture setImage:image];
-    // picture.set
-    
 
 }
 

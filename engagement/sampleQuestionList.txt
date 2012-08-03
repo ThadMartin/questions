@@ -1,12 +1,14 @@
-header line, header line.
-1	15	numberline	15	Please place the indicated value at the proper location on the numberline: 1,000,100	0	1 billion
-2	15	picture	-1	pie.png
-3	15	wordFill	30	Please enter some words.
-4	15	picture	10	forge.jpg
-5	15	wordFill	-1	Please enter some more words.
-6	15	numberFill	30	Please enter some numbers.
-7	15	instruction	-1	Please pay attention. Or don't.
-8	15	multipleChoice	10	Think about some things. &NL &NL &NL which thing do you prefer?	thing1	thing2	thing3	thing4
-9	15	multipleChoice	10	which new thing do you prefer?	thing1	thing2	thing3	thing4	thing5	thing6	thing7	thing8	thing9	thing 10	thing 11	thing 12
-10	15	numberline	30	Please place the indicated value at the proper location on the numberline: 1,000,200	0	1 billion
-11	15	numberFill	10	Please enter some more numbers.
+header line, sampleQuestionList.txt .
+1	15	speech	60	type the number that is said	3	seven million six hundred fifty four thousand three hundred twenty one	10	3
+2	15	branchOut	45	Do you have time for a survey with more than 10 questions?	yes	sampleQuestionList.txt	3	no	noTime.txt	1	got time for a few	sampleQuestionList.txt	8
+3	15	numberline	15	Please place the indicated value at the proper location on the numberline: 1,000,100	0	1 billion
+4	15	picture	-1	pie.png
+5	15	numberline	30	Please place the indicated value at the proper location on the numberline: 1,000,200	0	1 billion
+6	15	numberFill	10	Please enter some more numbers.
+7	15	wordFill	30	Please enter some words.
+8	15	picture	10	forge.jpg
+9	15	wordFill	-1	Please enter some more words.
+10	15	numberFill	30	Please enter some numbers.
+11	15	instruction	-1	Please pay attention. Or don't.
+12	15	multipleChoice	10	Think about some things. &NL &NL &NL which thing do you prefer?	thing1	thing2	thing3	thing4
+13	15	multipleChoice	10	which new thing do you prefer?	thing1	thing2	thing3	thing4	thing5	thing6	thing7	thing8	thing9	thing 10	thing 11	thing 12
