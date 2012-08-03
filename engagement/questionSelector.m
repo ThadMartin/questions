@@ -17,10 +17,11 @@
     int numInfiles;
     NSMutableArray * onlyQnsNoTxt;
     NSMutableArray * newQuestions;
-    NSMutableArray * allQnsAndPaths;
+//    NSMutableArray * allQnsAndPaths;
     NSString * qListPath; 
     DBRestClient * restClient;
     int downloadCount;
+    engagementAppDelegate * appDelegate;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -66,7 +67,10 @@
     numInfiles = [onlyQns count];
     
     onlyQnsNoTxt = [[NSMutableArray alloc] init];
-    allQnsAndPaths = [[NSMutableArray alloc] init];
+   // allQnsAndPaths = [[NSMutableArray alloc] init];
+    appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.allQnsAndPaths = [[NSMutableArray alloc] init];	
+    //[appDelegate.resultsArray addObject:labelAnswer.text];
     
     
     for (int noTxt = 0; noTxt < numInfiles; noTxt++){
@@ -76,7 +80,7 @@
         NSString * firstName2 = [firstName substringToIndex:(nLength -4)];
         [onlyQnsNoTxt addObject:firstName2];
         NSString * fullQuestion = [qListPath stringByAppendingPathComponent:firstName];
-        [allQnsAndPaths addObject:fullQuestion];
+        [appDelegate.allQnsAndPaths addObject:fullQuestion];
         
     }
     
@@ -211,7 +215,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    infile = [allQnsAndPaths objectAtIndex:indexPath.row];
+    infile = [appDelegate.allQnsAndPaths objectAtIndex:indexPath.row];
     
     NSLog(@"Selected for input:%@",infile);
     // Navigation logic may go here. Create and push another view controller.
@@ -292,13 +296,9 @@
 
 - (void)restClient:(DBRestClient*)client loadedFile:(NSString*)localPath {
     NSLog(@"File loaded into path: %@", localPath);
-            [allQnsAndPaths addObject:localPath];
+            [appDelegate.allQnsAndPaths addObject:localPath];
     
-    
-    
-    
-    
-    
+  
     NSString *filename = [localPath lastPathComponent];
     NSArray *components = [filename componentsSeparatedByString:@"."];
     NSLog(@"file extension, %@", [components objectAtIndex:1]);

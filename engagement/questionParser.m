@@ -13,18 +13,22 @@
 #import "wordFill.h"
 #import "numberFill.h"
 #import "multipleChoice.h"
+#import "picture.h"
+#import "speech.h"
+#import "branchOut.h"
 
 
 @implementation questionParser{
-
+    
     NSArray * fields;
     
 }
 
 @synthesize infile = _infile;
 @synthesize questionLine = _questionLine;
+@synthesize lineNumber = _lineNumber;
 
-int lineNumber = 0;
+int lineNumber = 1;
 
 NSString * infile;
 
@@ -67,20 +71,22 @@ NSString * stringOfFile;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog (@"infile: %@ %@",_infile,infile);
+    NSLog (@"lineNumber: %i %i",_lineNumber,lineNumber);
     
-    if (lineNumber == 0){  //first execution
+    if (( _infile && ![infile isEqualToString:_infile]) ||( _lineNumber>0 && _lineNumber != lineNumber)){  //first execution or changed infile or line number
         
         infile = _infile;
         
         NSData *data = [NSData dataWithContentsOfFile:infile];
         
         stringOfFile = [NSString stringWithUTF8String:[data bytes]];
- 
+        
         stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
-
+        
         stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
-
- 
+        
+        
         while ([stringOfFile length] == 0){
             NSLog(@"reloading working ##########################");
             data = [NSData dataWithContentsOfFile:infile];
@@ -97,11 +103,14 @@ NSString * stringOfFile;
         NSMutableArray * headerLineArray = [[NSMutableArray alloc] init];
         
         [headerLineArray addObject:headerLine];
-                
+        
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
         [thisQuestionData saveData:headerLineArray];
         
-        lineNumber ++;
+//        NSLog (@"line _line %i  %i",lineNumber, _lineNumber);
+        
+        if (_lineNumber != 0)
+            lineNumber = _lineNumber;
     }
     
 }
@@ -112,60 +121,77 @@ NSString * stringOfFile;
     
     if (lineNumber < ([linesOfFile count]-1)){
         
-       NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
+        NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
         
-       NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
+        NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
         
-       fields = [line componentsSeparatedByString:@"\t"];
-          
+        fields = [line componentsSeparatedByString:@"\t"];
+        
         NSString * tester1 =@"numberline";
         NSString * tester2 =@"wordFill";
         NSString * tester3 =@"numberFill";
         NSString * tester4 =@"multipleChoice";
         NSString * tester5 =@"instruction";
         NSString * tester6 =@"picture";
-
-        NSString * tester0 =[fields objectAtIndex:2];
-        NSLog(@"selector is:  %@",tester0);
+        NSString * tester7 =@"speech";
+        NSString * tester8 =@"branchOut";
         
-        
-        if ([tester1 isEqualToString:tester0]){
-            NSLog(@"Going toNewSlider");
-            lineNumber ++;
-            [self performSegueWithIdentifier: @"toNewSlider" sender: self];
-        }
-        
-        if ([tester2 isEqualToString:tester0]){
-            NSLog(@"going toWordFill");
-            lineNumber ++;
-            [self performSegueWithIdentifier: @"toWordFill" sender: self];
+        if ([fields count] > 1){  //so if there are blank lines at the end, it doesn't crash.
             
-        }
-        if ([tester3 isEqualToString:tester0]){
-            NSLog(@"Going toNumberFill");
-            lineNumber ++;
-            [self performSegueWithIdentifier: @"toNumberFill" sender: self];
-        }
-        
-        if ([tester4 isEqualToString:tester0]){
-            NSLog(@"going toMultipleChoice");
-            lineNumber ++;
-            [self performSegueWithIdentifier: @"toMultipleChoice" sender: self];
+            NSString * tester0 =[fields objectAtIndex:2];
+            NSLog(@"selector is:  %@",tester0);
             
-        }
-        if ([tester5 isEqualToString:tester0]){
-            NSLog(@"going toInstruction");
-            lineNumber ++;
-            [self performSegueWithIdentifier: @"toInstruction" sender: self];
             
-        }
-        if ([tester6 isEqualToString:tester0]){
-            NSLog(@"going toPicture");
-            lineNumber ++;
-            [self performSegueWithIdentifier: @"toPicture" sender: self];
+            if ([tester1 isEqualToString:tester0]){
+                NSLog(@"Going toNewSlider");
+                lineNumber ++;
+                [self performSegueWithIdentifier: @"toNewSlider" sender: self];
+            }
             
-        }
-
+            if ([tester2 isEqualToString:tester0]){
+                NSLog(@"going toWordFill");
+                lineNumber ++;
+                [self performSegueWithIdentifier: @"toWordFill" sender: self];
+                
+            }
+            if ([tester3 isEqualToString:tester0]){
+                NSLog(@"Going toNumberFill");
+                lineNumber ++;
+                [self performSegueWithIdentifier: @"toNumberFill" sender: self];
+            }
+            
+            if ([tester4 isEqualToString:tester0]){
+                NSLog(@"going toMultipleChoice");
+                lineNumber ++;
+                [self performSegueWithIdentifier: @"toMultipleChoice" sender: self];
+                
+            }
+            if ([tester5 isEqualToString:tester0]){
+                NSLog(@"going toInstruction");
+                lineNumber ++;
+                [self performSegueWithIdentifier: @"toInstruction" sender: self];
+                
+            }
+            if ([tester6 isEqualToString:tester0]){
+                NSLog(@"going toPicture");
+                lineNumber ++;
+                [self performSegueWithIdentifier: @"toPicture" sender: self];
+                
+            }
+            if ([tester7 isEqualToString:tester0]){
+                NSLog(@"going toSpeech");
+                lineNumber ++;
+                [self performSegueWithIdentifier: @"toSpeech" sender: self];
+                
+            }
+            if ([tester8 isEqualToString:tester0]){
+                NSLog(@"going toBranchOut");
+                lineNumber ++;
+                [self performSegueWithIdentifier: @"toBranchOut" sender: self];
+                
+            }
+            
+        }  
         
     }//done with all questions       
     [self performSegueWithIdentifier: @"toGoodbye" sender: self];
@@ -198,6 +224,16 @@ NSString * stringOfFile;
         numberFill * svc = [segue destinationViewController];
         svc.fields = fields; 
     }
+    if ([segue.identifier isEqualToString:@"toSpeech"]){
+        numberFill * svc = [segue destinationViewController];
+        svc.fields = fields; 
+    }
+    if ([segue.identifier isEqualToString:@"toBranchOut"]){
+        numberFill * svc = [segue destinationViewController];
+        svc.fields = fields; 
+    }
+    
+    
 }
 
 

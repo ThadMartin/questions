@@ -13,10 +13,12 @@
 
 @implementation engagementAppDelegate{
     NSString * docPath;
+   // NSMutableArray allQnsAndPaths;
 }
 
 @synthesize window;
 @synthesize docPath;
+@synthesize allQnsAndPaths;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -33,6 +35,8 @@
     docPath = [thisQuestionData createDataPath];  //includes full path.
     
     NSLog(@"docPath is: %@",docPath);
+    
+    allQnsAndPaths = [[NSMutableArray alloc] init];
     
     return YES;
      

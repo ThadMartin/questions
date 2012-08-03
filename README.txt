@@ -1,14 +1,16 @@
 Using the questionnaires app:
 
-The app will only rotate to portrait and portrait upside down, so that the formatting for multiple choice works.The text input file must be UTF-8 plain text.  NL, CR, and NL CR newlines should work, but this is not thoroughly tested.
+The app will only rotate to portrait and portrait upside down, so that the formatting for multiple choice works.
+
+The executable is called engagement because when it started it was an app to replace a questionnaire about engagement in math.The text input file must be UTF-8 plain text.  NL, CR, and NL CR newlines should work, but this is not thoroughly tested.
 
 Entries are separated by a <tab>.  Some text editors enter several spaces when you push the tab key, this will not work correctly.
 
-There should be a single newline at the end of the input file.
+There should be a single newline at the end of the input file.  New in this version:  extra new lines at the end will not cause it to crash.
 
 The first line of the input file is a header line, use it to keep track of what is in which place.
 
-On the next lines, the first entry is the question number.  The second entry is the condition. The third entry is the type of question.  The question type is case sensitive.  Currently the valid question types are: numberline, wordFill, numberFill, instruction, picture, and multipleChoice.
+On the next lines, the first entry is the question number.  The second entry is the condition. The third entry is the type of question.  The question type is case sensitive.  Currently the valid question types are: numberline, wordFill, numberFill, instruction, picture, multipleChoice, speech, and branchOut.
 
 The fourth entry is the time limit.  A time limit of -1 means there is no time limit.  
 
@@ -28,7 +30,62 @@ In a picture, the fifth entry is the filename of the picture.  The picture area 
 
 In a multipleChoice question, the fifth entry is the question.  This can be followed by up to 12 entries, which are choices.
 
+In a speech question, the fifth entry is text to be displayed, the sixth entry is the time in seconds to pause before speech begins, the seventh entry is the text to convert to speech, the eighth entry is the time to pause between repeats, and the ninth entry is the number of times to repeat.  The pause between saying something and repeating starts when the speech begins, not when it ends.  I will work on that.  
+
+In speech.m, in viewDidLoad, you will see the following lines:
+
+    [fliteEngine setVoice:@"cmu_us_rms"];
+//    [fliteEngine setVoice:@"cmu_us_kal"];
+//    [fliteEngine setVoice:@"cmu_us_kal16"];
+//    [fliteEngine setVoice:@"cmu_us_awb"];
+//    [fliteEngine setVoice:@"cmu_us_slt"];
+//    [fliteEngine setPitch:100.0 variance:50.0 speed:1.0];	// Change the voice properties
+
+You can comment the rms line, and uncomment one of the other voices.
+The rms voice is the clearest to me.  The slt voice is female.  The kal voices sound more like a computer.  The awb voice seems to have a non- United States accent.
+
+You can uncomment the last of those lines, and adjust the pitch, variance, and speed of the voices.
+
+Speech synthesis is courtesy of:
+iPhone TTS - This is a port of CMU's Festival-Lite (aka flite) library to the iPhone/iOS platform.
+Homepage: http://bitbucket.org/sfoster/iphone-tts/
+license:
+ Flite is free software. It is distributed under an X11-like license. Apart from the few exceptions noted below (which still have similarly open lincenses) the general license is
+
+                  Language Technologies Institute                      
+                    Carnegie Mellon University                        
+                     Copyright (c) 1999-2009                          
+                       All Rights Reserved.                           
+                                                                      
+ Permission is hereby granted, free of charge, to use and distribute  
+ this software and its documentation without restriction, including   
+ without limitation the rights to use, copy, modify, merge, publish,  
+ distribute, sublicense, and/or sell copies of this work, and to      
+ permit persons to whom this work is furnished to do so, subject to   
+ the following conditions:                                            
+  1. The code must retain the above copyright notice, this list of    
+     conditions and the following disclaimer.                         
+  2. Any modifications must be clearly marked as such.                
+  3. Original authors' names are not deleted.                         
+  4. The authors' names are not used to endorse or promote products   
+     derived from this software without specific prior written        
+     permission.                                                      
+                                                                      
+ CARNEGIE MELLON UNIVERSITY AND THE CONTRIBUTORS TO THIS WORK         
+ DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING      
+ ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT   
+ SHALL CARNEGIE MELLON UNIVERSITY NOR THE CONTRIBUTORS BE LIABLE      
+ FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN   
+ AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,          
+ ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF       
+ THIS SOFTWARE.                                                       
+
+In a branchOut question, everything is similar to a multiple choice question, but the answer picked by the user can cause the input file and question number to change.  The sixth entry is the first choice, the seventh entry is the new input file name, and the eighth entry is the new question number.  There can be up to 12 choices, for a total of 41 entries.  If time runs out, the current input file and next question number are used.
+
 The output file is formatted much like the input file.  The first line is the file name, which contains the name of the iPad, and the date and time the app was launched.  The output file has too more entries in it, the first is the answer from the user, the second is the time it was submitted.
+
+If a branchOut is used to change the input file, the header line for the new input file marks where questions from the new input file start.
 
 In the code, in engagementViewController.m, in viewDidAppear, the two lines of code below can be commented to give a choice about linking to dropbox, or uncommented to connect automatically to dropbox if the app is linked. 
 
@@ -48,6 +105,10 @@ A question list can be local, or on dropbox.  If it is in dropbox, it must be in
 
 Take a look at "sampleQuestionList.txt" for an idea how the question list should look.  A question list must have the extension .txt to work.
 
+If the app runs without being linked to dropbox, iTunes can be used to retrieve output files from the app.
+
 As of 7-2012, this code has not been tested much (it worked once or twice) and I'm new at iOS programming.  If you find any bugs, or have any suggestions, you can email me at martin_thad@yahoo.com
+
+
 
 
