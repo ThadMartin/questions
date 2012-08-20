@@ -29,7 +29,7 @@
 - (NSString*) getDateNow{
     NSDate *myDate = [NSDate date];
     NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"dd_MMMMyyyy_HH_mm_ss"];
+    [df setDateFormat:@"dd_MMMMyyyy_HH_mm_ss.SSS"];
     return [df stringFromDate:myDate];
 }
 
@@ -41,7 +41,7 @@
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fileName = [NSString stringWithFormat: @"/questions__%@__%@.txt",[[UIDevice currentDevice] name], [self getDateNow]];
+    NSString *fileName = [NSString stringWithFormat: @"/questions__%@__%@.ans",[[UIDevice currentDevice] name], [self getDateNow]];
     _docPath = [documentsDirectory stringByAppendingPathComponent:fileName];
     
     NSString * element = [NSString stringWithFormat: @"%@\n", _docPath];  
@@ -52,20 +52,6 @@
         NSLog(@"%@", error);
     
     return _docPath;  //Later, do propper error checking...    
-}
-
-
-- (NSArray *)getQuestions : (NSString *) infile{
-    
-    NSString *questionListPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:infile];  //no enpty newline at end? 
-    NSLog(@"\n %@ \n",questionListPath);
-    NSData *data = [NSData dataWithContentsOfFile:questionListPath];    
-    NSString *string = [NSString stringWithUTF8String:[data bytes]];
-    NSArray *lines = [string componentsSeparatedByString:@"\r"];  //  or \n?  Each line becomes a question.
-    
-    
-    return lines;
-    
 }
 
 

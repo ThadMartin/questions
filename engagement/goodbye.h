@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <DropboxSDK/DropboxSDK.h>
 
-@interface goodbye : UIViewController  <DBRestClientDelegate>
+@interface goodbye : UIViewController 
 
 - (IBAction)leave:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *exitButton;
 
--(void)uploadToDropbox:(NSString *)docPath;
+//-(void)uploadToDropbox:(NSString *)docPath;
 
 @end

@@ -71,7 +71,7 @@ int answerIndex;
     
     NSDate *myDate = [NSDate date];
     NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"HH_mm_ss"];
+    [df setDateFormat:@"HH_mm_ss.SSS"];
     NSString * timeNow = [df stringFromDate:myDate];
     
     [questionAnswers2 addObject:timeNow];
@@ -201,7 +201,7 @@ int answerIndex;
     
     NSDate *myDate = [NSDate date];
     NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"HH_mm_ss"];
+    [df setDateFormat:@"HH_mm_ss.SSS"];
     NSString * timeNow = [df stringFromDate:myDate];
     
     [questionAnswers2 addObject:timeNow];

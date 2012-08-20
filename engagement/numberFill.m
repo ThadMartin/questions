@@ -78,7 +78,7 @@
         
         NSDate *myDate = [NSDate date];
         NSDateFormatter *df = [NSDateFormatter new];
-        [df setDateFormat:@"HH_mm_ss"];
+        [df setDateFormat:@"HH_mm_ss.SSS"];
         NSString * timeNow2 = [df stringFromDate:myDate];
         
         [questionAnswers2 addObject:timeNow2];
@@ -147,7 +147,7 @@
         
         NSDate *myDate = [NSDate date];
         NSDateFormatter *df = [NSDateFormatter new];
-        [df setDateFormat:@"HH_mm_ss"];
+        [df setDateFormat:@"HH_mm_ss.SSS"];
         NSString * timeNow2 = [df stringFromDate:myDate];
         
         [questionAnswers2 addObject:timeNow2];

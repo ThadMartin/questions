@@ -17,8 +17,6 @@
 
 - (void)saveData:(NSMutableArray *)questionAnswers;
 
-- (NSArray *) getQuestions:(NSString *) infile;
-
 - (NSString *) createDataPath;
 
 - (NSString *) getDateNow;

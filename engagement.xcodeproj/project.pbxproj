@@ -11,6 +11,7 @@
 		7217E46E15B9B2EF00B09FD6 /* forge.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7217E46A15B9B2EF00B09FD6 /* forge.jpg */; };
 		7217E46F15B9B2EF00B09FD6 /* picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7217E46C15B9B2EF00B09FD6 /* picture.m */; };
 		7217E47015B9B2EF00B09FD6 /* pie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7217E46D15B9B2EF00B09FD6 /* pie.png */; };
+		722844B915E1B58D004401CA /* badInFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 722844B815E1B58C004401CA /* badInFile.m */; };
 		724118A51580EB7E002FC139 /* instruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 724118A41580EB7E002FC139 /* instruction.m */; };
 		7243CCB215B0502D00C9E9EB /* sampleQuestionList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7243CCB115B0502D00C9E9EB /* sampleQuestionList.txt */; };
 		724F0807157416CB007082CE /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F0806157416CB007082CE /* DropboxSDK.framework */; };
@@ -141,31 +142,33 @@
 		720F5D821576702500C74BC5 /* goodbye.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodbye.m; sourceTree = "<group>"; };
 		7217E46A15B9B2EF00B09FD6 /* forge.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = forge.jpg; sourceTree = "<group>"; };
 		7217E46B15B9B2EF00B09FD6 /* picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = picture.h; sourceTree = "<group>"; };
-		7217E46C15B9B2EF00B09FD6 /* picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = picture.m; sourceTree = "<group>"; };
+		7217E46C15B9B2EF00B09FD6 /* picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = picture.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7217E46D15B9B2EF00B09FD6 /* pie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pie.png; sourceTree = "<group>"; };
+		722844B715E1B58C004401CA /* badInFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = badInFile.h; sourceTree = "<group>"; };
+		722844B815E1B58C004401CA /* badInFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = badInFile.m; sourceTree = "<group>"; };
 		724118A31580EB7E002FC139 /* instruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = instruction.h; sourceTree = "<group>"; };
-		724118A41580EB7E002FC139 /* instruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = instruction.m; sourceTree = "<group>"; };
+		724118A41580EB7E002FC139 /* instruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = instruction.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		724118A71580F03A002FC139 /* multipleChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multipleChoice.h; sourceTree = "<group>"; };
 		7243CCB115B0502D00C9E9EB /* sampleQuestionList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sampleQuestionList.txt; sourceTree = "<group>"; };
 		724F0806157416CB007082CE /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = engagement/DropboxSDK.framework; sourceTree = "<group>"; };
 		724F080B15741858007082CE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		724F080D15741F1F007082CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7264E49715796595000784A2 /* newSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newSlider.h; sourceTree = "<group>"; };
-		7264E49815796595000784A2 /* newSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newSlider.m; sourceTree = "<group>"; };
+		7264E49815796595000784A2 /* newSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = newSlider.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		727362CD1580E0C600F4B689 /* numberFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = numberFill.h; sourceTree = "<group>"; };
-		727362CE1580E0C600F4B689 /* numberFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = numberFill.m; sourceTree = "<group>"; };
+		727362CE1580E0C600F4B689 /* numberFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = numberFill.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		727B54FE157E55DA004D13D1 /* questionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questionParser.h; sourceTree = "<group>"; };
 		727B54FF157E55DA004D13D1 /* questionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questionParser.m; sourceTree = "<group>"; };
-		727D8F4915CAE9F000B1008B /* branchOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = branchOut.m; path = ../../../Code/questions/engagement/branchOut.m; sourceTree = "<group>"; };
+		727D8F4915CAE9F000B1008B /* branchOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = branchOut.m; path = ../../../Code/questions/engagement/branchOut.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		728EDBB415CC225100CF5B19 /* TML-16 Pilot 1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TML-16 Pilot 1.txt"; sourceTree = "<group>"; };
 		728EDBBA15CC22A800CF5B19 /* PilotFinal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PilotFinal.txt; sourceTree = "<group>"; };
 		7290565415CB37F2004E4436 /* noTime.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = noTime.txt; sourceTree = "<group>"; };
 		72973526157F6D640051AD29 /* wordFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wordFill.h; sourceTree = "<group>"; };
-		72973527157F6D640051AD29 /* wordFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wordFill.m; sourceTree = "<group>"; };
+		72973527157F6D640051AD29 /* wordFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = wordFill.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		72BB7865158142C200047EEA /* questionSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questionSelector.h; sourceTree = "<group>"; };
 		72BB7866158142C200047EEA /* questionSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questionSelector.m; sourceTree = "<group>"; };
 		72C7826B15C9E39C00378319 /* speech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speech.h; sourceTree = "<group>"; };
-		72C7826C15C9E39C00378319 /* speech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = speech.m; sourceTree = "<group>"; };
+		72C7826C15C9E39C00378319 /* speech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = speech.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		72C7827115C9EA2700378319 /* FliteTTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FliteTTS.h; path = "sfoster-iphone-tts-a6502c779cd3/Classes/FliteTTS.h"; sourceTree = "<group>"; };
 		72C7827215C9EA2700378319 /* FliteTTS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FliteTTS.m; path = "sfoster-iphone-tts-a6502c779cd3/Classes/FliteTTS.m"; sourceTree = "<group>"; };
 		72C783A015C9ED0800378319 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -333,7 +336,7 @@
 		72C7845E15C9FEFA00378319 /* usenglish.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = usenglish.c; sourceTree = "<group>"; };
 		72C7845F15C9FEFA00378319 /* usenglish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usenglish.h; sourceTree = "<group>"; };
 		72E71CAF15CAE7D7007991A4 /* branchOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = branchOut.h; path = ../../../Code/questions/engagement/branchOut.h; sourceTree = "<group>"; };
-		72E71CB315CAE830007991A4 /* multipleChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = multipleChoice.m; path = ../../../Code/questions/engagement/multipleChoice.m; sourceTree = "<group>"; };
+		72E71CB315CAE830007991A4 /* multipleChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = multipleChoice.m; path = ../../../Code/questions/engagement/multipleChoice.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		72F7DF0C1567EA4000500D63 /* questionnaires.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = questionnaires.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72F7DF101567EA4000500D63 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72F7DF121567EA4000500D63 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -348,7 +351,7 @@
 		72F7DF281567EA4100500D63 /* engagementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engagementViewController.h; sourceTree = "<group>"; };
 		72F7DF291567EA4100500D63 /* engagementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = engagementViewController.m; sourceTree = "<group>"; };
 		72F7DF401567F00F00500D63 /* QuestionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionData.h; sourceTree = "<group>"; };
-		72F7DF411567F01000500D63 /* QuestionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionData.m; sourceTree = "<group>"; };
+		72F7DF411567F01000500D63 /* QuestionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = QuestionData.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -667,6 +670,8 @@
 				724118A31580EB7E002FC139 /* instruction.h */,
 				724118A41580EB7E002FC139 /* instruction.m */,
 				72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */,
+				722844B715E1B58C004401CA /* badInFile.h */,
+				722844B815E1B58C004401CA /* badInFile.m */,
 				724118A71580F03A002FC139 /* multipleChoice.h */,
 				72E71CB315CAE830007991A4 /* multipleChoice.m */,
 				7264E49715796595000784A2 /* newSlider.h */,
@@ -889,6 +894,7 @@
 				72C784BF15C9FEFB00378319 /* usenglish.c in Sources */,
 				72E71CB415CAE831007991A4 /* multipleChoice.m in Sources */,
 				727D8F4A15CAE9F000B1008B /* branchOut.m in Sources */,
+				722844B915E1B58D004401CA /* badInFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

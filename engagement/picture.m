@@ -65,6 +65,16 @@
     // [imgBackground setImage:[UIImage imageNamed:@"pie.jpg"]];
     
     NSString * picPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:picName];  //no enpty newline at end? 
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:picPath];
+    
+    if (fileExists == 0){
+        NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        picPath = [paths objectAtIndex:0];
+        picPath = [picPath stringByAppendingPathComponent:picName];
+    }
+
+    
     NSLog(@"\n %@ \n",picPath);
     
    NSData *imageData = [NSData dataWithContentsOfFile:picPath];
@@ -72,6 +82,7 @@
     
        
     [imgView setImage:image];
+    
 
 }
 
@@ -85,7 +96,7 @@
     
     NSDate *myDate = [NSDate date];
     NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"HH_mm_ss"];
+    [df setDateFormat:@"HH_mm_ss.SSS"];
     NSString * timeNow2 = [df stringFromDate:myDate];
     
     [questionAnswers2 addObject:timeNow2];
@@ -140,7 +151,7 @@
     
     NSDate *myDate = [NSDate date];
     NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"HH_mm_ss"];
+    [df setDateFormat:@"HH_mm_ss.SSS"];
     NSString * timeNow2 = [df stringFromDate:myDate];
     
     [questionAnswers2 addObject:timeNow2];

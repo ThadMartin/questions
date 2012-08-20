@@ -14,7 +14,6 @@
 }
 
 
-//- (void)getInFiles:(DBMetadata *)metadata ;
 - (void)insertNewTableRows:(NSArray *)newFiles;
 - (void)addNewQuestionsToTable;
 

@@ -10,7 +10,7 @@
 #import <DropboxSDK/DropboxSDK.h>
 
 
-@interface engagementViewController : UIViewController 
+@interface engagementViewController : UIViewController  <DBRestClientDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *linkButton;
 - (IBAction)linkButtonPressed:(id)sender;
@@ -23,5 +23,12 @@
 - (IBAction)continueButtonPressed:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UILabel *linkLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *uploadButton;
+
+- (IBAction)uploadButtonPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *quitButton;
+- (IBAction)quitPressed:(id)sender;
+
 
 @end

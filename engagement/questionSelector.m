@@ -5,6 +5,8 @@
 //  Created by Thad Martin on 6/4/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
+
+
 //  selects the questionnaire to use.
 
 #import "questionSelector.h"
@@ -13,15 +15,16 @@
 
 
 @implementation questionSelector{
+    engagementAppDelegate * appDelegate;
     NSMutableArray * onlyQns;
+    NSMutableArray * onlyQns2;
     int numInfiles;
-    NSMutableArray * onlyQnsNoTxt;
+    int numInfiles2;
     NSMutableArray * newQuestions;
-//    NSMutableArray * allQnsAndPaths;
     NSString * qListPath; 
+    NSString * qListPath2;
     DBRestClient * restClient;
     int downloadCount;
-    engagementAppDelegate * appDelegate;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -32,7 +35,6 @@
     }
     return self;
 }
-
 
 
 - (void)didReceiveMemoryWarning
@@ -49,46 +51,55 @@
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    
+    appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.allQnsAndPaths = [[NSMutableArray alloc] init];	
     NSFileManager *filemgr = [NSFileManager defaultManager];
+    
     qListPath = [[NSBundle mainBundle] bundlePath];
     NSArray *filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:nil];
     NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
-    //In that directory, there weren't any other .txt files.
-    
+
     onlyQns = [[NSMutableArray alloc] initWithArray:[filelist filteredArrayUsingPredicate:fltr]];
+
+    filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:nil];
     
     numInfiles = [onlyQns count];
-    
-    onlyQnsNoTxt = [[NSMutableArray alloc] init];
-   // allQnsAndPaths = [[NSMutableArray alloc] init];
-    appDelegate = [[UIApplication sharedApplication] delegate];
-    appDelegate.allQnsAndPaths = [[NSMutableArray alloc] init];	
-    //[appDelegate.resultsArray addObject:labelAnswer.text];
-    
-    
-    for (int noTxt = 0; noTxt < numInfiles; noTxt++){
-        NSString * firstName = [onlyQns objectAtIndex:noTxt];
-        int nLength = [firstName length];
         
-        NSString * firstName2 = [firstName substringToIndex:(nLength -4)];
-        [onlyQnsNoTxt addObject:firstName2];
+    //it used to strip of the .txt entension in this loop.
+    for (int noTxt = 0; noTxt < numInfiles; noTxt++){               
+        NSString * firstName = [onlyQns objectAtIndex:noTxt];
+        NSLog(@"firstName %@",firstName);
         NSString * fullQuestion = [qListPath stringByAppendingPathComponent:firstName];
         [appDelegate.allQnsAndPaths addObject:fullQuestion];
         
     }
     
+    //          previously downloaded files, things ending with a 2.
+    
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    qListPath2 = [paths objectAtIndex:0];
+     
+    NSLog(@"qlsitpath2: %@",qListPath2);
+    
+    NSArray * filelist2= [filemgr contentsOfDirectoryAtPath:qListPath2 error:nil];
+    onlyQns2 = [[NSMutableArray alloc] initWithArray:[filelist2 filteredArrayUsingPredicate:fltr]];
+    numInfiles2 = [onlyQns2 count];
+    
+    NSLog(@"numInFiles2: %i",numInfiles2);
+    
+    for (int noTxt = numInfiles; noTxt < (numInfiles + numInfiles2); noTxt++){
+        NSString * firstName = [onlyQns2 objectAtIndex:noTxt-numInfiles];
+        NSString * fullQuestion = [qListPath2 stringByAppendingPathComponent:firstName];
+        [appDelegate.allQnsAndPaths addObject:fullQuestion];
+        [onlyQns addObject: [onlyQns2 objectAtIndex:noTxt-numInfiles]];
+        
+    }
     
     NSLog (@"NumberOfFiles is %i",numInfiles);
     
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
-    footer.backgroundColor = [UIColor clearColor];
+    UIView * footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)]; 
+    footer.backgroundColor = [UIColor clearColor];   //footer makes table stop when it should.
     [self.tableView setTableFooterView:footer];
     
 }
@@ -118,10 +129,6 @@
     
     [restClient loadMetadata:directory];
     
-  //  DBMetadata * dirMeta = (DBMetadata *) directory;
-
-    
-   // [self getInFiles:dirMeta];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -153,7 +160,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return numInfiles;
+    return ([onlyQns count]);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -167,7 +174,7 @@
     
     // Configure the cell...
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",[onlyQnsNoTxt objectAtIndex:indexPath.row]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@",[onlyQns objectAtIndex:indexPath.row]];
     
     return cell;
 }
@@ -244,26 +251,8 @@
 
 #pragma mark - Dropbox methods
 
-//// overide getter
-//- (DBRestClient *)restClient {
-//    if (!restClient) {
-//        restClient =
-//        [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
-//        restClient.delegate = self;
-//    }
-//    return restClient;
-//}
 
 - (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata{
-//    if (!restClient) {
-//                restClient =
-//                [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
-//               restClient.delegate = self;
-//           }
-    
-    
-   // DBMetadata * loadedMetaData = (DBMetadata *) metadata; 
-
     downloadCount = 0;
     newQuestions = [[NSMutableArray alloc] init];
     if (metadata.isDirectory) {
@@ -282,12 +271,12 @@
                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
                 NSString *documentsDirectory = [paths objectAtIndex:0];
 
-                
                 NSString * localPath = [documentsDirectory stringByAppendingPathComponent:file.filename];
+               // NSLog(@"local path: %@",localPath);
                 [restClient loadFile:dropboxPath intoPath:localPath];
             }
-        }
-    }
+        }// download all infiles that aren't already on the iPad.
+    }//if not a directory, in wrong place.
 }
 
 - (void)restClient:(DBRestClient *)client loadMetadataFailedWithError:(NSError *)error {
@@ -296,9 +285,7 @@
 
 - (void)restClient:(DBRestClient*)client loadedFile:(NSString*)localPath {
     NSLog(@"File loaded into path: %@", localPath);
-            [appDelegate.allQnsAndPaths addObject:localPath];
     
-  
     NSString *filename = [localPath lastPathComponent];
     NSArray *components = [filename componentsSeparatedByString:@"."];
     NSLog(@"file extension, %@", [components objectAtIndex:1]);
@@ -307,6 +294,7 @@
     NSLog(@" %@ = txt",[components objectAtIndex:1] );
     if ([[components objectAtIndex:1] isEqualToString:@"txt"]) {
         [newQuestions addObject:filename];
+        [appDelegate.allQnsAndPaths addObject:localPath];
     }
     downloadCount--;
     if(downloadCount == 0){
@@ -327,9 +315,7 @@
     [table beginUpdates];
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
     for(NSString *filename in newQuestions){
-        NSArray *components = [filename componentsSeparatedByString:@"."];
         [onlyQns addObject:filename];
-        [onlyQnsNoTxt addObject:[components objectAtIndex:0]];
         [indexPaths addObject:[NSIndexPath indexPathForRow:numInfiles inSection:0]];
         numInfiles++;
     }
