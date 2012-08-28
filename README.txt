@@ -1,5 +1,9 @@
 Using the questionnaires app:
 
+Latest changes: Since times are recorded to the millisecond, I made custom segues between screens with no animations.  Time limits now work everywhere in milliseconds.  ( 0.600 for 600 milliseconds)
+
+It is better about telling you your input file format is invalid, instead of crashing.
+
 A question list can be local, or on dropbox.  If it is in dropbox, it must be in the folder named "download".  Download and upload are from the perspective of the iPad.  
 
 The first screen you see has buttons for linking, unlinking, and uploading to dropbox.  If you are linked with dropbox, and have an internet connection, you can upload.  This uploads all the answered questionnaires, and removes the files from the iPad once dropbox confirms the upload.  If all files upload, the button title changes to 'upload complete'.  If there is an error, the button will not change, and you can push the button again.
@@ -21,6 +25,18 @@ Go to "MyApps" and add an app for questionnaires.  It will give you the keys.
 Once you have the keys, put them in engagementAppDelegate.m
 You may also need to create folders named "upload" and "download" in the app's folder.
 
+Also, select engagement-Info.plist, choose 'open as source code', and modify the string after db- to your app key.
+<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>db-someNumber</string>
+			</array>
+		</dict>
+	</array>
+
+
+
 If you continue from the first screen, there will be a list of questionnaires.  If the app is linked to dropbox, and if there are questionnaires on dropbox that are not on the iPad, they will appear after a few seconds.
 
 Take a look at "sampleQuestionList.txt" for an idea how the question list should look.  A question list must have the extension '.txt' to work.
@@ -29,7 +45,7 @@ The app will only rotate to portrait and portrait upside down, so that the forma
 
 The executable is called engagement because when it started it was an app to replace a questionnaire about engagement in math.The text input file must be UTF-8 plain text.  NL, CR, and NL CR newlines should work.
 
-The input file extension must be .txt
+The input file extension must be .txt and UTF-8 encoding.
 
 Entries are separated by a <tab>.  Some text editors enter several spaces when you push the tab key, this will not work correctly.
 
@@ -41,7 +57,7 @@ The first line of the input file is a header line, use it to keep track of what 
 
 On the next lines, the first entry is the question number.  The second entry is the condition. The third entry is the type of question.  The question type is case sensitive.  Currently the valid question types are: numberline, wordFill, numberFill, instruction, picture, multipleChoice, speech, and branchOut.
 
-The fourth entry is the time limit.  A time limit of -1 (or any number not greater than 0) means there is no time limit.  
+The fourth entry is the time limit.  A picture could be displayed for 600 milliseconds by making this entry 0.600 A time limit of -1 (or any number not greater than 0) means there is no time limit.  
 
 If the time runs out, the answer is "Time ran out. " followed by anything the user entered without pushing the submit button.
 
@@ -64,14 +80,7 @@ In a speech question, the fifth entry is text to be displayed, the sixth entry i
 In speech.m, in viewDidLoad, you will see the following lines:
 
     [fliteEngine setVoice:@"cmu_us_rms"];
-//    [fliteEngine setVoice:@"cmu_us_kal"];
-//    [fliteEngine setVoice:@"cmu_us_kal16"];
-//    [fliteEngine setVoice:@"cmu_us_awb"];
-//    [fliteEngine setVoice:@"cmu_us_slt"];
 //    [fliteEngine setPitch:100.0 variance:50.0 speed:1.0];	// Change the voice properties
-
-You can comment the rms line, and uncomment one of the other voices.
-The rms voice is the clearest to me.  The slt voice is female.  The kal voices sound more like a computer.  The awb voice seems to have a non- United States accent.
 
 You can uncomment the last of those lines, and adjust the pitch, variance, and speed of the voices.
 

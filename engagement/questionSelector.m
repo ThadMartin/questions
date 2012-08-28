@@ -321,6 +321,9 @@
     }
     [table insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationRight];
     [table endUpdates];
+    //[table reloadRowsAtIndexPaths:[table indexPathsForVisibleRows] 
+    //                 withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadData];
 }
 
 @end

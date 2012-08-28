@@ -56,7 +56,7 @@
     [super viewDidLoad];
     NSString * timerTime = [fields objectAtIndex:3];
     NSString * picName = [fields objectAtIndex:4];
-    int timerTimeNumber = [timerTime intValue];
+    float timerTimeNumber = [timerTime floatValue];
     if (timerTimeNumber > 0){
         timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
         NSRunLoop *runner = [NSRunLoop currentRunLoop];

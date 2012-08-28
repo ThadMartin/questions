@@ -46,10 +46,10 @@ cst_voice *voice;
 	// Set a default voice
 	//voice = register_cmu_us_kal();
 	//voice = register_cmu_us_kal16();
-	//voice = register_cmu_us_rms();
+	voice = register_cmu_us_rms();
 	//voice = register_cmu_us_awb();
 	//voice = register_cmu_us_slt();
-	[self setVoice:@"cmu_us_kal"];
+	//[self setVoice:@"cmu_us_kal"];
     return self;
 }
 
@@ -116,21 +116,21 @@ cst_voice *voice;
 
 -(void)setVoice:(NSString *)voicename
 {
-	if([voicename isEqualToString:@"cmu_us_kal"]) {
-		voice = register_cmu_us_kal();
-	}
-	else if([voicename isEqualToString:@"cmu_us_kal16"]) {
-		voice = register_cmu_us_kal16();
-	}
-	else if([voicename isEqualToString:@"cmu_us_rms"]) {
+//	if([voicename isEqualToString:@"cmu_us_kal"]) {
+//		voice = register_cmu_us_kal();
+//	}
+//	else if([voicename isEqualToString:@"cmu_us_kal16"]) {
+//		voice = register_cmu_us_kal16();
+//	}
+    if([voicename isEqualToString:@"cmu_us_rms"]) {
 		voice = register_cmu_us_rms();
 	}
-	else if([voicename isEqualToString:@"cmu_us_awb"]) {
-		voice = register_cmu_us_awb();
-	}
-	else if([voicename isEqualToString:@"cmu_us_slt"]) {
-		voice = register_cmu_us_slt();
-	}
+//	else if([voicename isEqualToString:@"cmu_us_awb"]) {
+//		voice = register_cmu_us_awb();
+//	}
+//	else if([voicename isEqualToString:@"cmu_us_slt"]) {
+//		voice = register_cmu_us_slt();
+//	}
 }
 
 -(void)stopTalking

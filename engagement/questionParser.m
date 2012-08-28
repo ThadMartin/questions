@@ -112,120 +112,135 @@ BOOL loadFailed;
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    if (loadFailed)
+    if (loadFailed){
         [self performSegueWithIdentifier: @"toBadInfile" sender: self];
-    
-    int numberOfLinesOfFile;
-    NSArray * linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
-    numberOfLinesOfFile = [linesOfFile count];
-    
-    NSLog(@"lineNumber,linesOfFile: %i , %i",lineNumber,numberOfLinesOfFile);
-    
-    NSString * tester0;
-    NSString * tester1 =@"numberline";
-    NSString * tester2 =@"wordFill";
-    NSString * tester3 =@"numberFill";
-    NSString * tester4 =@"multipleChoice";
-    NSString * tester5 =@"instruction";
-    NSString * tester6 =@"picture";
-    NSString * tester7 =@"speech";
-    NSString * tester8 =@"branchOut";
-    
-    if (lineNumber > numberOfLinesOfFile){
-        tester0 = @"goodbye";
-    }
-    else{
+    } else {
+        int numberOfLinesOfFile;
+        NSArray * linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
+        numberOfLinesOfFile = [linesOfFile count];
         
-        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+        NSLog(@"lineNumber,linesOfFile: %i , %i",lineNumber,numberOfLinesOfFile);
         
-        NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber-1];
+        NSString * tester0;
+        NSString * tester1 =@"numberline";
+        NSString * tester2 =@"wordFill";
+        NSString * tester3 =@"numberFill";
+        NSString * tester4 =@"multipleChoice";
+        NSString * tester5 =@"instruction";
+        NSString * tester6 =@"picture";
+        NSString * tester7 =@"speech";
+        NSString * tester8 =@"branchOut";
         
-        NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
-        
-        fields = [line componentsSeparatedByString:@"\t"];
-        
-        while ([fields count] < 3){  //This is not a valid question, copy it to the output file.
+        if (lineNumber > numberOfLinesOfFile){
+            tester0 = @"goodbye";
+        }
+        else{
             
-            NSString * headerLine = [linesOfFile objectAtIndex:lineNumber-1];
-            headerLine = [headerLine stringByAppendingString:@"\r"];    
-            NSMutableArray * headerLineArray = [[NSMutableArray alloc] init];
-           [headerLineArray addObject:headerLine];
-            
-            [thisQuestionData saveData:headerLineArray];
-            
-            lineNumber ++;
-            
-            if (lineNumber > numberOfLinesOfFile){
-                break; 
-            }
+            QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
             
             NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber-1];
+            
             NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
             
             fields = [line componentsSeparatedByString:@"\t"];
             
-        }  //end of copy line to output file
+            while ([fields count] < 3){  //This is not a valid question, copy it to the output file.
+                
+                NSString * headerLine = [linesOfFile objectAtIndex:lineNumber-1];
+                headerLine = [headerLine stringByAppendingString:@"\r"];    
+                NSMutableArray * headerLineArray = [[NSMutableArray alloc] init];
+                [headerLineArray addObject:headerLine];
+                
+                [thisQuestionData saveData:headerLineArray];
+                
+                lineNumber ++;
+                
+                if (lineNumber > numberOfLinesOfFile){
+                    break; 
+                }
+                
+                NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber-1];
+                NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
+                
+                fields = [line componentsSeparatedByString:@"\t"];
+                
+            }  //end of copy line to output file
+            
+        }  //here we should have the fields of the question.
         
-    }  //here we should have the fields of the question.
-    
-    if ([fields count] > 3){
-        tester0 =[fields objectAtIndex:2];
-    }
-    else{
-        tester0 = @"goodbye";
-    }
-    
-    NSLog(@"selector is:  %@",tester0);
-    
-    
-    if ([tester1 isEqualToString:tester0]){
-        NSLog(@"Going toNewSlider");
-        lineNumber ++;
-        [self performSegueWithIdentifier: @"toNewSlider" sender: self];
-     }
-    
-    if ([tester2 isEqualToString:tester0]){
-        NSLog(@"going toWordFill");
-        lineNumber ++;
-        [self performSegueWithIdentifier: @"toWordFill" sender: self];
-    }
-    if ([tester3 isEqualToString:tester0]){
-        NSLog(@"Going toNumberFill");
-        lineNumber ++;
-        [self performSegueWithIdentifier: @"toNumberFill" sender: self];
-    }
-    if ([tester4 isEqualToString:tester0]){
-        NSLog(@"going toMultipleChoice");
-        lineNumber ++;
-        [self performSegueWithIdentifier: @"toMultipleChoice" sender: self];
-    }
-    if ([tester5 isEqualToString:tester0]){
-        NSLog(@"going toInstruction");
-        lineNumber ++;
-        [self performSegueWithIdentifier: @"toInstruction" sender: self];
-    }
-    if ([tester6 isEqualToString:tester0]){
-        NSLog(@"going toPicture");
-        lineNumber ++;
-        [self performSegueWithIdentifier: @"toPicture" sender: self];
-    }
-    if ([tester7 isEqualToString:tester0]){
-        NSLog(@"going toSpeech");
-        lineNumber ++;
-        [self performSegueWithIdentifier: @"toSpeech" sender: self];
-    }
-    if ([tester8 isEqualToString:tester0]){
-        NSLog(@"going toBranchOut");
-        lineNumber ++;
-        [self performSegueWithIdentifier: @"toBranchOut" sender: self];
-    }
-    
-    //done with all questions 
-    
-    if ([tester0 isEqualToString:@"goodbye"]){
-        [self performSegueWithIdentifier: @"toGoodbye" sender: self];
+        if ([fields count] > 3){
+            tester0 =[fields objectAtIndex:2];
+        }
+        else{
+            tester0 = @"goodbye";
+        }
+        
+        bool selectedSomething = false;
+        
+        NSLog(@"selector is:  %@",tester0);
+        //NSLog(@"still here.");
+        
+        if ([tester1 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"Going toNewSlider");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toNewSlider" sender: self];
+        }
+        
+        if ([tester2 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"going toWordFill");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toWordFill" sender: self];
+        }
+        if ([tester3 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"Going toNumberFill");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toNumberFill" sender: self];
+        }
+        if ([tester4 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"going toMultipleChoice");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toMultipleChoice" sender: self];
+        }
+        if ([tester5 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"going toInstruction");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toInstruction" sender: self];
+        }
+        if ([tester6 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"going toPicture");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toPicture" sender: self];
+        }
+        if ([tester7 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"going toSpeech");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toSpeech" sender: self];
+        }
+        if ([tester8 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"going toBranchOut");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toBranchOut" sender: self];
+        }
+        
+        if ((! selectedSomething) && ![tester0 isEqualToString:@"goodbye"])
+            [self performSegueWithIdentifier: @"toBadInfile" sender: self];
+        
+        //done with all questions 
+        
+        if ([tester0 isEqualToString:@"goodbye"]){
+            [self performSegueWithIdentifier: @"toGoodbye" sender: self];
+        }
     }
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -251,7 +266,7 @@ BOOL loadFailed;
     }
     if ([segue.identifier isEqualToString:@"toPicture"]){
         numberFill * svc = [segue destinationViewController];
-        svc.fields = fields; 
+        svc.fields = fields;
     }
     if ([segue.identifier isEqualToString:@"toSpeech"]){
         numberFill * svc = [segue destinationViewController];

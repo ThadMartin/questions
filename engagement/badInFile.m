@@ -9,7 +9,10 @@
 #import "badInFile.h"
 #import "engagementAppDelegate.h"
 
-@implementation badInFile
+@implementation badInFile{
+    NSTimer * timer;
+}
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -19,6 +22,20 @@
     }
     return self;
 }
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    NSString * timerTime = @"3";
+    float timerTimeNumber = [timerTime floatValue];
+    if (timerTimeNumber > 0){
+        timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
+        NSRunLoop *runner = [NSRunLoop currentRunLoop];
+        [runner addTimer: timer forMode: NSDefaultRunLoopMode];
+    }
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -41,6 +58,8 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 -(void)viewDidAppear:(BOOL)animated {
     
+    NSLog(@"made it to bad infile");
+    
     NSError * error;
     
     engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
@@ -57,8 +76,11 @@
     if(error)
         NSLog(@"error: %@",error);
 
-        [NSThread sleepForTimeInterval:3]; //give user time to read.
-         [self performSegueWithIdentifier: @"toGoodbye" sender: self];
+}
+
+-(void) timeIsUp:(NSTimer*)timer{
+    [self performSegueWithIdentifier: @"toGoodbye" sender: self];
+    
 }
 
 
