@@ -71,8 +71,8 @@
 //    [fliteEngine setPitch:100.0 variance:50.0 speed:1.0];	// Change the voice properties
 
     
-    self.speechLabel.text = [fields objectAtIndex:4];
-    NSString * timerTime = [fields objectAtIndex:3];
+    self.speechLabel.text = [fields objectAtIndex:5];
+    NSString * timerTime = [fields objectAtIndex:4];
     float timerTimeNumber = [timerTime floatValue];
     if (timerTimeNumber > 0){
         timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
@@ -80,14 +80,19 @@
         [runner addTimer: timer forMode: NSDefaultRunLoopMode];
     }
     
-    NSString * strPauseBefore = [fields objectAtIndex:5];
+    NSString * strPauseBefore = [fields objectAtIndex:6];
     pauseBefore = [strPauseBefore intValue];
-    NSString * strPauseAfter = [fields objectAtIndex:7];
+    NSString * strPauseAfter = [fields objectAtIndex:8];
     pauseAfter = [strPauseAfter intValue];
-    NSString * strRepeat = [fields objectAtIndex:8];
+    NSString * strRepeat = [fields objectAtIndex:9];
     timesToRepeat = [strRepeat intValue];
     NSLog(@"before, %i, after, %i, repeat, %i",pauseBefore,pauseAfter,timesToRepeat);
-    
+    NSString * showButton =[fields objectAtIndex:10];
+    BOOL showFieldBool = [showButton boolValue];
+    if (!showFieldBool){
+        [textField setHidden:true];
+        [submitButton setHidden:true];
+    }
 }
 
 
@@ -97,7 +102,7 @@
 //    NSLog(@"timesToRepeat: %@",fields);
 
     if (timesToRepeat > 0){ 
-        NSString * textToSay = [fields objectAtIndex:6];
+        NSString * textToSay = [fields objectAtIndex:7];
         NSLog(@"about to try to talk, %@",textToSay);
         [fliteEngine speakText:textToSay];	// Make it talk
         timesToRepeat --;

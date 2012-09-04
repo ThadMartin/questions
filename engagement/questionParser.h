@@ -14,4 +14,6 @@
 @property (assign) NSArray * questionLine;
 @property (nonatomic) int lineNumber;
 
+-(void) branchTo;
+
 @end

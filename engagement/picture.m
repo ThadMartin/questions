@@ -54,8 +54,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString * timerTime = [fields objectAtIndex:3];
-    NSString * picName = [fields objectAtIndex:4];
+    NSString * timerTime = [fields objectAtIndex:4];
+    NSString * picName = [fields objectAtIndex:5];
     float timerTimeNumber = [timerTime floatValue];
     if (timerTimeNumber > 0){
         timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
@@ -83,6 +83,10 @@
        
     [imgView setImage:image];
     
+    NSString * showButton =[fields objectAtIndex:6];
+    BOOL showButtonBool = [showButton boolValue];
+    if (!showButtonBool)
+        [continueButton setHidden:true];
 
 }
 

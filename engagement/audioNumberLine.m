@@ -1,18 +1,28 @@
 //
-//  newSlider.m
+//  audioNumberLine.m
 //  engagement
 //
-//  Created by Thad Martin on 6/1/12.
+//  Created by Thad Martin on 8/30/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "newSlider.h"
+
+#import "audioNumberLine.h"
 #import "QuestionData.h"
-#import <DropboxSDK/DropboxSDK.h>
+#import "FliteTTS.h"
 #import "questionParser.h"
 
-@implementation newSlider  {
+@implementation audioNumberLine  {
     NSTimer * timer;
+    FliteTTS *fliteEngine;
+    NSTimer * timerBefore;
+    NSTimer * timerAfter;
+    int pauseBefore;
+    int pauseAfter;
+    int timesToRepeat;
+    int timesSaid;
+    NSRunLoop *runner;
+
 }
 
 @synthesize questionLabel;
@@ -24,10 +34,11 @@
 @synthesize infile;
 @synthesize fields;
 
+@class FliteTTS;
 
-float currentAnswer = -1;
-NSArray * questionList;
-int answerIndex;
+float currentAnswer2 = -1;
+//NSArray * questionList;
+//int answerIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,7 +53,10 @@ int answerIndex;
 {
     [super viewDidLoad];
     
-    NSLog(@"toNewSliderWorked");
+    NSLog(@"toAudioNumberLineWorked");
+    
+    fliteEngine = [[FliteTTS alloc] init];
+    [fliteEngine setVoice:@"cmu_us_rms"];
     
     [sliderSubmit setEnabled:NO];   //disable submit until there is input.
     [sliderSubmit setTitle: @"touch slider" forState:UIControlStateNormal];    
@@ -55,17 +69,65 @@ int answerIndex;
     float timerTimeNumber = [timerTime floatValue];
     if (timerTimeNumber > 0){
         timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
-        NSRunLoop *runner = [NSRunLoop currentRunLoop];
+        runner = [NSRunLoop currentRunLoop];
         [runner addTimer: timer forMode: NSDefaultRunLoopMode];
     }
+    NSString * strPauseBefore = [fields objectAtIndex:8];
+    pauseBefore = [strPauseBefore intValue];
+    NSString * strPauseAfter = [fields objectAtIndex:10];
+    pauseAfter = [strPauseAfter intValue];
+    NSString * strRepeat = [fields objectAtIndex:11];
+    timesToRepeat = [strRepeat intValue];
+    NSLog(@"before, %i, after, %i, repeat, %i",pauseBefore,pauseAfter,timesToRepeat);
 
+    
     
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    
+    if (pauseBefore > 0){
+        timerBefore = [NSTimer scheduledTimerWithTimeInterval:pauseBefore target:self selector:@selector(sayIt:) userInfo:nil repeats:NO];
+    }
+    [runner addTimer: timerBefore forMode: NSDefaultRunLoopMode];
+    
+    NSLog(@"nearly about to try to talk, ");
+    
+    // [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    
+}
+
+
+
+
+-(void) sayIt:(NSTimer*)timer{
+    //    NSLog(@"timesToRepeat:");
+    //    NSLog(@"timesToRepeat: %@",fields);
+    
+    if (timesToRepeat > 0){ 
+        NSString * textToSay = [fields objectAtIndex:9];
+        NSLog(@"about to try to talk, %@",textToSay);
+        [fliteEngine speakText:textToSay];	// Make it talk
+        timesToRepeat --;
+        if (pauseAfter > 0){
+            timerAfter = [NSTimer scheduledTimerWithTimeInterval:pauseAfter target:self selector:@selector(sayIt:) userInfo:nil repeats:NO];
+            
+        }
+        [runner addTimer: timerAfter forMode: NSDefaultRunLoopMode];
+    }//end of sayIt
+    
+}
+
+
 -(void) timeIsUp:(NSTimer*)timer{
+    
+//    [timer invalidate];
+    [timerAfter invalidate];
+    [timerBefore invalidate];
+
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
     
-    NSString *answerObj = [NSString stringWithFormat:@"Time ran out.  %f",currentAnswer];
+    NSString *answerObj = [NSString stringWithFormat:@"Time ran out.  %f",currentAnswer2];
     
     [questionAnswers2 addObject:answerObj];
     
@@ -94,7 +156,7 @@ int answerIndex;
     
     [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
     
- 
+    
     
     
 }
@@ -167,7 +229,7 @@ int answerIndex;
         [sliderSubmit setTitle: @"submit" forState:UIControlStateNormal];
         NSLog(@"point %f",touchPoint.x/moveBox.bounds.size.width*100);
         
-        currentAnswer = touchPoint.x/moveBox.bounds.size.width*100;
+        currentAnswer2 = touchPoint.x/moveBox.bounds.size.width*100;
     }
     
 }
@@ -183,7 +245,7 @@ int answerIndex;
             touchPoint.y = moveBox.bounds.size.height/2;
             qSlider.center = touchPoint;
             NSLog(@"%f", (touchPoint.x/moveBox.bounds.size.width)*100);
-            currentAnswer = touchPoint.x/moveBox.bounds.size.width*100;
+            currentAnswer2 = touchPoint.x/moveBox.bounds.size.width*100;
         }
     }
 }
@@ -191,11 +253,14 @@ int answerIndex;
 
 - (IBAction)sliderSubmitPressed:(id)sender {
     
-        [timer invalidate];
+    [timer invalidate];
+    [timerAfter invalidate];
+    [timerBefore invalidate];
+
     
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
     
-    NSString *answerObj = [NSString stringWithFormat:@"%f",currentAnswer];
+    NSString *answerObj = [NSString stringWithFormat:@"%f",currentAnswer2];
     
     [questionAnswers2 addObject:answerObj];
     
@@ -207,7 +272,7 @@ int answerIndex;
     [questionAnswers2 addObject:timeNow];
     
     NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
-
+    
     int retab = [questionAnswers2 count];
     
     for (int retabCounter = 0;retabCounter<retab;retabCounter++){
@@ -218,7 +283,7 @@ int answerIndex;
     
     NSString * newLn = @"\r";
     [questionAnswers addObject:newLn];
-
+    
     QuestionData * thisQuestionData = [[QuestionData alloc] init];
     [thisQuestionData saveData:questionAnswers];
     
@@ -228,3 +293,5 @@ int answerIndex;
 
 
 @end
+
+

@@ -53,8 +53,8 @@
 {
     [super viewDidLoad];
     
-    self.wordFillLabel.text = [fields objectAtIndex:4];
-    NSString * timerTime = [fields objectAtIndex:3];
+    self.wordFillLabel.text = [fields objectAtIndex:5];
+    NSString * timerTime = [fields objectAtIndex:4];
     float timerTimeNumber = [timerTime floatValue];
     if (timerTimeNumber > 0){
         timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];

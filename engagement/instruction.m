@@ -49,14 +49,20 @@
 {
     [super viewDidLoad];
     //NSLog(@"fields:  %@",fields);
-    self.instructionLabel.text = [fields objectAtIndex:4]; 
-    NSString * timerTime = [fields objectAtIndex:3];
+    self.instructionLabel.text = [fields objectAtIndex:5]; 
+    NSString * timerTime = [fields objectAtIndex:4];
     float timerTimeNumber = [timerTime floatValue];
     if (timerTimeNumber > 0){
         timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
         NSRunLoop *runner = [NSRunLoop currentRunLoop];
         [runner addTimer: timer forMode: NSDefaultRunLoopMode];
     }
+    
+    NSString * showButton =[fields objectAtIndex:6];
+    BOOL showButtonBool = [showButton boolValue];
+    if (!showButtonBool)
+        [continueButton setHidden:true];
+
 
 }
 

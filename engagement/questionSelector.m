@@ -260,7 +260,7 @@
             bool shouldDownload = true;
             for(NSString *existing in onlyQns){
                 if([existing isEqualToString:file.filename]){
-                    shouldDownload = false;
+                    shouldDownload = true;       // changed to true, so if you modify a file, you can get the new version.
                     break;
                 }
             }

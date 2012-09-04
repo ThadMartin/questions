@@ -16,9 +16,14 @@
 #import "picture.h"
 #import "speech.h"
 #import "branchOut.h"
+#import "audioNumberLine.h"
+#import "engagementAppDelegate.h"
+
 
 
 @implementation questionParser{
+    
+    engagementAppDelegate * appDelegate;
     
     NSArray * fields;
 }
@@ -27,7 +32,7 @@
 @synthesize questionLine = _questionLine;
 @synthesize lineNumber = _lineNumber;
 
-int lineNumber = 1;
+int lineNumber = 0;
 
 NSString * infile;
 
@@ -71,6 +76,8 @@ BOOL loadFailed;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    fields = NULL;
+    appDelegate = [[UIApplication sharedApplication] delegate];
     NSLog (@"infile: %@ %@",_infile,infile);
     NSLog (@"lineNumber: %i %i",_lineNumber,lineNumber);
     loadFailed = NO;
@@ -79,8 +86,8 @@ BOOL loadFailed;
         
         infile = _infile;
         
-        if (_lineNumber != 0)
-            lineNumber = _lineNumber;
+        // if (_lineNumber)  
+        lineNumber = _lineNumber;
         
         NSData *data = [NSData dataWithContentsOfFile:infile];
         
@@ -91,10 +98,12 @@ BOOL loadFailed;
         for (int retries = 0; retries < 20; retries ++){
             if  ([stringOfFile length] == 0){   // for some reason, doesn't always work on fisrt try.
                 NSLog(@"reloading working ##########################");
+                [NSThread sleepForTimeInterval:0.3];
                 data = [NSData dataWithContentsOfFile:infile];
                 stringOfFile = [NSString stringWithUTF8String:[data bytes]];
                 stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
                 stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
+                stringOfFile = [stringOfFile stringByAppendingString:@"\r"];
                 NSLog(@"retries = %i",retries);
             }
             
@@ -102,6 +111,28 @@ BOOL loadFailed;
         
         if  ([stringOfFile length] == 0)  
             loadFailed = YES;  // bad input file format.
+        else{  //copy the headerline of the new file to the output file.
+            
+            QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+            NSArray * linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
+            NSString * headerLine = [linesOfFile objectAtIndex:0];
+            
+            headerLine = [headerLine stringByAppendingString:@"\r"];    
+            NSMutableArray * headerLineArray = [[NSMutableArray alloc] init];
+            [headerLineArray addObject:headerLine];
+            
+            [thisQuestionData saveData:headerLineArray];
+            
+            if(lineNumber == 0)
+                lineNumber ++;
+            
+            
+            NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
+            NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
+            
+            fields = [line componentsSeparatedByString:@"\t"];
+            
+        }
         
         NSLog(@"loadfailed: %i",loadFailed);
         
@@ -121,7 +152,7 @@ BOOL loadFailed;
         
         NSLog(@"lineNumber,linesOfFile: %i , %i",lineNumber,numberOfLinesOfFile);
         
-        NSString * tester0;
+        NSString * tester0 = NULL;
         NSString * tester1 =@"numberline";
         NSString * tester2 =@"wordFill";
         NSString * tester3 =@"numberFill";
@@ -130,36 +161,50 @@ BOOL loadFailed;
         NSString * tester6 =@"picture";
         NSString * tester7 =@"speech";
         NSString * tester8 =@"branchOut";
+        NSString * tester9 =@"audioNumberLine";
+        NSString * tester10 =@"branchTo";
+        //NSString * tester11 =@"titration";
+        //NSString * tester12 =@"";
         
-        if (lineNumber > numberOfLinesOfFile){
+        
+        
+        if (lineNumber >= numberOfLinesOfFile){
             tester0 = @"goodbye";
+            NSLog(@"tester changed to goodbye");
         }
         else{
             
             QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
             
-            NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber-1];
+            NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
             
             NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
             
             fields = [line componentsSeparatedByString:@"\t"];
             
-            while ([fields count] < 3){  //This is not a valid question, copy it to the output file.
+            while ([fields count] < 4){  //This is not a valid question, copy it to the output file.
                 
-                NSString * headerLine = [linesOfFile objectAtIndex:lineNumber-1];
-                headerLine = [headerLine stringByAppendingString:@"\r"];    
+                NSString * headerLine = [linesOfFile objectAtIndex:lineNumber];
+                NSLog(@"headerline %@",linesOfFile);
+                //headerLine = [headerLine stringByAppendingString:@" \r"];    
                 NSMutableArray * headerLineArray = [[NSMutableArray alloc] init];
                 [headerLineArray addObject:headerLine];
                 
                 [thisQuestionData saveData:headerLineArray];
+                int headLength = [headerLineArray count];
+                NSLog(@"headerlinearray length %i",headLength);
+                NSLog(@"headerLineArray  %@",headerLineArray);
                 
-                lineNumber ++;
+                lineNumber++;
                 
-                if (lineNumber > numberOfLinesOfFile){
+                if (lineNumber >= numberOfLinesOfFile){
+                    tester0 = @"goodbye";
+                    NSLog(@"tester changed to goodbye place 2");
+                    
                     break; 
                 }
                 
-                NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber-1];
+                NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
                 NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
                 
                 fields = [line componentsSeparatedByString:@"\t"];
@@ -168,8 +213,8 @@ BOOL loadFailed;
             
         }  //here we should have the fields of the question.
         
-        if ([fields count] > 3){
-            tester0 =[fields objectAtIndex:2];
+        if ([fields count] > 4){
+            tester0 =[fields objectAtIndex:3];
         }
         else{
             tester0 = @"goodbye";
@@ -178,7 +223,6 @@ BOOL loadFailed;
         bool selectedSomething = false;
         
         NSLog(@"selector is:  %@",tester0);
-        //NSLog(@"still here.");
         
         if ([tester1 isEqualToString:tester0]){
             selectedSomething = true;
@@ -229,6 +273,19 @@ BOOL loadFailed;
             lineNumber ++;
             [self performSegueWithIdentifier: @"toBranchOut" sender: self];
         }
+        if ([tester9 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"going toAudioNumberLine");
+            lineNumber ++;
+            [self performSegueWithIdentifier: @"toAudioNumberLine" sender: self];
+        }
+        if ([tester10 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"going toBranchTo");
+            lineNumber ++;
+            [self branchTo];
+        }
+        
         
         if ((! selectedSomething) && ![tester0 isEqualToString:@"goodbye"])
             [self performSegueWithIdentifier: @"toBadInfile" sender: self];
@@ -241,6 +298,32 @@ BOOL loadFailed;
     }
 }
 
+-(void) branchTo{
+    //this comes from code in branchOut, see that for some comments and debug.
+    //line 0 is the header line.  
+    NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
+    int lengthQnsPths = [theQuestions count];
+    NSString * newInputFile = [fields objectAtIndex:4];
+    NSString * stringLineNumber = [fields objectAtIndex:5];
+    _lineNumber = [stringLineNumber intValue];
+    for (int stepThrough = 0; stepThrough < lengthQnsPths; stepThrough++){
+        NSString * checkThis = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
+        NSString * checkingString = [checkThis lastPathComponent];
+        // NSLog(@"they are: %@ %@",checkThis,checkingString);
+        if ([checkingString isEqualToString: newInputFile]) {
+            newInputFile = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
+            //NSLog(@"they are: %@ %@",checkThis,checkingString);
+        }
+    }
+    
+    NSLog(@"new input file:  %@",newInputFile);
+    
+    _infile = newInputFile;
+    NSLog(@"next question");
+    [self viewDidLoad];
+    [self viewDidAppear:true];
+    
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -273,6 +356,10 @@ BOOL loadFailed;
         svc.fields = fields; 
     }
     if ([segue.identifier isEqualToString:@"toBranchOut"]){
+        numberFill * svc = [segue destinationViewController];
+        svc.fields = fields; 
+    }
+    if ([segue.identifier isEqualToString:@"toAudioNumberLine"]){
         numberFill * svc = [segue destinationViewController];
         svc.fields = fields; 
     }
