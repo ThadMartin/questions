@@ -713,7 +713,13 @@
     
 }
 
-
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"backToQuestionParser"]){
+        questionParser * svc = [segue destinationViewController];
+        svc.previousAnswer = choiceSelection; 
+    } 
+}
 
 
 @end

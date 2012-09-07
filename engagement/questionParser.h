@@ -13,7 +13,9 @@
 @property (nonatomic, weak) NSString *infile;
 @property (assign) NSArray * questionLine;
 @property (nonatomic) int lineNumber;
+@property (nonatomic,strong) NSString * previousAnswer;
 
 -(void) branchTo;
+-(void) initializeRandomMatrix;
 
 @end

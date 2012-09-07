@@ -13,4 +13,8 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong) NSString * docPath;
 @property (strong) NSMutableArray * allQnsAndPaths;
+//@property BOOL inRandom;
+
+
+
 @end

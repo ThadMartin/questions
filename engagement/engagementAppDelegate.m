@@ -10,15 +10,21 @@
 #import <DropboxSDK/DropboxSDK.h>
 //You need to add QuartzCore.framework.
 #import "QuestionData.h"
+#include <time.h>
+#include <stdlib.h>
+
 
 @implementation engagementAppDelegate{
     NSString * docPath;
    // NSMutableArray allQnsAndPaths;
+   // BOOL inRandom;
+    
 }
 
 @synthesize window;
 @synthesize docPath;
 @synthesize allQnsAndPaths;
+//@synthesize inRandom;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -38,6 +44,14 @@
     NSLog(@"docPath is: %@",docPath);
     
     allQnsAndPaths = [[NSMutableArray alloc] init];
+    
+    srand(time(NULL));
+    
+    //rand() % 10 + 1;  // for 1 to 10
+
+    
+//    inRandom = NO;
+
     
     return YES;
      
