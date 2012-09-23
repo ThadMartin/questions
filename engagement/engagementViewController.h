@@ -30,5 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *quitButton;
 - (IBAction)quitPressed:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *clearMemory;
+- (IBAction)clearMemoryPressed:(id)sender;
 
 @end

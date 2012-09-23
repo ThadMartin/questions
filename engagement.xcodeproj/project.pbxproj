@@ -8,12 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		720F5D831576702500C74BC5 /* goodbye.m in Sources */ = {isa = PBXBuildFile; fileRef = 720F5D821576702500C74BC5 /* goodbye.m */; };
-		7217E46E15B9B2EF00B09FD6 /* forge.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7217E46A15B9B2EF00B09FD6 /* forge.jpg */; };
 		7217E46F15B9B2EF00B09FD6 /* picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7217E46C15B9B2EF00B09FD6 /* picture.m */; };
-		7217E47015B9B2EF00B09FD6 /* pie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7217E46D15B9B2EF00B09FD6 /* pie.png */; };
 		722844B915E1B58D004401CA /* badInFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 722844B815E1B58C004401CA /* badInFile.m */; };
 		724118A51580EB7E002FC139 /* instruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 724118A41580EB7E002FC139 /* instruction.m */; };
-		7243CCB215B0502D00C9E9EB /* sampleQuestionList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7243CCB115B0502D00C9E9EB /* sampleQuestionList.txt */; };
 		724F0807157416CB007082CE /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F0806157416CB007082CE /* DropboxSDK.framework */; };
 		724F080C15741858007082CE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080B15741858007082CE /* Security.framework */; };
 		724F080E15741F1F007082CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 724F080D15741F1F007082CE /* QuartzCore.framework */; };
@@ -21,11 +18,10 @@
 		727362CF1580E0C600F4B689 /* numberFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 727362CE1580E0C600F4B689 /* numberFill.m */; };
 		727B5500157E55DA004D13D1 /* questionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 727B54FF157E55DA004D13D1 /* questionParser.m */; };
 		727D8F4A15CAE9F000B1008B /* branchOut.m in Sources */ = {isa = PBXBuildFile; fileRef = 727D8F4915CAE9F000B1008B /* branchOut.m */; };
-		7290565515CB37F2004E4436 /* noTime.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7290565415CB37F2004E4436 /* noTime.txt */; };
 		72936CF615EC591A00AFDC0A /* noAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 72936CF515EC591A00AFDC0A /* noAnimationSegue.m */; };
 		72973528157F6D640051AD29 /* wordFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 72973527157F6D640051AD29 /* wordFill.m */; };
-		72980AE315F6AF4900BDA893 /* randTest.txt in Resources */ = {isa = PBXBuildFile; fileRef = 72980AE215F6AF4900BDA893 /* randTest.txt */; };
 		729BE1C515F9BAF400F920B8 /* feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 729BE1C415F9BAF400F920B8 /* feedback.m */; };
+		72A3070115FA3CA200749E14 /* titration.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A3070015FA3CA200749E14 /* titration.m */; };
 		72A6B0E415EFC3B100BAC90A /* audioNumberLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6B0E315EFC3B000BAC90A /* audioNumberLine.m */; };
 		72BB7867158142C200047EEA /* questionSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 72BB7866158142C200047EEA /* questionSelector.m */; };
 		72C7826D15C9E39C00378319 /* speech.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C7826C15C9E39C00378319 /* speech.m */; };
@@ -118,16 +114,13 @@
 /* Begin PBXFileReference section */
 		720F5D811576702500C74BC5 /* goodbye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodbye.h; sourceTree = "<group>"; };
 		720F5D821576702500C74BC5 /* goodbye.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodbye.m; sourceTree = "<group>"; };
-		7217E46A15B9B2EF00B09FD6 /* forge.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = forge.jpg; sourceTree = "<group>"; };
 		7217E46B15B9B2EF00B09FD6 /* picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = picture.h; sourceTree = "<group>"; };
 		7217E46C15B9B2EF00B09FD6 /* picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = picture.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7217E46D15B9B2EF00B09FD6 /* pie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pie.png; sourceTree = "<group>"; };
 		722844B715E1B58C004401CA /* badInFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = badInFile.h; sourceTree = "<group>"; };
 		722844B815E1B58C004401CA /* badInFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = badInFile.m; sourceTree = "<group>"; };
 		724118A31580EB7E002FC139 /* instruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = instruction.h; sourceTree = "<group>"; };
 		724118A41580EB7E002FC139 /* instruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = instruction.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		724118A71580F03A002FC139 /* multipleChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multipleChoice.h; sourceTree = "<group>"; };
-		7243CCB115B0502D00C9E9EB /* sampleQuestionList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sampleQuestionList.txt; sourceTree = "<group>"; };
 		724F0806157416CB007082CE /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = engagement/DropboxSDK.framework; sourceTree = "<group>"; };
 		724F080B15741858007082CE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		724F080D15741F1F007082CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -138,14 +131,14 @@
 		727B54FE157E55DA004D13D1 /* questionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questionParser.h; sourceTree = "<group>"; };
 		727B54FF157E55DA004D13D1 /* questionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questionParser.m; sourceTree = "<group>"; };
 		727D8F4915CAE9F000B1008B /* branchOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = branchOut.m; path = ../../../Code/questions/engagement/branchOut.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7290565415CB37F2004E4436 /* noTime.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = noTime.txt; sourceTree = "<group>"; };
 		72936CF415EC591A00AFDC0A /* noAnimationSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = noAnimationSegue.h; sourceTree = "<group>"; };
 		72936CF515EC591A00AFDC0A /* noAnimationSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = noAnimationSegue.m; sourceTree = "<group>"; };
 		72973526157F6D640051AD29 /* wordFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wordFill.h; sourceTree = "<group>"; };
 		72973527157F6D640051AD29 /* wordFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = wordFill.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		72980AE215F6AF4900BDA893 /* randTest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = randTest.txt; sourceTree = "<group>"; };
 		729BE1C315F9BAF400F920B8 /* feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = feedback.h; sourceTree = "<group>"; };
 		729BE1C415F9BAF400F920B8 /* feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = feedback.m; sourceTree = "<group>"; };
+		72A306FF15FA3CA200749E14 /* titration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = titration.h; sourceTree = "<group>"; };
+		72A3070015FA3CA200749E14 /* titration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = titration.m; sourceTree = "<group>"; };
 		72A6B0E215EFC3B000BAC90A /* audioNumberLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audioNumberLine.h; sourceTree = "<group>"; };
 		72A6B0E315EFC3B000BAC90A /* audioNumberLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = audioNumberLine.m; sourceTree = "<group>"; };
 		72BB7865158142C200047EEA /* questionSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questionSelector.h; sourceTree = "<group>"; };
@@ -555,6 +548,8 @@
 				724118A31580EB7E002FC139 /* instruction.h */,
 				724118A41580EB7E002FC139 /* instruction.m */,
 				72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */,
+				72A306FF15FA3CA200749E14 /* titration.h */,
+				72A3070015FA3CA200749E14 /* titration.m */,
 				729BE1C315F9BAF400F920B8 /* feedback.h */,
 				729BE1C415F9BAF400F920B8 /* feedback.m */,
 				724118A71580F03A002FC139 /* multipleChoice.h */,
@@ -587,16 +582,11 @@
 		72F7DF171567EA4100500D63 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7290565415CB37F2004E4436 /* noTime.txt */,
-				72980AE215F6AF4900BDA893 /* randTest.txt */,
 				72C783B215C9FEFA00378319 /* flite-1.4-iphone */,
 				72F7DF181567EA4100500D63 /* engagement-Info.plist */,
 				72F7DF1E1567EA4100500D63 /* engagement-Prefix.pch */,
-				7217E46A15B9B2EF00B09FD6 /* forge.jpg */,
 				72F7DF191567EA4100500D63 /* InfoPlist.strings */,
 				72F7DF1C1567EA4100500D63 /* main.m */,
-				7217E46D15B9B2EF00B09FD6 /* pie.png */,
-				7243CCB115B0502D00C9E9EB /* sampleQuestionList.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -654,12 +644,7 @@
 			files = (
 				72F7DF1B1567EA4100500D63 /* InfoPlist.strings in Resources */,
 				72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */,
-				7243CCB215B0502D00C9E9EB /* sampleQuestionList.txt in Resources */,
-				7217E46E15B9B2EF00B09FD6 /* forge.jpg in Resources */,
-				7217E47015B9B2EF00B09FD6 /* pie.png in Resources */,
 				72C784BC15C9FEFB00378319 /* us_pos.tree in Resources */,
-				7290565515CB37F2004E4436 /* noTime.txt in Resources */,
-				72980AE315F6AF4900BDA893 /* randTest.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,6 +746,7 @@
 				72936CF615EC591A00AFDC0A /* noAnimationSegue.m in Sources */,
 				72A6B0E415EFC3B100BAC90A /* audioNumberLine.m in Sources */,
 				729BE1C515F9BAF400F920B8 /* feedback.m in Sources */,
+				72A3070115FA3CA200749E14 /* titration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

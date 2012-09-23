@@ -14,8 +14,11 @@
 @property (assign) NSArray * questionLine;
 @property (nonatomic) int lineNumber;
 @property (nonatomic,strong) NSString * previousAnswer;
+@property (nonatomic) int titrationVerbalCorrect;
+@property (nonatomic) int titrationSpatialCorrect;
 
 -(void) branchTo;
+-(void) titrationBranch;
 -(void) initializeRandomMatrix;
 
 @end

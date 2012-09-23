@@ -19,6 +19,7 @@
 #import "audioNumberLine.h"
 #import "engagementAppDelegate.h"
 #import "feedback.h"
+#import "titration.h"
 
 
 
@@ -33,6 +34,9 @@
 @synthesize questionLine = _questionLine;
 @synthesize lineNumber = _lineNumber;
 @synthesize previousAnswer;
+@synthesize titrationVerbalCorrect;
+@synthesize titrationSpatialCorrect;
+
 
 int lineNumber = 0;
 
@@ -57,6 +61,16 @@ NSArray * linesOfFile;
 int numberOfLinesOfFile;
 
 int linesBeforeRandom = 0;
+
+int titrationVerbalLevel = 1;
+int titrationVerbalAskedAtLevel = 0;
+int titrationVerbalCorrectAtLevel = 0;
+int titrationVerbalNumAtLevel = 0;
+
+int titrationSpatialLevel = 1;
+int titrationSpatialAskedAtLevel = 0;
+int titrationSpatialCorrectAtLevel = 0;
+int titrationSpatialNumAtLevel = 0;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -100,8 +114,12 @@ int linesBeforeRandom = 0;
         
         infile = _infile;
         
+        NSLog(@"infile:  %@",infile);
+        
         // if (_lineNumber)  
         lineNumber = _lineNumber;
+        
+        NSLog (@"lineNumber: %i %i",_lineNumber,lineNumber);
         
         NSData *data = [NSData dataWithContentsOfFile:infile];
         
@@ -110,7 +128,7 @@ int linesBeforeRandom = 0;
         stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
         stringOfFile = [stringOfFile stringByAppendingString:@"\r"];
         
-        for (int retries = 0; retries < 20; retries ++){
+        for (int retries = 0; retries < 40; retries ++){
             if  ([stringOfFile length] == 0){   // for some reason, doesn't always work on fisrt try.
                 NSLog(@"reloading working ##########################");
                 [NSThread sleepForTimeInterval:0.3];
@@ -274,6 +292,24 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         [self performSegueWithIdentifier: @"toBadInfile" sender: self];
     } else {
         
+        titrationVerbalCorrectAtLevel += titrationVerbalCorrect;
+        titrationSpatialCorrectAtLevel += titrationSpatialCorrect;
+        
+        if((titrationVerbalAskedAtLevel == 3)&&(titrationVerbalCorrectAtLevel >=2)){
+            titrationVerbalLevel ++;
+            titrationVerbalAskedAtLevel = 0;
+            titrationVerbalCorrectAtLevel = 0;
+            //NSLog(@"titrationVerbalLevel: %i",titrationVerbalLevel);
+        }
+        if((titrationSpatialAskedAtLevel == 3)&&(titrationSpatialCorrectAtLevel >=2)){
+            titrationSpatialLevel ++;
+            titrationSpatialAskedAtLevel = 0;
+            titrationSpatialCorrectAtLevel = 0;
+            //NSLog(@"titrationSpatialLevel: %i",titrationSpatialLevel);
+        }
+        
+        NSLog(@"titrationVerbalLevel: %i, titrationSpatialLevel, %i",titrationVerbalLevel,titrationSpatialLevel);
+        
         NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
         
         NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
@@ -295,7 +331,7 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
             }
             
             if (inRandom){
-                NSLog(@"randomMatrix: %@",randomMatrix);
+                //NSLog(@"randomMatrix: %@",randomMatrix);
                 //inRandomNumber ++;
                 //int lineQuest;
                 if (inRandomNumber >= ([randomMatrix count])){
@@ -326,7 +362,8 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         NSString * tester9 =@"audioNumberLine";
         NSString * tester10 =@"branchTo";
         NSString * tester11 =@"feedback";
-        //NSString * tester12 =@"";
+        NSString * tester12 =@"titration";
+        NSString * tester13 =@"titrationBranch";
         
         NSLog(@"previousAnswer:  %@",previousAnswer);
         
@@ -450,7 +487,25 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
             lineNumber ++;
             [self performSegueWithIdentifier: @"toFeedback" sender: self];
         }
-
+        if ([tester12 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"going toTitration");
+            lineNumber ++;
+            if ([[fields objectAtIndex:6] isEqualToString:@"verbal"])
+                titrationVerbalAskedAtLevel ++;
+            if ([[fields objectAtIndex:6] isEqualToString:@"spatial"])
+                titrationSpatialAskedAtLevel ++;
+            
+            [self performSegueWithIdentifier: @"toTitration" sender: self];
+        }
+        if ([tester13 isEqualToString:tester0]){
+            selectedSomething = true;
+            NSLog(@"going toTitrationBranch");
+            lineNumber ++;
+            [self titrationBranch];
+        }
+        
+        
         
         
         if ((! selectedSomething) && ![tester0 isEqualToString:@"goodbye"])
@@ -469,8 +524,8 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     //line 0 is the header line.  
     NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
     int lengthQnsPths = [theQuestions count];
-    NSString * newInputFile = [fields objectAtIndex:4];
-    NSString * stringLineNumber = [fields objectAtIndex:5];
+    NSString * newInputFile = [fields objectAtIndex:5];
+    NSString * stringLineNumber = [fields objectAtIndex:6];
     _lineNumber = [stringLineNumber intValue];
     for (int stepThrough = 0; stepThrough < lengthQnsPths; stepThrough++){
         NSString * checkThis = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
@@ -490,6 +545,188 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     [self viewDidAppear:true];
     
 }
+
+-(void) titrationBranch{
+    //this comes from code in branchOut, see that for some comments and debug.
+    //line 0 is the header line.  
+    NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
+    int lengthQnsPths = [theQuestions count];
+    
+    int theLevel;
+    NSString * newInputFile;
+    NSString * stringLineNumber;
+    int numOfChoices = 0;
+    BOOL modified;
+    int checkNum;
+    
+    modified = NO;
+    
+    
+    if ([[fields objectAtIndex:5] isEqualToString:@"verbal"])
+        theLevel = titrationVerbalLevel;
+    
+    if ([[fields objectAtIndex:5] isEqualToString:@"spatial"])
+        theLevel = titrationSpatialLevel;
+    
+    for (int choiceCounter = 6;choiceCounter < [fields count];choiceCounter+=3){
+        NSString * theChoice = [fields objectAtIndex:choiceCounter];
+        if([theChoice length] >0)
+            numOfChoices ++;
+    }
+    
+    NSLog(@"NumOfChoices:  %i",numOfChoices);
+    
+    switch (numOfChoices) {
+        case 1:
+            
+            checkNum = [[fields objectAtIndex:6] intValue];
+            
+            NSLog(@"CheckNum:  %i",checkNum);
+            
+            
+            if (checkNum == theLevel){
+                newInputFile = [fields objectAtIndex:7];
+                stringLineNumber = [fields objectAtIndex:8];
+                NSLog(@"trying to change to %@",newInputFile);
+                modified = YES;
+            }
+            
+            break;
+            
+        case 2:
+            if ([[fields objectAtIndex:6] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:7];
+                stringLineNumber = [fields objectAtIndex:8];
+                
+                modified = YES;
+            }
+            if ([[fields objectAtIndex:9] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:10];
+                stringLineNumber = [fields objectAtIndex:11];
+                
+                modified = YES;
+            }
+            break;
+            
+        case 3:
+            if ([[fields objectAtIndex:6] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:7];
+                stringLineNumber = [fields objectAtIndex:8];
+                
+                modified = YES;
+            }
+            if ([[fields objectAtIndex:9] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:10];
+                stringLineNumber = [fields objectAtIndex:11];
+                
+                modified = YES;
+            }
+            if ([[fields objectAtIndex:12] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:13];
+                stringLineNumber = [fields objectAtIndex:14];
+                modified = YES;
+                
+                
+            }
+            break;
+            
+        case 4:
+            if ([[fields objectAtIndex:6] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:7];
+                stringLineNumber = [fields objectAtIndex:8];
+                
+                modified = YES;
+            }
+            if ([[fields objectAtIndex:9] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:10];
+                stringLineNumber = [fields objectAtIndex:11];
+                
+                modified = YES;
+            }
+            if ([[fields objectAtIndex:12] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:13];
+                stringLineNumber = [fields objectAtIndex:14];
+                
+                modified = YES;
+            }
+            if ([[fields objectAtIndex:15] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:16];
+                stringLineNumber = [fields objectAtIndex:17];
+                
+                modified = YES;
+            }
+            break;
+            
+        case 5:
+            if ([[fields objectAtIndex:6] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:7];
+                stringLineNumber = [fields objectAtIndex:8];
+                
+                modified = YES;
+            }
+            if ([[fields objectAtIndex:9] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:10];
+                stringLineNumber = [fields objectAtIndex:11];
+                
+                modified = YES;
+            }
+            if ([[fields objectAtIndex:12] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:13];
+                stringLineNumber = [fields objectAtIndex:14];
+                
+                modified = YES;
+            }
+            if ([[fields objectAtIndex:15] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:16];
+                stringLineNumber = [fields objectAtIndex:17];
+                
+                modified = YES;
+            }
+            if ([[fields objectAtIndex:18] intValue] == theLevel){
+                newInputFile = [fields objectAtIndex:19];
+                stringLineNumber = [fields objectAtIndex:20];
+                modified = YES;
+            }
+            break;
+            
+        default:
+            
+            break;
+            
+            
+    }
+    
+    if (modified){
+        inRandom = NO;
+        _lineNumber = [stringLineNumber intValue];
+        NSLog (@"lineNumber: %i %i",_lineNumber,lineNumber);    
+        for (int stepThrough = 0; stepThrough < lengthQnsPths; stepThrough++){
+            NSString * checkThis = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
+            NSString * checkingString = [checkThis lastPathComponent];
+            NSLog(@"they are: %@ %@",newInputFile,checkingString);
+            if ([checkingString isEqualToString: newInputFile]) {
+                NSString * newInputFile2 = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
+                NSLog(@"they are place 2: %@ %@",newInputFile2,checkingString);
+                _infile = newInputFile2;
+                NSLog(@"new input file first:  %@",_infile);
+            }
+            
+            
+        }
+        
+    }
+    
+    
+    
+    NSLog(@"new input file:  %@",_infile);
+    
+    //_infile = newInputFile;
+    NSLog(@"Did titrationBranch");
+    [self viewDidLoad];
+    [self viewDidAppear:true];
+    
+}
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -534,6 +771,11 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         svc.fields = fields; 
         svc.previousAnswer = previousAnswer;
     }
+    if ([segue.identifier isEqualToString:@"toTitration"]){
+        titration * svc = [segue destinationViewController];
+        svc.fields = fields; 
+    }
+    
     
 }
 

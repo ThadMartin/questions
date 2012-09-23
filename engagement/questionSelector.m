@@ -80,9 +80,11 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     qListPath2 = [paths objectAtIndex:0];
      
-    NSLog(@"qlsitpath2: %@",qListPath2);
+    //NSLog(@"qlsitpath2: %@",qListPath2);
     
     NSArray * filelist2= [filemgr contentsOfDirectoryAtPath:qListPath2 error:nil];
+    
+       // NSLog(@"qlsitpath2: %@",filelist2);
     onlyQns2 = [[NSMutableArray alloc] initWithArray:[filelist2 filteredArrayUsingPredicate:fltr]];
     numInfiles2 = [onlyQns2 count];
     
@@ -125,7 +127,7 @@
         restClient.delegate = self;
     }
    
-    NSString * directory = @"/download/";
+    NSString * directory = @"/downloadNumberStims/";
     
     [restClient loadMetadata:directory];
     
@@ -260,13 +262,13 @@
             bool shouldDownload = true;
             for(NSString *existing in onlyQns){
                 if([existing isEqualToString:file.filename]){
-                    shouldDownload = true;       // changed to true, so if you modify a file, you can get the new version.
+                    shouldDownload = false;       // can be changed to true, so if you modify a file, you get the new version.
                     break;
                 }
             }
             if(shouldDownload){
                 downloadCount++;
-                NSString * dropboxPath = [@"/download/" stringByAppendingString:file.filename];
+                NSString * dropboxPath = [@"/downloadNumberStims/" stringByAppendingString:file.filename];
                 
                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
                 NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -284,14 +286,14 @@
 }
 
 - (void)restClient:(DBRestClient*)client loadedFile:(NSString*)localPath {
-    NSLog(@"File loaded into path: %@", localPath);
+    //NSLog(@"File loaded into path: %@", localPath);
     
     NSString *filename = [localPath lastPathComponent];
     NSArray *components = [filename componentsSeparatedByString:@"."];
-    NSLog(@"file extension, %@", [components objectAtIndex:1]);
+    //NSLog(@"file extension, %@", [components objectAtIndex:1]);
     
     //if the extension is ok add it to the new files array to be added to the table later
-    NSLog(@" %@ = txt",[components objectAtIndex:1] );
+    //NSLog(@" %@ = txt",[components objectAtIndex:1] );
     if ([[components objectAtIndex:1] isEqualToString:@"txt"]) {
         [newQuestions addObject:filename];
         [appDelegate.allQnsAndPaths addObject:localPath];
@@ -304,9 +306,39 @@
 
 - (void)restClient:(DBRestClient*)client loadFileFailedWithError:(NSError*)error {
     NSLog(@"There was an error loading the file - %@", error);
-    downloadCount--;
+    //downloadCount--;
     if(downloadCount == 0){
         [self addNewQuestionsToTable];
+    }
+
+    //NSString * dropboxPath = [@"/downloadNumberStims/" stringByAppendingString:file.filename];
+    //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //NSString *documentsDirectory = [paths objectAtIndex:0];
+    //NSString * localPath = [documentsDirectory stringByAppendingPathComponent:file.filename];
+    // NSLog(@"local path: %@",localPath);
+    //[restClient loadFile:destinationPath destinationPath intoPath:path];
+    
+    
+    NSLog(@"from %@",error.userInfo.description);
+    
+    NSString * reloadPath;
+    NSString * reloadDestinationPath;
+    
+    for (id key in error.userInfo){
+        NSLog(@"key, %@",key);
+         NSLog(@"object, %@",[error.userInfo objectForKey:key]);
+        if ([key isEqualToString:@"path"])
+            reloadPath = [error.userInfo objectForKey:key];
+        
+        if ([key isEqualToString:@"destinationPath"])
+            reloadDestinationPath = [error.userInfo objectForKey:key];
+        
+    }
+    
+    
+    if ([reloadPath length]>1 && [reloadDestinationPath length] > 1){
+        [restClient loadFile:reloadDestinationPath intoPath:reloadPath];
+        NSLog(@"re-download trying");
     }
 }
 

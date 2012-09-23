@@ -19,6 +19,7 @@
     int didUpload;
     
 }
+@synthesize clearMemory;
 @synthesize quitButton;
 
 @synthesize linkLabel;
@@ -65,6 +66,7 @@
     [self setLinkLabel:nil];
     [self setUploadButton:nil];
     [self setQuitButton:nil];
+    [self setClearMemory:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -130,7 +132,7 @@
         linkLabel.text = @"app is linked to dropbox";
         uploadButton.enabled = YES; 
         uploadButton.opaque = NO;
-
+        
     }
 }
 
@@ -145,7 +147,7 @@
             linkLabel.text = @"app not linked to dropbox";
             uploadButton.enabled = NO; 
             uploadButton.opaque = YES;
-
+            
         }
     }
     
@@ -163,7 +165,7 @@
     }
     restClient.delegate = self;
     
-    [ restClient loadMetadata:@"/upload/"];
+    [ restClient loadMetadata:@"/uploadNumberStims/"];
     
     
 }
@@ -175,7 +177,7 @@
     filemgr = [NSFileManager defaultManager];
     
     
-    NSString *destDir = @"/upload/";
+    NSString *destDir = @"/uploadNumberStims/";
     
     NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString * qListPath2 = [paths objectAtIndex:0];
@@ -193,14 +195,23 @@
     
     NSString * currentDoc = [docPath lastPathComponent];
     
-    for(NSString *existing in answerFiles){
-        
+    NSLog(@"currentDoc %@",currentDoc);
+    NSLog(@"answerFiles %@",answerFiles);
+    NSLog(@"metadata contents %@",metadata.contents);
+    
+    
+    // for(NSString *existing in filelist2){
+    for(NSString *existing in answerFiles){  
         bool shouldUpload = true;
+        
+        if ([existing isEqualToString:currentDoc])
+            shouldUpload = false;
+        
         for (DBMetadata *file in metadata.contents) {
-            // NSLog(@" existing, file.filename: %@ , %@",existing,file.filename);
-            if([existing isEqualToString:file.filename]||[existing isEqualToString:currentDoc]){
+           // NSLog(@" existing, file.filename: %@ , %@",existing,file.filename);
+            if([existing isEqualToString:file.filename]){
                 shouldUpload = false;
-                NSLog(@"don't upload this one");
+               // NSLog(@"don't upload this one");
                 break;
             }
             
@@ -216,6 +227,14 @@
     }  // end of step through 
 }
 
+- (void)restClient:(DBRestClient *)client loadMetadataFailedWithError:(NSError *)error {
+    NSLog(@"Error loading metadata: %@", error);
+    [[DBSession sharedSession] unlinkAll]; 
+    restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+    restClient.delegate = self;
+}
+
+
 - (void)restClient:(DBRestClient*)client uploadedFile:(NSString *)destPath from:(NSString *)srcPath {
     //NSLog(@"Uploaded from %@",srcPath);
     didUpload ++;
@@ -230,13 +249,52 @@
     if (didUpload >= uploadCount)
         [uploadButton setTitle:@"upload complete" forState:UIControlStateNormal];
     
-
+    
     
 }
 
+- (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError *)error{
+    NSLog(@"Upload error - %@", error);
+    
+    if (didUpload >= uploadCount)
+        [uploadButton setTitle:@"upload complete" forState:UIControlStateNormal];
+    
+    
+    NSLog(@"from %@",error.userInfo.description);
+    
+    NSString * reloadSourcePath;
+    NSString * reloadDestinationPath;
+    NSString *destDir = @"/uploadNumberStims/";
+    
+    for (id key in error.userInfo){
+        NSLog(@"key, %@",key);
+        NSLog(@"object, %@",[error.userInfo objectForKey:key]);
+        if ([key isEqualToString:@"sourcePath"])
+            reloadSourcePath = [error.userInfo objectForKey:key];
+        
+        if ([key isEqualToString:@"destinationPath"])
+            reloadDestinationPath = [error.userInfo objectForKey:key];
+    }
+    
+    
+    if ([reloadSourcePath length]>1 && [reloadDestinationPath length] > 1){
+        [restClient uploadFile:[reloadSourcePath lastPathComponent] toPath:destDir withParentRev:nil  fromPath:reloadSourcePath];
+        NSLog(@"re-upload trying");
+    }
+}
+
+
 - (IBAction)quitPressed:(id)sender {
     
+    filemgr = [NSFileManager defaultManager];
+    
     NSError * error;
+    
+    engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
+    
+    
+    docPath = delegate.docPath;
+
     
     [filemgr removeItemAtPath:docPath error:&error];
     
@@ -244,6 +302,56 @@
         NSLog(@"error: %@",error);
     
     exit(0);
+}
+- (IBAction)clearMemoryPressed:(id)sender {
+    filemgr = [NSFileManager defaultManager];
+    NSError * error;
+    
+    //NSArray *dirContents = [filemgr contentsOfDirectoryAtPath:docDir error:nil];
+    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
+    //NSArray *onlyTXTs = [dirContents filteredArrayUsingPredicate:fltr];
+    
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString * docDir = [paths objectAtIndex:0];
+    NSArray * dirContents2 = [filemgr contentsOfDirectoryAtPath:docDir error:nil];
+    //NSArray * filelist2= [filemgr contentsOfDirectoryAtPath:qListPath2 error:nil];
+    
+    NSLog(@"docDir: %@",docDir);
+    NSLog(@"dir contents: %@",dirContents2);
+    fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
+    NSArray * onlyTXTs = [dirContents2 filteredArrayUsingPredicate:fltr];
+    
+    for ( NSString * thingPath in onlyTXTs){
+        NSString * fullThingPath = [docDir stringByAppendingPathComponent:thingPath];
+        [filemgr removeItemAtPath:fullThingPath error:&error];
+        if(error)
+            NSLog(@"error: %@",error);
+    }
+    
+    fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.jpg'"];
+    onlyTXTs = [dirContents2 filteredArrayUsingPredicate:fltr];
+    
+    for ( NSString * thingPath in onlyTXTs){
+        NSString * fullThingPath = [docDir stringByAppendingPathComponent:thingPath];
+        [filemgr removeItemAtPath:fullThingPath error:&error];
+        
+        if(error)
+            NSLog(@"error: %@",error);
+    }
+    
+    fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.png'"];
+    onlyTXTs = [dirContents2 filteredArrayUsingPredicate:fltr];
+    
+    for ( NSString * thingPath in onlyTXTs){
+        NSString * fullThingPath = [docDir stringByAppendingPathComponent:thingPath];
+        [filemgr removeItemAtPath:fullThingPath error:&error];
+        
+        if(error)
+            NSLog(@"error: %@",error);
+    }
+    
+    
 }
 @end
 

@@ -1,0 +1,6 @@
+header line, titrationLevel2Test.txt
+1	comment	0	titration	10	no	spatial	Level 2, The answer is: &NL  no &NL   Spatial.	yes	no
+2	comment	0	titration	10	yes	spatial	Level 2, The answer is: &NL  yes &NL   Spatial.	yes	no
+3	comment	0	titration	10	no	spatial	Level 2, The answer is: &NL  no &NL   Spatial.	yes	no
+4	comment	0	titrationBranch	-1	spatial	titrationLevel2Test.txt	5	titrationLevel2Test.txt	5	noTime.txt	0	titrationLevel2Test.txt	5	titrationLevel2Test.txt	5	
+5	comment	0	instruction	-1	And it goes on like this.	yes

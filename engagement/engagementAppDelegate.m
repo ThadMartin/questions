@@ -24,17 +24,16 @@
 @synthesize window;
 @synthesize docPath;
 @synthesize allQnsAndPaths;
-//@synthesize inRandom;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
      DBSession* dbSession =
     [[DBSession alloc]
-    initWithAppKey:@"rghajjw49l47ms7"     //thad dropbox
-    appSecret:@"fuul8iopy31k3bu"
-//      initWithAppKey:@"cuorzhksvg6cucn"     //atr dropbox
-//      appSecret:@"nt6md08yfwu0gwp"
+//    initWithAppKey:@"rghajjw49l47ms7"     //thad dropbox
+//    appSecret:@"fuul8iopy31k3bu"
+      initWithAppKey:@"cuorzhksvg6cucn"     //atr dropbox
+      appSecret:@"nt6md08yfwu0gwp"
     root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox    
     [DBSession setSharedSession:dbSession];
     

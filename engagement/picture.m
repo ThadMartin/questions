@@ -77,9 +77,12 @@
     
     NSLog(@"\n %@ \n",picPath);
     
-   NSData *imageData = [NSData dataWithContentsOfFile:picPath];
-   UIImage *image = [UIImage imageWithData:imageData];
+    NSData *imageData = [NSData dataWithContentsOfFile:picPath];
+    UIImage *image = [UIImage imageWithData:imageData] ;
     
+    imgView.contentMode = UIViewContentModeCenter;
+    
+    //imgView.contentMode = UIViewContentModeScaleAspectFit;
        
     [imgView setImage:image];
     
