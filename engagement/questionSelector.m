@@ -25,6 +25,8 @@
     NSString * qListPath2;
     DBRestClient * restClient;
     int downloadCount;
+    NSArray *filelist;
+    NSMutableArray * filelist3;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -54,18 +56,24 @@
     appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.allQnsAndPaths = [[NSMutableArray alloc] init];	
     NSFileManager *filemgr = [NSFileManager defaultManager];
+    //onlyQns = [[NSMutableArray alloc] init];
     
     qListPath = [[NSBundle mainBundle] bundlePath];
-    NSArray *filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:nil];
-    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
-
-    onlyQns = [[NSMutableArray alloc] initWithArray:[filelist filteredArrayUsingPredicate:fltr]];
-
     filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:nil];
+    //NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
+
+    NSArray *extensions = [NSArray arrayWithObjects:@"txt", @"ord", nil];
+    //NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectoryPath error:nil];
+    onlyQns = [[NSMutableArray alloc ] initWithArray:[filelist filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]]];
+
+    
+   // onlyQns = [[NSMutableArray alloc] initWithArray:[filelist filteredArrayUsingPredicate:fltr]];
+
+   // filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:nil];
     
     numInfiles = [onlyQns count];
         
-    //it used to strip of the .txt entension in this loop.
+    //it used to strip off the .txt entension in this loop.
     for (int noTxt = 0; noTxt < numInfiles; noTxt++){               
         NSString * firstName = [onlyQns objectAtIndex:noTxt];
         NSLog(@"firstName %@",firstName);
@@ -85,7 +93,9 @@
     NSArray * filelist2= [filemgr contentsOfDirectoryAtPath:qListPath2 error:nil];
     
        // NSLog(@"qlsitpath2: %@",filelist2);
-    onlyQns2 = [[NSMutableArray alloc] initWithArray:[filelist2 filteredArrayUsingPredicate:fltr]];
+   // onlyQns2 = [[NSMutableArray alloc] initWithArray:[filelist2 filteredArrayUsingPredicate:fltr]];
+    onlyQns2 = [[NSMutableArray alloc ] initWithArray:[filelist2 filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]]];
+
     numInfiles2 = [onlyQns2 count];
     
     NSLog(@"numInFiles2: %i",numInfiles2);
@@ -103,6 +113,10 @@
     UIView * footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)]; 
     footer.backgroundColor = [UIColor clearColor];   //footer makes table stop when it should.
     [self.tableView setTableFooterView:footer];
+    
+    filelist3 = [[NSMutableArray alloc] initWithArray:filelist];
+    
+    [filelist3 addObjectsFromArray:filelist2];
     
 }
 
@@ -260,7 +274,9 @@
     if (metadata.isDirectory) {
         for (DBMetadata *file in metadata.contents) {
             bool shouldDownload = true;
-            for(NSString *existing in onlyQns){
+            for(NSString *existing in filelist3){
+               // NSLog(@"existing, file.filename %@ %@",existing,file.filename);
+                
                 if([existing isEqualToString:file.filename]){
                     shouldDownload = false;       // can be changed to true, so if you modify a file, you get the new version.
                     break;
@@ -277,6 +293,7 @@
                // NSLog(@"local path: %@",localPath);
                 [restClient loadFile:dropboxPath intoPath:localPath];
             }
+          //  }
         }// download all infiles that aren't already on the iPad.
     }//if not a directory, in wrong place.
 }
@@ -294,7 +311,7 @@
     
     //if the extension is ok add it to the new files array to be added to the table later
     //NSLog(@" %@ = txt",[components objectAtIndex:1] );
-    if ([[components objectAtIndex:1] isEqualToString:@"txt"]) {
+    if ([[components objectAtIndex:1] isEqualToString:@"txt"]||[[components objectAtIndex:1] isEqualToString:@"ord"]) {
         [newQuestions addObject:filename];
         [appDelegate.allQnsAndPaths addObject:localPath];
     }
@@ -352,9 +369,11 @@
         numInfiles++;
     }
     [table insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationRight];
+    
     [table endUpdates];
     //[table reloadRowsAtIndexPaths:[table indexPathsForVisibleRows] 
     //                 withRowAnimation:UITableViewRowAnimationNone];
+    //[self.tableView sort];
     [self.tableView reloadData];
 }
 

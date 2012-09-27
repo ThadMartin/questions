@@ -47,6 +47,7 @@ NSString * docPath;
 QuestionData * thisQuestionData;
 
 NSString * stringOfFile;
+NSString * stringOfOrder;
 
 BOOL loadFailed;
 
@@ -57,10 +58,13 @@ NSMutableArray * randomMatrix;
 int inRandomNumber = 0;
 
 NSArray * linesOfFile;
+NSArray * linesOfOrder;
 
 int numberOfLinesOfFile;
 
 int linesBeforeRandom = 0;
+
+int lengthOfOrder = 0;
 
 int titrationVerbalLevel = 1;
 int titrationVerbalAskedAtLevel = 0;
@@ -71,6 +75,10 @@ int titrationSpatialLevel = 1;
 int titrationSpatialAskedAtLevel = 0;
 int titrationSpatialCorrectAtLevel = 0;
 int titrationSpatialNumAtLevel = 0;
+
+BOOL anotherFromTaskOrder = NO;
+
+int taskOrderPosition = 0;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -101,6 +109,60 @@ int titrationSpatialNumAtLevel = 0;
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+
+-(void)loadInFile{
+    NSData *data = [NSData dataWithContentsOfFile:infile];
+    
+    //stringOfFile = [NSString stringWithUTF8String:[data bytes]];
+    stringOfFile = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
+    stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
+    stringOfFile = [stringOfFile stringByAppendingString:@"\r"];
+    
+    for (int retries = 0; retries < 40; retries ++){
+        if  ([stringOfFile length] == 0){   // for some reason, doesn't always work on fisrt try.
+            NSLog(@"reloading working ##########################");
+            [NSThread sleepForTimeInterval:0.3];
+            data = [NSData dataWithContentsOfFile:infile];
+            //NSLog(@"data length %i",[data length]);
+            stringOfFile = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
+            stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
+            stringOfFile = [stringOfFile stringByAppendingString:@"\r"];
+            NSLog(@"retries = %i",retries);
+        }
+        
+    }  //that's enough tries to reload.
+    
+    if  ([stringOfFile length] == 0)  
+        loadFailed = YES;  // bad input file format.
+    else{  //copy the headerline of the new file to the output file.
+        
+        linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
+        numberOfLinesOfFile = [linesOfFile count];
+        NSLog(@"NumberOfLinesOfFile: %i",numberOfLinesOfFile);
+        
+        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+        NSString * headerLine = [linesOfFile objectAtIndex:0];
+        
+        headerLine = [headerLine stringByAppendingString:@"\r"];    
+        NSMutableArray * headerLineArray = [[NSMutableArray alloc] init];
+        [headerLineArray addObject:headerLine];
+        [thisQuestionData saveData:headerLineArray];
+        
+        if(lineNumber == 0)
+            lineNumber ++;
+        
+        NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
+        NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
+        
+        fields = [line componentsSeparatedByString:@"\t"];
+        NSLog(@"fields:  %@",fields);
+        
+    }
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -110,9 +172,46 @@ int titrationSpatialNumAtLevel = 0;
     NSLog (@"lineNumber: %i %i",_lineNumber,lineNumber);
     loadFailed = NO;
     
+    
     if (( _infile && ![infile isEqualToString:_infile]) ||( _lineNumber>0 && _lineNumber != lineNumber)){  //first execution or changed infile or line number
         
         infile = _infile;
+        
+        
+        
+        if ([infile hasSuffix:@".ord"]){
+            NSData *orderData = [NSData dataWithContentsOfFile:infile];
+            stringOfOrder = [[NSString alloc] initWithData:orderData encoding:NSUTF8StringEncoding];
+            //stringOfOrder = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            stringOfOrder = [stringOfOrder stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
+            stringOfOrder = [stringOfOrder stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
+            stringOfOrder = [stringOfOrder stringByAppendingString:@"\r"];
+            linesOfOrder = [stringOfOrder componentsSeparatedByString:@"\r"];
+            taskOrderPosition = 1;
+            
+            //appDelegate = [[UIApplication sharedApplication] delegate];
+            
+            NSString * taskOrderInfile = [linesOfOrder objectAtIndex:taskOrderPosition];
+            
+            //NSString * newInputFile;
+            
+            NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
+            
+            for (NSString * thisFile in theQuestions){
+                if ([[thisFile lastPathComponent] isEqualToString:taskOrderInfile])
+                    infile = thisFile;
+            }
+            
+            for(NSString * checkLength in linesOfOrder){
+                if ([checkLength length]>0)
+                    lengthOfOrder ++;
+            }
+            if (taskOrderPosition < lengthOfOrder-1)
+                anotherFromTaskOrder = YES;
+            
+            //infile = newInputFile;
+            
+        }
         
         NSLog(@"infile:  %@",infile);
         
@@ -121,55 +220,11 @@ int titrationSpatialNumAtLevel = 0;
         
         NSLog (@"lineNumber: %i %i",_lineNumber,lineNumber);
         
-        NSData *data = [NSData dataWithContentsOfFile:infile];
-        
-        stringOfFile = [NSString stringWithUTF8String:[data bytes]];
-        stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
-        stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
-        stringOfFile = [stringOfFile stringByAppendingString:@"\r"];
-        
-        for (int retries = 0; retries < 40; retries ++){
-            if  ([stringOfFile length] == 0){   // for some reason, doesn't always work on fisrt try.
-                NSLog(@"reloading working ##########################");
-                [NSThread sleepForTimeInterval:0.3];
-                data = [NSData dataWithContentsOfFile:infile];
-                stringOfFile = [NSString stringWithUTF8String:[data bytes]];
-                stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
-                stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
-                stringOfFile = [stringOfFile stringByAppendingString:@"\r"];
-                NSLog(@"retries = %i",retries);
-            }
-            
-        }  //that's enough tries to reload.
-        
-        if  ([stringOfFile length] == 0)  
-            loadFailed = YES;  // bad input file format.
-        else{  //copy the headerline of the new file to the output file.
-            
-            linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
-            numberOfLinesOfFile = [linesOfFile count];
-            NSLog(@"NumberOfLinesOfFile: %i",numberOfLinesOfFile);
-            
-            QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-            NSString * headerLine = [linesOfFile objectAtIndex:0];
-            
-            headerLine = [headerLine stringByAppendingString:@"\r"];    
-            NSMutableArray * headerLineArray = [[NSMutableArray alloc] init];
-            [headerLineArray addObject:headerLine];
-            [thisQuestionData saveData:headerLineArray];
-            
-            if(lineNumber == 0)
-                lineNumber ++;
-            
-            NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
-            NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
-            
-            fields = [line componentsSeparatedByString:@"\t"];
-            NSLog(@"fields:  %@",fields);
-            
-        }
+
+        [self loadInFile];
         
         NSLog(@"loadfailed: %i",loadFailed);
+        
         // At this point, set inRandom to NO, randomMatrix to null, and check fields(2)
         if (!loadFailed){
             // inRandom = NO;
@@ -310,6 +365,14 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         
         NSLog(@"titrationVerbalLevel: %i, titrationSpatialLevel, %i",titrationVerbalLevel,titrationSpatialLevel);
         
+        NSLog(@"anotherFromTaskOrder %i",(int)anotherFromTaskOrder);
+        NSLog(@"task order position %i",taskOrderPosition);
+        NSLog(@"lengthOfOrder %i",lengthOfOrder);
+        
+        
+        
+        
+        
         NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
         
         NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
@@ -368,8 +431,39 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         NSLog(@"previousAnswer:  %@",previousAnswer);
         
         if (lineNumber >= numberOfLinesOfFile){
-            tester0 = @"goodbye";
-            NSLog(@"tester changed to goodbye");
+            
+            if (!anotherFromTaskOrder){
+                
+                tester0 = @"goodbye";
+                NSLog(@"tester changed to goodbye");
+            }
+            
+            if (anotherFromTaskOrder){
+                taskOrderPosition ++;
+                
+                NSString * taskOrderInfile = [linesOfOrder objectAtIndex:taskOrderPosition];
+                
+                NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
+                
+                for (NSString * thisFile in theQuestions){
+                    if ([[thisFile lastPathComponent] isEqualToString:taskOrderInfile])
+                        infile = thisFile;
+                }
+                
+                lineNumber = 0;
+                
+                NSLog(@"linesOfOrder count: %i",[linesOfOrder count]);
+                NSLog(@"task order position %i",taskOrderPosition);
+                
+                
+                if (taskOrderPosition< lengthOfOrder -1)
+                    anotherFromTaskOrder = YES;
+                else{
+                    anotherFromTaskOrder = NO;
+                    //tester0 = @"goodbye";
+                }
+                [self loadInFile];
+            }
         }
         else{
             
@@ -394,16 +488,49 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
                 lineNumber++;
                 
                 if (lineNumber >= numberOfLinesOfFile){
-                    tester0 = @"goodbye";
-                    NSLog(@"tester changed to goodbye place 2");
+                    if (!anotherFromTaskOrder){
+                        
+                        tester0 = @"goodbye";
+                        NSLog(@"tester changed to goodbye");
+                        break;
+                    }
                     
-                    break; 
+                    if (anotherFromTaskOrder){
+                        taskOrderPosition ++;
+                        
+                        NSString * taskOrderInfile = [linesOfOrder objectAtIndex:taskOrderPosition];
+                        
+                        NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
+                        
+                        for (NSString * thisFile in theQuestions){
+                            if ([[thisFile lastPathComponent] isEqualToString:taskOrderInfile])
+                                infile = thisFile;
+                        }
+                        
+                        NSLog(@"2linesOfOrder count: %i",lengthOfOrder);
+                        NSLog(@"2task order position %i",taskOrderPosition);
+                        
+                        
+                        if (taskOrderPosition< lengthOfOrder -1)
+                                 anotherFromTaskOrder = YES;
+                        else{
+                            anotherFromTaskOrder = NO;
+                           // tester0 = @"goodbye";
+                        }
+                        lineNumber = 0;
+                        
+                        [self loadInFile];
+
+                        
+                        break;
+                    }
+                   // break; 
                 }
                 
-                NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
-                NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
-                
-                fields = [line componentsSeparatedByString:@"\t"];
+//                NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
+//                NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
+//                
+//                fields = [line componentsSeparatedByString:@"\t"];
                 
             }  //end of copy line to output file
             

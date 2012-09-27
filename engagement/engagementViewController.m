@@ -308,8 +308,13 @@
     NSError * error;
     
     //NSArray *dirContents = [filemgr contentsOfDirectoryAtPath:docDir error:nil];
-    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
+    //NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
     //NSArray *onlyTXTs = [dirContents filteredArrayUsingPredicate:fltr];
+    
+    NSArray *extensions = [NSArray arrayWithObjects:@"txt", @"ord", @"jpg", @"png", nil];
+    //NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectoryPath error:nil];
+    //onlyQns = [[NSMutableArray alloc ] initWithArray:[filelist filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]]];
+
     
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -319,8 +324,10 @@
     
     NSLog(@"docDir: %@",docDir);
     NSLog(@"dir contents: %@",dirContents2);
-    fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
-    NSArray * onlyTXTs = [dirContents2 filteredArrayUsingPredicate:fltr];
+    //fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
+   // NSArray * onlyTXTs = [dirContents2 filteredArrayUsingPredicate:fltr];
+    NSArray * onlyTXTs = [dirContents2 filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]];
+    
     
     for ( NSString * thingPath in onlyTXTs){
         NSString * fullThingPath = [docDir stringByAppendingPathComponent:thingPath];
@@ -329,27 +336,27 @@
             NSLog(@"error: %@",error);
     }
     
-    fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.jpg'"];
-    onlyTXTs = [dirContents2 filteredArrayUsingPredicate:fltr];
-    
-    for ( NSString * thingPath in onlyTXTs){
-        NSString * fullThingPath = [docDir stringByAppendingPathComponent:thingPath];
-        [filemgr removeItemAtPath:fullThingPath error:&error];
-        
-        if(error)
-            NSLog(@"error: %@",error);
-    }
-    
-    fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.png'"];
-    onlyTXTs = [dirContents2 filteredArrayUsingPredicate:fltr];
-    
-    for ( NSString * thingPath in onlyTXTs){
-        NSString * fullThingPath = [docDir stringByAppendingPathComponent:thingPath];
-        [filemgr removeItemAtPath:fullThingPath error:&error];
-        
-        if(error)
-            NSLog(@"error: %@",error);
-    }
+//    fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.jpg'"];
+//    onlyTXTs = [dirContents2 filteredArrayUsingPredicate:fltr];
+//    
+//    for ( NSString * thingPath in onlyTXTs){
+//        NSString * fullThingPath = [docDir stringByAppendingPathComponent:thingPath];
+//        [filemgr removeItemAtPath:fullThingPath error:&error];
+//        
+//        if(error)
+//            NSLog(@"error: %@",error);
+//    }
+//    
+//    fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.png'"];
+//    onlyTXTs = [dirContents2 filteredArrayUsingPredicate:fltr];
+//    
+//    for ( NSString * thingPath in onlyTXTs){
+//        NSString * fullThingPath = [docDir stringByAppendingPathComponent:thingPath];
+//        [filemgr removeItemAtPath:fullThingPath error:&error];
+//        
+//        if(error)
+//            NSLog(@"error: %@",error);
+//    }
     
     
 }
