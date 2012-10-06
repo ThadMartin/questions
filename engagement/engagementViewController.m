@@ -165,7 +165,7 @@
     }
     restClient.delegate = self;
     
-    [ restClient loadMetadata:@"/uploadNumberStims/"];
+    [ restClient loadMetadata:@"/uploadSchoolOct/"];
     
     
 }
@@ -177,7 +177,7 @@
     filemgr = [NSFileManager defaultManager];
     
     
-    NSString *destDir = @"/uploadNumberStims/";
+    NSString *destDir = @"/uploadSchoolOct/";
     
     NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString * qListPath2 = [paths objectAtIndex:0];
@@ -264,7 +264,7 @@
     
     NSString * reloadSourcePath;
     NSString * reloadDestinationPath;
-    NSString *destDir = @"/uploadNumberStims/";
+    NSString *destDir = @"/uploadSchoolOct/";
     
     for (id key in error.userInfo){
         NSLog(@"key, %@",key);

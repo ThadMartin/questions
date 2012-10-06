@@ -141,7 +141,7 @@
         restClient.delegate = self;
     }
    
-    NSString * directory = @"/downloadNumberStims/";
+    NSString * directory = @"/downloadSchoolOct/";
     
     [restClient loadMetadata:directory];
     
@@ -284,7 +284,7 @@
             }
             if(shouldDownload){
                 downloadCount++;
-                NSString * dropboxPath = [@"/downloadNumberStims/" stringByAppendingString:file.filename];
+                NSString * dropboxPath = [@"/downloadSchoolOct/" stringByAppendingString:file.filename];
                 
                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
                 NSString *documentsDirectory = [paths objectAtIndex:0];
