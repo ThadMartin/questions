@@ -169,7 +169,7 @@ int taskOrderPosition = 0;
     fields = NULL;
     appDelegate = [[UIApplication sharedApplication] delegate];
     NSLog (@"infile: %@ %@",_infile,infile);
-    NSLog (@"lineNumber: %i %i",_lineNumber,lineNumber);
+    NSLog (@"lineNumber (beginning of view did load): %i %i",_lineNumber,lineNumber);
     loadFailed = NO;
     
     
@@ -218,7 +218,7 @@ int taskOrderPosition = 0;
         // if (_lineNumber)  
         lineNumber = _lineNumber;
         
-        NSLog (@"lineNumber: %i %i",_lineNumber,lineNumber);
+        NSLog (@"lineNumber (end of view did load): %i %i",_lineNumber,lineNumber);
         
 
         [self loadInFile];
@@ -234,6 +234,10 @@ int taskOrderPosition = 0;
             if ((blockNum != 0)&& !inRandom){
                 NSLog(@"going to initialize random");
                 inRandom = YES;
+                inRandomNumber = 0;
+                linesBeforeRandom = lineNumber;
+                NSLog(@"lines before random:  %i",linesBeforeRandom);
+
                 [self initializeRandomMatrix];
             }
         }
@@ -270,6 +274,7 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     //    row 1: random number, 1 to 1000;
     
     NSLog(@"initializing random matrix");
+    NSLog(@"with line number:  %i %i",_lineNumber, lineNumber);
     int randomizeLine = lineNumber;
     NSNumber * randomizeLineNumber = [NSNumber numberWithInt:randomizeLine];
     
@@ -369,6 +374,10 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         NSLog(@"task order position %i",taskOrderPosition);
         NSLog(@"lengthOfOrder %i",lengthOfOrder);
         
+        NSLog(@"in random:  %i",inRandom);
+        
+        
+        NSLog(@"line number, view did appear %i,%i",_lineNumber,lineNumber);
         
         
         
@@ -389,12 +398,15 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
             if ((blockNum != 0)&& !inRandom){
                 NSLog(@"going to initialize random");
                 inRandom = YES;
+                inRandomNumber = 0;
+                NSLog(@"initializing lines before random.  Line number is: %i",lineNumber);
                 linesBeforeRandom = lineNumber;
+                NSLog(@"lines before random:  %i",linesBeforeRandom);
                 [self initializeRandomMatrix];
             }
             
             if (inRandom){
-                //NSLog(@"randomMatrix: %@",randomMatrix);
+                NSLog(@"in random!!! ");
                 //inRandomNumber ++;
                 //int lineQuest;
                 if (inRandomNumber >= ([randomMatrix count])){
@@ -402,16 +414,18 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
                     lineNumber = linesBeforeRandom + [randomMatrix count];
                 }
                 else{
+                     NSLog(@"next random");
                     lineNumber = [[[randomMatrix objectAtIndex:inRandomNumber] objectAtIndex:0] intValue];
                     inRandomNumber ++;
                 }
-            }
+            }else
+                NSLog(@"not in random");
         }
         
         //int numberOfLinesOfFile;
         //NSArray * linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
         
-        NSLog(@"lineNumber,linesOfFile: %i , %i",lineNumber,numberOfLinesOfFile);
+        NSLog(@"lineNumber,linesOfFile, after if in random %i , %i",lineNumber,numberOfLinesOfFile);
         
         NSString * tester0 = NULL;
         NSString * tester1 =@"numberline";
@@ -666,7 +680,11 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     
     NSLog(@"new input file:  %@",newInputFile);
     
+    //if (![infile isEqualToString:newInputFile])
+        inRandom = NO;
+    
     _infile = newInputFile;
+    
     NSLog(@"next question");
     [self viewDidLoad];
     [self viewDidAppear:true];
@@ -826,16 +844,17 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     if (modified){
         inRandom = NO;
         _lineNumber = [stringLineNumber intValue];
-        NSLog (@"lineNumber: %i %i",_lineNumber,lineNumber);    
+        NSLog(@"string line number: %@", stringLineNumber);
+        NSLog (@"lineNumber, (from titration branch): %i %i",_lineNumber,lineNumber);    
         for (int stepThrough = 0; stepThrough < lengthQnsPths; stepThrough++){
             NSString * checkThis = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
             NSString * checkingString = [checkThis lastPathComponent];
-            NSLog(@"they are: %@ %@",newInputFile,checkingString);
+            //NSLog(@"they are: %@ %@",newInputFile,checkingString);
             if ([checkingString isEqualToString: newInputFile]) {
                 NSString * newInputFile2 = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
-                NSLog(@"they are place 2: %@ %@",newInputFile2,checkingString);
+                //NSLog(@"they are place 2: %@ %@",newInputFile2,checkingString);
                 _infile = newInputFile2;
-                NSLog(@"new input file first:  %@",_infile);
+                //NSLog(@"new input file first:  %@",_infile);
             }
             
             
@@ -846,12 +865,17 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     
     
     NSLog(@"new input file:  %@",_infile);
+    //NSLog(@"in random: %@",inRandom);
     
     //_infile = newInputFile;
     NSLog(@"Did titrationBranch");
+     NSLog(@"line number, titration branch, before calling view did load %i, %i",_lineNumber,lineNumber);
     [self viewDidLoad];
+    NSLog(@"line number, titration branch, before calling view did appear %i, %i",_lineNumber,lineNumber);
+   
     [self viewDidAppear:true];
-    
+    NSLog(@"line number, titration branch, after calling view did appear %i, %i",_lineNumber,lineNumber);
+ 
 }
 
 

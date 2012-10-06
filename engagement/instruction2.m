@@ -6,13 +6,12 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "instruction.h"
-#import "QuestionData.h"
 #import "instruction2.h"
 
-@implementation instruction{
+#import "QuestionData.h"
+
+@implementation instruction2{
     NSTimer * timer;
-    BOOL gotoBigInstruction;
 }
 
 @synthesize fields;
@@ -50,15 +49,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //NSLog(@"fields:  %@",fields);
-    
-    if ([[fields objectAtIndex:7] isEqualToString:@"yes"]){
-        NSLog(@"going to big instruction");
-        gotoBigInstruction = YES;
-        //[self performSegueWithIdentifier: @"toBigInstruction" sender: self];
-    }
-    else{
-    
+    NSLog(@"bigInstruction");
     self.instructionLabel.text = [fields objectAtIndex:5]; 
     NSString * timerTime = [fields objectAtIndex:4];
     float timerTimeNumber = [timerTime floatValue];
@@ -72,22 +63,10 @@
     BOOL showButtonBool = [showButton boolValue];
     if (!showButtonBool)
         [continueButton setHidden:true];
-
-    }
+    
+    
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"toBigInstruction"]){
-        instruction2 * svc = [segue destinationViewController];
-        svc.fields = fields; 
-    } 
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    if(gotoBigInstruction)
-        [self performSegueWithIdentifier: @"toBigInstruction" sender: self];
-}
 
 -(void) timeIsUp:(NSTimer*)timer{
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 

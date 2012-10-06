@@ -109,6 +109,7 @@
 		72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */; };
 		72F7DF2A1567EA4100500D63 /* engagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF291567EA4100500D63 /* engagementViewController.m */; };
 		72F7DF421567F01000500D63 /* QuestionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF411567F01000500D63 /* QuestionData.m */; };
+		72FCAD2C161D44BB007E4242 /* instruction2.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FCAD2B161D44BB007E4242 /* instruction2.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -294,6 +295,8 @@
 		72F7DF291567EA4100500D63 /* engagementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = engagementViewController.m; sourceTree = "<group>"; };
 		72F7DF401567F00F00500D63 /* QuestionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionData.h; sourceTree = "<group>"; };
 		72F7DF411567F01000500D63 /* QuestionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = QuestionData.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		72FCAD2A161D44BB007E4242 /* instruction2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = instruction2.h; sourceTree = "<group>"; };
+		72FCAD2B161D44BB007E4242 /* instruction2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = instruction2.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -546,6 +549,8 @@
 				720F5D811576702500C74BC5 /* goodbye.h */,
 				720F5D821576702500C74BC5 /* goodbye.m */,
 				724118A31580EB7E002FC139 /* instruction.h */,
+				72FCAD2A161D44BB007E4242 /* instruction2.h */,
+				72FCAD2B161D44BB007E4242 /* instruction2.m */,
 				724118A41580EB7E002FC139 /* instruction.m */,
 				72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */,
 				72A306FF15FA3CA200749E14 /* titration.h */,
@@ -747,6 +752,7 @@
 				72A6B0E415EFC3B100BAC90A /* audioNumberLine.m in Sources */,
 				729BE1C515F9BAF400F920B8 /* feedback.m in Sources */,
 				72A3070115FA3CA200749E14 /* titration.m in Sources */,
+				72FCAD2C161D44BB007E4242 /* instruction2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

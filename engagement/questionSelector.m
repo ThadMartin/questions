@@ -328,14 +328,6 @@
         [self addNewQuestionsToTable];
     }
 
-    //NSString * dropboxPath = [@"/downloadNumberStims/" stringByAppendingString:file.filename];
-    //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    //NSString *documentsDirectory = [paths objectAtIndex:0];
-    //NSString * localPath = [documentsDirectory stringByAppendingPathComponent:file.filename];
-    // NSLog(@"local path: %@",localPath);
-    //[restClient loadFile:destinationPath destinationPath intoPath:path];
-    
-    
     NSLog(@"from %@",error.userInfo.description);
     
     NSString * reloadPath;

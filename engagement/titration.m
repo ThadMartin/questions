@@ -98,6 +98,8 @@
     }
     
     NSLog(@"numOfchoices =%i",numOfChoices);
+    NSLog(@"answer = %@",[fields objectAtIndex:5]);
+    
     
     switch (numOfChoices) {
         case 1:

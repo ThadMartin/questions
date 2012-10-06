@@ -830,7 +830,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="6" minimumFontSize="25" id="Dh3-BD-D63">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="6" adjustsFontSizeToFit="NO" minimumFontSize="25" id="Dh3-BD-D63">
                                 <rect key="frame" x="20" y="20" width="728" height="263"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -859,6 +859,7 @@
                         <outlet property="continueButton" destination="hQW-1T-Gjj" id="tlv-IY-DuQ"/>
                         <outlet property="instructionLabel" destination="Dh3-BD-D63" id="roL-BH-HVF"/>
                         <segue destination="vQp-9g-wP9" kind="custom" identifier="backToQuestionParser" customClass="noAnimationSegue" id="9pa-4j-NCZ"/>
+                        <segue destination="jGU-xb-vS0" kind="custom" identifier="toBigInstruction" customClass="noAnimationSegue" id="k8c-av-aKs"/>
                     </connections>
                 </viewController>
             </objects>
@@ -911,18 +912,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" id="dop-6r-8gg">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="6" adjustsFontSizeToFit="NO" minimumFontSize="10" id="dop-6r-8gg">
                                 <rect key="frame" x="20" y="20" width="728" height="506"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OQc-lX-dcl">
-                                <rect key="frame" x="47" y="541" width="74" height="37"/>
+                                <rect key="frame" x="41" y="541" width="108" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="submit">
+                                <state key="normal" title="continue">
                                     <color key="titleColor" red="0.19607843458652496" green="0.30980393290519714" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1767,251 +1768,49 @@
             </objects>
             <point key="canvasLocation" x="3586" y="218"/>
         </scene>
+        <scene sceneID="REq-oP-vJY">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uft-Uh-7ls" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="jGU-xb-vS0" customClass="instruction2" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Qp-JV-Qj3">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" adjustsFontSizeToFit="NO" minimumFontSize="10" id="IWJ-gx-9dL">
+                                <rect key="frame" x="20" y="370" width="728" height="263"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="75"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CEc-lM-h8X">
+                                <rect key="frame" x="312" y="947" width="144" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="continue">
+                                    <color key="titleColor" red="0.19607843458652496" green="0.30980393290519714" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="continueButtonPressed:" destination="jGU-xb-vS0" eventType="touchUpInside" id="9Zl-JO-K8w"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="continueButton" destination="CEc-lM-h8X" id="kEb-VT-qrh"/>
+                        <outlet property="instructionLabel" destination="IWJ-gx-9dL" id="irB-Kn-klw"/>
+                        <segue destination="vQp-9g-wP9" kind="custom" identifier="backToQuestionParser" customClass="noAnimationSegue" id="IAW-rm-O9g"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="3796" y="1498"/>
+        </scene>
     </scenes>
-    <classes>
-        <class className="audioNumberLine" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/audioNumberLine.h"/>
-            <relationships>
-                <relationship kind="action" name="sliderSubmitPressed:"/>
-                <relationship kind="outlet" name="highLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lowLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="moveBox" candidateClass="UIView"/>
-                <relationship kind="outlet" name="qSlider" candidateClass="UIView"/>
-                <relationship kind="outlet" name="questionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="sliderSubmit" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="badInFile" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/badInFile.h"/>
-        </class>
-        <class className="branchOut" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/branchOut.h"/>
-            <relationships>
-                <relationship kind="action" name="choice10pressed:"/>
-                <relationship kind="action" name="choice11pressed:"/>
-                <relationship kind="action" name="choice12pressed:"/>
-                <relationship kind="action" name="choice1pressed:"/>
-                <relationship kind="action" name="choice2pressed:"/>
-                <relationship kind="action" name="choice3pressed:"/>
-                <relationship kind="action" name="choice4pressed:"/>
-                <relationship kind="action" name="choice5pressed:"/>
-                <relationship kind="action" name="choice6pressed:"/>
-                <relationship kind="action" name="choice7pressed:"/>
-                <relationship kind="action" name="choice8pressed:"/>
-                <relationship kind="action" name="choice9pressed:"/>
-                <relationship kind="action" name="submitButtonPressed:"/>
-                <relationship kind="outlet" name="choice1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice10" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice10Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice11" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice11Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice12" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice12Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice1Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice2Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice3Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice4Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice5Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice6" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice6Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice7" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice7Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice8" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice8Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice9" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice9Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="multipleChoiceQuestion" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="engagementViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/engagementViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="clearMemoryPressed:"/>
-                <relationship kind="action" name="continueButtonPressed:"/>
-                <relationship kind="action" name="linkButtonPressed:"/>
-                <relationship kind="action" name="quitPressed:"/>
-                <relationship kind="action" name="unlinkButtonPressed:"/>
-                <relationship kind="action" name="uploadButtonPressed:"/>
-                <relationship kind="outlet" name="clearMemory" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="continueButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="linkButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="linkLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quitButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="unlinkButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="uploadButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="feedback" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/feedback.h"/>
-            <relationships>
-                <relationship kind="action" name="continueButtonPressed:"/>
-                <relationship kind="outlet" name="continueButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="instructionLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="goodbye" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/goodbye.h"/>
-            <relationships>
-                <relationship kind="action" name="leave:"/>
-                <relationship kind="outlet" name="exitButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="instruction" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/instruction.h"/>
-            <relationships>
-                <relationship kind="action" name="continueButtonPressed:"/>
-                <relationship kind="outlet" name="continueButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="instructionLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="multipleChoice" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/multipleChoice.h"/>
-            <relationships>
-                <relationship kind="action" name="choice10pressed:"/>
-                <relationship kind="action" name="choice11pressed:"/>
-                <relationship kind="action" name="choice12pressed:"/>
-                <relationship kind="action" name="choice1pressed:"/>
-                <relationship kind="action" name="choice2pressed:"/>
-                <relationship kind="action" name="choice3pressed:"/>
-                <relationship kind="action" name="choice4pressed:"/>
-                <relationship kind="action" name="choice5pressed:"/>
-                <relationship kind="action" name="choice6pressed:"/>
-                <relationship kind="action" name="choice7pressed:"/>
-                <relationship kind="action" name="choice8pressed:"/>
-                <relationship kind="action" name="choice9pressed:"/>
-                <relationship kind="action" name="submitButtonPressed:"/>
-                <relationship kind="outlet" name="choice1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice10" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice10Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice11" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice11Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice12" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice12Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice1Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice2Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice3Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice4Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice5Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice6" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice6Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice7" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice7Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice8" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice8Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice9" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice9Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="multipleChoiceQuestion" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="newSlider" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/newSlider.h"/>
-            <relationships>
-                <relationship kind="action" name="sliderSubmitPressed:"/>
-                <relationship kind="outlet" name="highLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lowLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="moveBox" candidateClass="UIView"/>
-                <relationship kind="outlet" name="qSlider" candidateClass="UIView"/>
-                <relationship kind="outlet" name="questionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="sliderSubmit" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="numberFill" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/numberFill.h"/>
-            <relationships>
-                <relationship kind="action" name="submitButtonPressed:"/>
-                <relationship kind="outlet" name="numberFillText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="numberLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="numbersPlease" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="picture" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/picture.h"/>
-            <relationships>
-                <relationship kind="action" name="continueButtonPressed:"/>
-                <relationship kind="outlet" name="continueButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="imgView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="questionParser" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/questionParser.h"/>
-        </class>
-        <class className="questionSelector" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/questionSelector.h"/>
-        </class>
-        <class className="speech" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/speech.h"/>
-            <relationships>
-                <relationship kind="action" name="submitButtonPressed:"/>
-                <relationship kind="outlet" name="speechLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="titration" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/titration.h"/>
-            <relationships>
-                <relationship kind="action" name="choice10pressed:"/>
-                <relationship kind="action" name="choice11pressed:"/>
-                <relationship kind="action" name="choice12pressed:"/>
-                <relationship kind="action" name="choice1pressed:"/>
-                <relationship kind="action" name="choice2pressed:"/>
-                <relationship kind="action" name="choice3pressed:"/>
-                <relationship kind="action" name="choice4pressed:"/>
-                <relationship kind="action" name="choice5pressed:"/>
-                <relationship kind="action" name="choice6pressed:"/>
-                <relationship kind="action" name="choice7pressed:"/>
-                <relationship kind="action" name="choice8pressed:"/>
-                <relationship kind="action" name="choice9pressed:"/>
-                <relationship kind="action" name="submitButtonPressed:"/>
-                <relationship kind="outlet" name="choice1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice10" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice10Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice11" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice11Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice12" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice12Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice1Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice2Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice3Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice4Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice5Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice6" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice6Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice7" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice7Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice8" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice8Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="choice9" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="choice9Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="multipleChoiceQuestion" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="wordFill" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/wordFill.h"/>
-            <relationships>
-                <relationship kind="action" name="wordFillSubmitPressed:"/>
-                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="wordFillLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wordFillSubmit" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

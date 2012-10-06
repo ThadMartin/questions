@@ -19,8 +19,8 @@
     NSTimer * timer;
     NSTimer * timerBefore;
     NSTimer * timerAfter;
-    int pauseBefore;
-    int pauseAfter;
+    float pauseBefore;
+    float pauseAfter;
     int timesToRepeat;
     int timesSaid;
 }
@@ -81,18 +81,39 @@
     }
     
     NSString * strPauseBefore = [fields objectAtIndex:6];
-    pauseBefore = [strPauseBefore intValue];
+    pauseBefore = [strPauseBefore floatValue];
     NSString * strPauseAfter = [fields objectAtIndex:8];
-    pauseAfter = [strPauseAfter intValue];
+    pauseAfter = [strPauseAfter floatValue];
     NSString * strRepeat = [fields objectAtIndex:9];
     timesToRepeat = [strRepeat intValue];
-    NSLog(@"before, %i, after, %i, repeat, %i",pauseBefore,pauseAfter,timesToRepeat);
+    //NSLog(@"before, %i, after, %i, repeat, %i",pauseBefore,pauseAfter,timesToRepeat);
     NSString * showButton =[fields objectAtIndex:10];
-    BOOL showFieldBool = [showButton boolValue];
+    NSString * showLabel = [fields objectAtIndex:11];
+    NSString * showField = [fields objectAtIndex:12];
+    BOOL showFieldBool = [showField boolValue];
+    BOOL showButtonBool = [showButton boolValue];
+    BOOL showLabelBool = [showLabel boolValue];
     if (!showFieldBool){
         [textField setHidden:true];
+         }
+    else {
+        [textField setHidden:false];
+         }
+    if (!showButtonBool){
         [submitButton setHidden:true];
+        
     }
+    else {
+        [submitButton setHidden:false];
+         }
+    if (!showLabelBool){
+         [speechLabel setHidden:true];
+    }
+    else {
+         [speechLabel setHidden:false];
+        
+    }
+
 }
 
 
@@ -100,15 +121,19 @@
 -(void) sayIt:(NSTimer*)timer{
 //    NSLog(@"timesToRepeat:");
 //    NSLog(@"timesToRepeat: %@",fields);
+    [fliteEngine stopTalking];
 
     if (timesToRepeat > 0){ 
         NSString * textToSay = [fields objectAtIndex:7];
         NSLog(@"about to try to talk, %@",textToSay);
         [fliteEngine speakText:textToSay];	// Make it talk
         timesToRepeat --;
-        if (pauseAfter > 0){
+        if (pauseAfter >= 0){
             timerAfter = [NSTimer scheduledTimerWithTimeInterval:pauseAfter target:self selector:@selector(sayIt:) userInfo:nil repeats:NO];
             
+        }
+        else{
+            timerAfter = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(sayIt:) userInfo:nil repeats:NO];
         }
             [runner addTimer: timerAfter forMode: NSDefaultRunLoopMode];
     }//end of sayIt
@@ -117,8 +142,11 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    if (pauseBefore > 0){
+    if (pauseBefore >= 0){
         timerBefore = [NSTimer scheduledTimerWithTimeInterval:pauseBefore target:self selector:@selector(sayIt:) userInfo:nil repeats:NO];
+    }
+    else{
+        timerBefore = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(sayIt:) userInfo:nil repeats:NO]; 
     }
     [runner addTimer: timerBefore forMode: NSDefaultRunLoopMode];
     
@@ -153,11 +181,11 @@
     [timer invalidate]; 
     [timerAfter invalidate];
     [timerBefore invalidate];
+    [fliteEngine stopTalking];
     
         NSString * numberFillAnswer = self.textField.text;
         
-        if (numberFillAnswer.length > 0) {
-            
+                   
             NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
             
             NSString *answerObj = [NSString stringWithFormat:@"%@",numberFillAnswer];
@@ -191,7 +219,7 @@
             
             [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
             
-        }//nothing submitted
+      //  }//nothing submitted
         
     
 }
@@ -203,6 +231,10 @@
 
 
 -(void) timeIsUp:(NSTimer*)timer{
+    [fliteEngine stopTalking];
+    //[timer invalidate]; 
+    [timerAfter invalidate];
+    [timerBefore invalidate];
     NSString * wordFillAnswer2 = self.textField.text;
     NSString * wordFillAnswer;
     

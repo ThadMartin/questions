@@ -17,8 +17,8 @@
     FliteTTS *fliteEngine;
     NSTimer * timerBefore;
     NSTimer * timerAfter;
-    int pauseBefore;
-    int pauseAfter;
+    float pauseBefore;
+    float pauseAfter;
     int timesToRepeat;
     int timesSaid;
     NSRunLoop *runner;
@@ -73,12 +73,12 @@ float currentAnswer2 = -1;
         [runner addTimer: timer forMode: NSDefaultRunLoopMode];
     }
     NSString * strPauseBefore = [fields objectAtIndex:8];
-    pauseBefore = [strPauseBefore intValue];
+    pauseBefore = [strPauseBefore floatValue];
     NSString * strPauseAfter = [fields objectAtIndex:10];
-    pauseAfter = [strPauseAfter intValue];
+    pauseAfter = [strPauseAfter floatValue];
     NSString * strRepeat = [fields objectAtIndex:11];
     timesToRepeat = [strRepeat intValue];
-    NSLog(@"before, %i, after, %i, repeat, %i",pauseBefore,pauseAfter,timesToRepeat);
+    //NSLog(@"before, %i, after, %i, repeat, %i",pauseBefore,pauseAfter,timesToRepeat);
 
     
     
@@ -86,12 +86,12 @@ float currentAnswer2 = -1;
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    if (pauseBefore > 0){
+    if (pauseBefore >= 0){
         timerBefore = [NSTimer scheduledTimerWithTimeInterval:pauseBefore target:self selector:@selector(sayIt:) userInfo:nil repeats:NO];
     }
     [runner addTimer: timerBefore forMode: NSDefaultRunLoopMode];
     
-    NSLog(@"nearly about to try to talk, ");
+    //NSLog(@"nearly about to try to talk, ");
     
     // [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
     
@@ -103,14 +103,19 @@ float currentAnswer2 = -1;
 -(void) sayIt:(NSTimer*)timer{
     //    NSLog(@"timesToRepeat:");
     //    NSLog(@"timesToRepeat: %@",fields);
-    
+    [fliteEngine stopTalking];
+
     if (timesToRepeat > 0){ 
         NSString * textToSay = [fields objectAtIndex:9];
         NSLog(@"about to try to talk, %@",textToSay);
         [fliteEngine speakText:textToSay];	// Make it talk
         timesToRepeat --;
-        if (pauseAfter > 0){
+        if (pauseAfter >= 0){
             timerAfter = [NSTimer scheduledTimerWithTimeInterval:pauseAfter target:self selector:@selector(sayIt:) userInfo:nil repeats:NO];
+            
+        }
+        else{
+            timerAfter = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(sayIt:) userInfo:nil repeats:NO];
             
         }
         [runner addTimer: timerAfter forMode: NSDefaultRunLoopMode];
@@ -124,6 +129,7 @@ float currentAnswer2 = -1;
 //    [timer invalidate];
     [timerAfter invalidate];
     [timerBefore invalidate];
+    [fliteEngine stopTalking];
 
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
     
@@ -256,6 +262,7 @@ float currentAnswer2 = -1;
     [timer invalidate];
     [timerAfter invalidate];
     [timerBefore invalidate];
+    [fliteEngine stopTalking];
 
     
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
