@@ -77,6 +77,7 @@
     [super viewWillAppear:animated];
 }
 
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -85,6 +86,13 @@
     
     //  if ([[DBSession sharedSession] isLinked])
     //      [self performSegueWithIdentifier: @"toQuestionSelector" sender: self]; 
+    
+    NSString *URLString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"] encoding:NSUTF8StringEncoding error:nil];
+    if ( URLString == NULL ){
+        [timer invalidate];
+        [self performSegueWithIdentifier: @"toQuestionSelector" sender: self]; 
+
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -157,6 +165,7 @@
     [timer invalidate];
     [self performSegueWithIdentifier: @"toQuestionSelector" sender: self]; 
 }
+
 
 
 - (IBAction)uploadButtonPressed:(id)sender {
