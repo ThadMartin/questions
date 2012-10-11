@@ -281,7 +281,12 @@
                     shouldDownload = false;       // can be changed to true, so if you modify a file, you get the new version.
                     break;
                 }
+                if(file.isDirectory){
+                    shouldDownload = false;
+                    break;
+                }
             }
+                   
             if(shouldDownload){
                 downloadCount++;
                 NSString * dropboxPath = [@"/downloadNumberStims/" stringByAppendingString:file.filename];
