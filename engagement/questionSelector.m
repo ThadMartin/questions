@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+// This file used to download questions.  Code that did that should be removed...
 
 //  selects the questionnaire to use.
 
@@ -23,7 +24,6 @@
     NSMutableArray * newQuestions;
     NSString * qListPath; 
     NSString * qListPath2;
-    DBRestClient * restClient;
     int downloadCount;
     NSArray *filelist;
     NSMutableArray * filelist3;
@@ -52,71 +52,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     appDelegate = [[UIApplication sharedApplication] delegate];
-    appDelegate.allQnsAndPaths = [[NSMutableArray alloc] init];	
-    NSFileManager *filemgr = [NSFileManager defaultManager];
-    //onlyQns = [[NSMutableArray alloc] init];
     
-    qListPath = [[NSBundle mainBundle] bundlePath];
-    filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:nil];
-    //NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.txt'"];
-
-    NSArray *extensions = [NSArray arrayWithObjects:@"txt", @"ord", nil];
-    //NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectoryPath error:nil];
-    onlyQns = [[NSMutableArray alloc ] initWithArray:[filelist filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]]];
-
+    onlyQns = [[NSMutableArray alloc ] init];
+    NSString * endQuestionName;
     
-   // onlyQns = [[NSMutableArray alloc] initWithArray:[filelist filteredArrayUsingPredicate:fltr]];
-
-   // filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:nil];
-    
-    numInfiles = [onlyQns count];
-        
-    //it used to strip off the .txt entension in this loop.
-    for (int noTxt = 0; noTxt < numInfiles; noTxt++){               
-        NSString * firstName = [onlyQns objectAtIndex:noTxt];
-        NSLog(@"firstName %@",firstName);
-        NSString * fullQuestion = [qListPath stringByAppendingPathComponent:firstName];
-        [appDelegate.allQnsAndPaths addObject:fullQuestion];
-        
+    for(NSString * questionName in appDelegate.allQnsAndPaths){
+        endQuestionName = [questionName lastPathComponent];
+        [onlyQns addObject:endQuestionName];
     }
     
-    //          previously downloaded files, things ending with a 2.
-    
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    qListPath2 = [paths objectAtIndex:0];
-     
-    //NSLog(@"qlsitpath2: %@",qListPath2);
-    
-    NSArray * filelist2= [filemgr contentsOfDirectoryAtPath:qListPath2 error:nil];
-    
-       // NSLog(@"qlsitpath2: %@",filelist2);
-   // onlyQns2 = [[NSMutableArray alloc] initWithArray:[filelist2 filteredArrayUsingPredicate:fltr]];
-    onlyQns2 = [[NSMutableArray alloc ] initWithArray:[filelist2 filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]]];
-
-    numInfiles2 = [onlyQns2 count];
-    
-    NSLog(@"numInFiles2: %i",numInfiles2);
-    
-    for (int noTxt = numInfiles; noTxt < (numInfiles + numInfiles2); noTxt++){
-        NSString * firstName = [onlyQns2 objectAtIndex:noTxt-numInfiles];
-        NSString * fullQuestion = [qListPath2 stringByAppendingPathComponent:firstName];
-        [appDelegate.allQnsAndPaths addObject:fullQuestion];
-        [onlyQns addObject: [onlyQns2 objectAtIndex:noTxt-numInfiles]];
-        
-    }
-    
-    NSLog (@"NumberOfFiles is %i",numInfiles);
+    //NSLog(@"only questions: %@", onlyQns);
     
     UIView * footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)]; 
     footer.backgroundColor = [UIColor clearColor];   //footer makes table stop when it should.
     [self.tableView setTableFooterView:footer];
-    
-    filelist3 = [[NSMutableArray alloc] initWithArray:filelist];
-    
-    [filelist3 addObjectsFromArray:filelist2];
     
 }
 
@@ -135,15 +85,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!restClient) {
-        restClient =
-        [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
-        restClient.delegate = self;
-    }
-   
-    NSString * directory = @"/downloadNumberStims/";
-    
-    [restClient loadMetadata:directory];
     
 }
 
@@ -265,96 +206,6 @@
     
 }
 
-#pragma mark - Dropbox methods
-
-
-- (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata{
-    downloadCount = 0;
-    newQuestions = [[NSMutableArray alloc] init];
-    if (metadata.isDirectory) {
-        for (DBMetadata *file in metadata.contents) {
-            bool shouldDownload = true;
-            for(NSString *existing in filelist3){
-               // NSLog(@"existing, file.filename %@ %@",existing,file.filename);
-                
-                if([existing isEqualToString:file.filename]){
-                    shouldDownload = false;       // can be changed to true, so if you modify a file, you get the new version.
-                    break;
-                }
-                if(file.isDirectory){
-                    shouldDownload = false;
-                    break;
-                }
-            }
-                   
-            if(shouldDownload){
-                downloadCount++;
-                NSString * dropboxPath = [@"/downloadNumberStims/" stringByAppendingString:file.filename];
-                
-                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-                NSString *documentsDirectory = [paths objectAtIndex:0];
-
-                NSString * localPath = [documentsDirectory stringByAppendingPathComponent:file.filename];
-               // NSLog(@"local path: %@",localPath);
-                [restClient loadFile:dropboxPath intoPath:localPath];
-            }
-          //  }
-        }// download all infiles that aren't already on the iPad.
-    }//if not a directory, in wrong place.
-}
-
-- (void)restClient:(DBRestClient *)client loadMetadataFailedWithError:(NSError *)error {
-    NSLog(@"Error loading metadata: %@", error);
-}
-
-- (void)restClient:(DBRestClient*)client loadedFile:(NSString*)localPath {
-    //NSLog(@"File loaded into path: %@", localPath);
-    
-    NSString *filename = [localPath lastPathComponent];
-    NSArray *components = [filename componentsSeparatedByString:@"."];
-    //NSLog(@"file extension, %@", [components objectAtIndex:1]);
-    
-    //if the extension is ok add it to the new files array to be added to the table later
-    //NSLog(@" %@ = txt",[components objectAtIndex:1] );
-    if ([[components objectAtIndex:1] isEqualToString:@"txt"]||[[components objectAtIndex:1] isEqualToString:@"ord"]) {
-        [newQuestions addObject:filename];
-        [appDelegate.allQnsAndPaths addObject:localPath];
-    }
-    downloadCount--;
-    if(downloadCount == 0){
-        [self addNewQuestionsToTable];
-    }
-}
-
-- (void)restClient:(DBRestClient*)client loadFileFailedWithError:(NSError*)error {
-    NSLog(@"There was an error loading the file - %@", error);
-    //downloadCount--;
-    if(downloadCount == 0){
-        [self addNewQuestionsToTable];
-    }
-
-    NSLog(@"from %@",error.userInfo.description);
-    
-    NSString * reloadPath;
-    NSString * reloadDestinationPath;
-    
-    for (id key in error.userInfo){
-        NSLog(@"key, %@",key);
-         NSLog(@"object, %@",[error.userInfo objectForKey:key]);
-        if ([key isEqualToString:@"path"])
-            reloadPath = [error.userInfo objectForKey:key];
-        
-        if ([key isEqualToString:@"destinationPath"])
-            reloadDestinationPath = [error.userInfo objectForKey:key];
-        
-    }
-    
-    
-    if ([reloadPath length]>1 && [reloadDestinationPath length] > 1){
-        [restClient loadFile:reloadDestinationPath intoPath:reloadPath];
-        NSLog(@"re-download trying");
-    }
-}
 
 - (void)addNewQuestionsToTable{
     UITableView *table = (UITableView *) self.view;

@@ -9,12 +9,10 @@
 // A screen that says goodbye to the user.  This used to upload to dropbox, but now that is done by engagementViewController.
 
 #import "goodbye.h"
-//#import <DropboxSDK/DropboxSDK.h>
 #import "engagementAppDelegate.h"
 
 
 @implementation goodbye{
-//    DBRestClient * restClient;
 }
 
 @synthesize exitButton;

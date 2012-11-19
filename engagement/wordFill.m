@@ -52,7 +52,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.wordFillLabel.text = [fields objectAtIndex:5];
     NSString * timerTime = [fields objectAtIndex:4];
     float timerTimeNumber = [timerTime floatValue];
@@ -98,8 +97,7 @@
     
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
     [thisQuestionData saveData:questionAnswers];
-    
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    [self dismissModalViewControllerAnimated:NO];
     
 }
 
@@ -133,7 +131,7 @@
 
 - (IBAction)wordFillSubmitPressed:(id)sender {
     
-        [timer invalidate];
+    [timer invalidate];
     
     NSString * wordFillAnswer = self.textField.text;
     
@@ -141,7 +139,6 @@
         NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
         
         NSString *answerObj = [NSString stringWithFormat:@"%@",wordFillAnswer];
-        
         [questionAnswers2 addObject:answerObj];
         
         NSDate *myDate = [NSDate date];
@@ -163,11 +160,12 @@
         
         NSString * newLn = @"\r";
         [questionAnswers addObject:newLn];
-
+        
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
         [thisQuestionData saveData:questionAnswers];
         
-        [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+        [self dismissModalViewControllerAnimated:NO];
+        
     }
     
 }

@@ -61,19 +61,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     //NSLog(@"about to try to talk");
     fliteEngine = [[FliteTTS alloc] init];
     [fliteEngine setVoice:@"cmu_us_rms"];
-//    [fliteEngine setVoice:@"cmu_us_kal"];
-//    [fliteEngine setVoice:@"cmu_us_kal16"];
-//    [fliteEngine setVoice:@"cmu_us_awb"];
-//    [fliteEngine setVoice:@"cmu_us_slt"];
-//    [fliteEngine setPitch:100.0 variance:50.0 speed:1.0];	// Change the voice properties
-
+    //    [fliteEngine setVoice:@"cmu_us_kal"];
+    //    [fliteEngine setVoice:@"cmu_us_kal16"];
+    //    [fliteEngine setVoice:@"cmu_us_awb"];
+    //    [fliteEngine setVoice:@"cmu_us_slt"];
+    //    [fliteEngine setPitch:100.0 variance:50.0 speed:1.0];	// Change the voice properties
+    
     
     self.speechLabel.text = [fields objectAtIndex:5];
     NSString * timerTime = [fields objectAtIndex:4];
     float timerTimeNumber = [timerTime floatValue];
+    //float timerTimeNumber = 2;        //for debugging, when tired of timeouts.
     if (timerTimeNumber > 0){
         timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
         runner = [NSRunLoop currentRunLoop];
@@ -95,34 +97,34 @@
     BOOL showLabelBool = [showLabel boolValue];
     if (!showFieldBool){
         [textField setHidden:true];
-         }
+    }
     else {
         [textField setHidden:false];
-         }
+    }
     if (!showButtonBool){
         [submitButton setHidden:true];
         
     }
     else {
         [submitButton setHidden:false];
-         }
+    }
     if (!showLabelBool){
-         [speechLabel setHidden:true];
+        [speechLabel setHidden:true];
     }
     else {
-         [speechLabel setHidden:false];
+        [speechLabel setHidden:false];
         
     }
-
+    
 }
 
 
 
 -(void) sayIt:(NSTimer*)timer{
-//    NSLog(@"timesToRepeat:");
-//    NSLog(@"timesToRepeat: %@",fields);
+    //    NSLog(@"timesToRepeat:");
+    //    NSLog(@"timesToRepeat: %@",fields);
     [fliteEngine stopTalking];
-
+    
     if (timesToRepeat > 0){ 
         NSString * textToSay = [fields objectAtIndex:7];
         NSLog(@"about to try to talk, %@",textToSay);
@@ -135,7 +137,7 @@
         else{
             timerAfter = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(sayIt:) userInfo:nil repeats:NO];
         }
-            [runner addTimer: timerAfter forMode: NSDefaultRunLoopMode];
+        [runner addTimer: timerAfter forMode: NSDefaultRunLoopMode];
     }//end of sayIt
     
 }
@@ -176,6 +178,8 @@
     
 }
 
+
+
 - (IBAction)submitButtonPressed:(id)sender {
     
     [timer invalidate]; 
@@ -183,44 +187,39 @@
     [timerBefore invalidate];
     [fliteEngine stopTalking];
     
-        NSString * numberFillAnswer = self.textField.text;
-        
-                   
-            NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
-            
-            NSString *answerObj = [NSString stringWithFormat:@"%@",numberFillAnswer];
-            
-            [questionAnswers2 addObject:answerObj];
-            
-            NSDate *myDate = [NSDate date];
-            NSDateFormatter *df = [NSDateFormatter new];
-            [df setDateFormat:@"HH_mm_ss.SSS"];
-            NSString * timeNow2 = [df stringFromDate:myDate];
-            
-            [questionAnswers2 addObject:timeNow2];
-            
-            NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
-            
-            int retab = [questionAnswers2 count];
-            
-            for (int retabCounter = 0;retabCounter<retab;retabCounter++){
-                NSString * retabWhatever = [questionAnswers2 objectAtIndex:retabCounter];
-                retabWhatever = [retabWhatever stringByAppendingString:@"\t"];
-                [questionAnswers addObject:retabWhatever];
-            }
-            
-            NSString * newLn = @"\r";
-            [questionAnswers addObject:newLn];
-            
-            QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-            [thisQuestionData saveData:questionAnswers];
-            
-            NSLog(@"Going back to questionParser");
-            
-            [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-            
-      //  }//nothing submitted
-        
+    NSString * numberFillAnswer = self.textField.text;
+    NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
+    
+    NSString *answerObj = [NSString stringWithFormat:@"%@",numberFillAnswer];
+    
+    [questionAnswers2 addObject:answerObj];
+    
+    NSDate *myDate = [NSDate date];
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"HH_mm_ss.SSS"];
+    NSString * timeNow2 = [df stringFromDate:myDate];
+    
+    [questionAnswers2 addObject:timeNow2];
+    
+    NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
+    
+    int retab = [questionAnswers2 count];
+    
+    for (int retabCounter = 0;retabCounter<retab;retabCounter++){
+        NSString * retabWhatever = [questionAnswers2 objectAtIndex:retabCounter];
+        retabWhatever = [retabWhatever stringByAppendingString:@"\t"];
+        [questionAnswers addObject:retabWhatever];
+    }
+    
+    NSString * newLn = @"\r";
+    [questionAnswers addObject:newLn];
+    
+    QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+    [thisQuestionData saveData:questionAnswers];
+    
+    NSLog(@"Going back to questionParser");
+    
+    [self dismissModalViewControllerAnimated:NO];
     
 }
 
@@ -269,7 +268,7 @@
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
     [thisQuestionData saveData:questionAnswers];
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    [self dismissModalViewControllerAnimated:NO];
     
 }
 

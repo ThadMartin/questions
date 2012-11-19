@@ -20,8 +20,8 @@
 #import "engagementAppDelegate.h"
 #import "feedback.h"
 #import "titration.h"
-
-
+#import "instruction.h"
+#import "titrationBranch.h"
 
 @implementation questionParser{
     
@@ -34,13 +34,11 @@
 @synthesize questionLine = _questionLine;
 @synthesize lineNumber = _lineNumber;
 @synthesize previousAnswer;
-@synthesize titrationVerbalCorrect;
-@synthesize titrationSpatialCorrect;
-
 
 int lineNumber = 0;
 
 NSString * infile;
+NSString * previousInfile;
 
 NSString * docPath;
 
@@ -66,11 +64,13 @@ int linesBeforeRandom = 0;
 
 int lengthOfOrder = 0;
 
+int titrationVerbalCorrect = 0;
 int titrationVerbalLevel = 1;
 int titrationVerbalAskedAtLevel = 0;
 int titrationVerbalCorrectAtLevel = 0;
 int titrationVerbalNumAtLevel = 0;
 
+int titrationSpatialCorrect = 0;
 int titrationSpatialLevel = 1;
 int titrationSpatialAskedAtLevel = 0;
 int titrationSpatialCorrectAtLevel = 0;
@@ -111,6 +111,9 @@ int taskOrderPosition = 0;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 
 -(void)loadInFile{
+    
+    NSLog(@"Loading infile: %@",infile);
+    
     NSData *data = [NSData dataWithContentsOfFile:infile];
     
     //stringOfFile = [NSString stringWithUTF8String:[data bytes]];
@@ -119,6 +122,7 @@ int taskOrderPosition = 0;
     stringOfFile = [stringOfFile stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
     stringOfFile = [stringOfFile stringByAppendingString:@"\r"];
     
+    // switched to 'dataWithContentsOfFile' so this shouldn't be necessary any more.
     for (int retries = 0; retries < 40; retries ++){
         if  ([stringOfFile length] == 0){   // for some reason, doesn't always work on fisrt try.
             NSLog(@"reloading working ##########################");
@@ -135,11 +139,21 @@ int taskOrderPosition = 0;
     }  //that's enough tries to reload.
     
     if  ([stringOfFile length] == 0)  
-        loadFailed = YES;  // bad input file format.
+        loadFailed = YES;  // bad input file format?
     else{  //copy the headerline of the new file to the output file.
         
         linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
-        numberOfLinesOfFile = [linesOfFile count];
+        //for (int line in [linesOfFile count])
+        
+        numberOfLinesOfFile = 0;
+        
+        for(NSString * checkLength in linesOfFile ){
+            if ([checkLength length]>0)
+                numberOfLinesOfFile ++;
+        }
+        
+        
+        //numberOfLinesOfFile = [linesOfFile count];
         NSLog(@"NumberOfLinesOfFile: %i",numberOfLinesOfFile);
         
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
@@ -157,92 +171,39 @@ int taskOrderPosition = 0;
         NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
         
         fields = [line componentsSeparatedByString:@"\t"];
-        NSLog(@"fields:  %@",fields);
+        // NSLog(@"fields:  %@",fields);
         
     }
-
+    
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    fields = NULL;
-    appDelegate = [[UIApplication sharedApplication] delegate];
-    NSLog (@"infile: %@ %@",_infile,infile);
-    NSLog (@"lineNumber (beginning of view did load): %i %i",_lineNumber,lineNumber);
-    loadFailed = NO;
-    
-    
-    if (( _infile && ![infile isEqualToString:_infile]) ||( _lineNumber>0 && _lineNumber != lineNumber)){  //first execution or changed infile or line number
-        
-        infile = _infile;
-        
-        
-        
-        if ([infile hasSuffix:@".ord"]){
-            NSData *orderData = [NSData dataWithContentsOfFile:infile];
-            stringOfOrder = [[NSString alloc] initWithData:orderData encoding:NSUTF8StringEncoding];
-            //stringOfOrder = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            stringOfOrder = [stringOfOrder stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
-            stringOfOrder = [stringOfOrder stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
-            stringOfOrder = [stringOfOrder stringByAppendingString:@"\r"];
-            linesOfOrder = [stringOfOrder componentsSeparatedByString:@"\r"];
-            taskOrderPosition = 1;
-            
-            //appDelegate = [[UIApplication sharedApplication] delegate];
-            
-            NSString * taskOrderInfile = [linesOfOrder objectAtIndex:taskOrderPosition];
-            
-            //NSString * newInputFile;
-            
-            NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
-            
-            for (NSString * thisFile in theQuestions){
-                if ([[thisFile lastPathComponent] isEqualToString:taskOrderInfile])
-                    infile = thisFile;
-            }
-            
-            for(NSString * checkLength in linesOfOrder){
-                if ([checkLength length]>0)
-                    lengthOfOrder ++;
-            }
-            if (taskOrderPosition < lengthOfOrder-1)
-                anotherFromTaskOrder = YES;
-            
-            //infile = newInputFile;
-            
-        }
-        
-        NSLog(@"infile:  %@",infile);
-        
-        // if (_lineNumber)  
-        lineNumber = _lineNumber;
-        
-        NSLog (@"lineNumber (end of view did load): %i %i",_lineNumber,lineNumber);
-        
 
-        [self loadInFile];
-        
-        NSLog(@"loadfailed: %i",loadFailed);
-        
-        // At this point, set inRandom to NO, randomMatrix to null, and check fields(2)
-        if (!loadFailed){
-            // inRandom = NO;
-            //ranomMatrix = NULL;
-            NSString * blockString = [fields objectAtIndex:2];
-            int blockNum = [blockString intValue];
-            if ((blockNum != 0)&& !inRandom){
-                NSLog(@"going to initialize random");
-                inRandom = YES;
-                inRandomNumber = 0;
-                linesBeforeRandom = lineNumber;
-                NSLog(@"lines before random:  %i",linesBeforeRandom);
 
-                [self initializeRandomMatrix];
-            }
-        }
-        
-    }  // end of if infile or line number changed.
+-(void) setOldAnswer:(NSString *)prAnswer{
+    previousAnswer = prAnswer;
+    //NSLog(@"setPrevious ran.");
+    //NSLog(@"%@",prAnswer);
+}
+
+-(void) setSpatialAnswer:(int)spaCorrect{
+    titrationSpatialCorrect = spaCorrect;
+}
+
+-(void) setVerbalAnswer:(int)verCorrect{
+    titrationVerbalCorrect = verCorrect;
+    //NSLog(@"verCorrect:  %i",verCorrect);
+}
+
+-(void) setInputFile:(NSString *)newInputFile{
+    infile = newInputFile;
+    //[self loadInFile];
+}
+-(void) setLineNbr:(int)newQuestionNumber{
+    lineNumber = newQuestionNumber;    
+}
+
+-(void) setInRnd:(BOOL)inRand{
+    inRandom = inRand;
 }
 
 static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
@@ -288,8 +249,6 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     NSArray * randAndLine;
     
     NSString * randomizeFieldsString = [linesOfFile objectAtIndex:randomizeLine]; 
-    
-    
     NSArray * randomizeFields =  [randomizeFieldsString componentsSeparatedByString:@"\t"]; 
     
     
@@ -312,26 +271,20 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         //NSLog(@"randomMatrixEntry: %@",randAndLine);
         
         randomizeLine ++;
-        
         randomizeLineNumber = [NSNumber numberWithInt:randomizeLine];
         
         //NSLog(@"randomizeLine:  %i",randomizeLine);
         
         previousBlock = block;
-        
         randomizeFieldsString = [linesOfFile objectAtIndex:randomizeLine];
         
         //NSLog(@"randomizeFieldsString: %@",randomizeFieldsString);
         
         randomizeFields =  [randomizeFieldsString componentsSeparatedByString:@"\t"]; 
-        
         blockString = [randomizeFields objectAtIndex:2];
-        
         block = [blockString intValue];
         
         //NSLog(@"block: %i",block);
-        
-        
         
     } // end of while the next line also gets randomized.
     
@@ -340,94 +293,230 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     // should now have a 2D array with [random by blocks] [line number]
     
     NSArray * sortedArray = [randomMatrix sortedArrayUsingFunction:Compare context:nil];
-    
     randomMatrix = [sortedArray mutableCopy] ;
     
     //NSLog(@"sorted array: %@",randomMatrix);
 }
 
--(void)viewDidAppear:(BOOL)animated {
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     
-    if (loadFailed){
-        [self performSegueWithIdentifier: @"toBadInfile" sender: self];
-    } else {
+    NSLog(@"beginning of view did load.");
+    
+    fields = NULL;
+    appDelegate = [[UIApplication sharedApplication] delegate];
+    NSLog (@"infile: %@ %@",_infile,infile);
+    NSLog (@"lineNumber (beginning of view did load): %i %i",_lineNumber,lineNumber);
+    loadFailed = NO;
+    
+    
+    //first execution.
+    
+    infile = _infile;
+    
+    if ([infile hasSuffix:@".ord"]){
+        NSData *orderData = [NSData dataWithContentsOfFile:infile];
+        stringOfOrder = [[NSString alloc] initWithData:orderData encoding:NSUTF8StringEncoding];
+        //stringOfOrder = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        stringOfOrder = [stringOfOrder stringByReplacingOccurrencesOfString:@"\n" withString:@"\r"];
+        stringOfOrder = [stringOfOrder stringByReplacingOccurrencesOfString:@"\r\r" withString:@"\r"];
+        stringOfOrder = [stringOfOrder stringByAppendingString:@"\r"];
+        linesOfOrder = [stringOfOrder componentsSeparatedByString:@"\r"];
+        taskOrderPosition = 1;
+        
+        NSString * taskOrderInfile = [linesOfOrder objectAtIndex:taskOrderPosition];
+        
+        NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
+        
+        for (NSString * thisFile in theQuestions){
+            if ([[thisFile lastPathComponent] isEqualToString:taskOrderInfile])
+                infile = thisFile;
+        }
+        
+        for(NSString * checkLength in linesOfOrder){
+            if ([checkLength length]>0)
+                lengthOfOrder ++;
+        }
+        if (taskOrderPosition < lengthOfOrder-1)
+            anotherFromTaskOrder = YES;
+        else
+            anotherFromTaskOrder = NO;
+        
+    }//end of if it is an .ord file
+    
+    NSLog(@"infile:  %@",infile);
+    
+   lineNumber = 0;
+    
+    //NSLog (@"lineNumber (end of view did load): %i %i",_lineNumber,lineNumber);
+    
+    
+    [self loadInFile];
+    
+    previousInfile = infile;
+    
+    NSLog(@"loadfailed: %i",loadFailed);
+    
+}
+
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    NSLog (@"Beginning of questionParser view did appear");
+    
+    if(![previousInfile isEqualToString:infile]){
+        NSLog(@"loading infile.");
+        [self loadInFile];
+    }
+    
+    NSString * lineNoEnt;            
+    NSString * line;
+    
+    NSString * tester0 = NULL;
+    
+    NSLog(@"_infile,infile:  %@ %@",_infile,infile);
+    
+    if (!loadFailed){
+        
+        if (lineNumber+1 >= numberOfLinesOfFile){
+            
+            if (anotherFromTaskOrder){
+                
+                NSLog(@"another from task order.");
+                
+                taskOrderPosition ++;
+                
+                NSLog(@"taskorder position: %i",taskOrderPosition);
+                
+                NSString * taskOrderInfile = [linesOfOrder objectAtIndex:taskOrderPosition];
+                
+                NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
+                
+                for (NSString * thisFile in theQuestions){
+                    if ([[thisFile lastPathComponent] isEqualToString:taskOrderInfile])
+                        infile = thisFile;
+                }
+                
+                lineNumber = 0;
+                inRandom = NO;
+                
+                NSLog(@"linesOfTaskOrder count: %i",[linesOfOrder count]);
+                NSLog(@"task order position %i",taskOrderPosition);
+                
+                
+                if (taskOrderPosition< lengthOfOrder -1)
+                    anotherFromTaskOrder = YES;
+                else{
+                    anotherFromTaskOrder = NO;
+                    //tester0 = @"goodbye";
+                }
+                [self loadInFile];
+                
+            }// end of if more from taskorder
+            
+            else{
+                
+                tester0 = @"goodbye";
+                NSLog(@"tester changed to goodbye");
+            }
+            
+             NSLog(@"anotherFromTaskOrder %i",(int)anotherFromTaskOrder);
+            NSLog(@"task order position %i",taskOrderPosition);
+            NSLog(@"lengthOfOrder %i",lengthOfOrder);
+            
+        }// end of if past end of infile
+        else{
+            
+            lineNoEnt = [linesOfFile objectAtIndex:lineNumber];            
+            line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];            
+            fields = [line componentsSeparatedByString:@"\t"];
+            
+            NSLog(@"fields:  %@",fields);
+            
+            if([[fields objectAtIndex:0]hasPrefix:@"head"]){
+                QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+                
+                NSString * headerLine = [linesOfFile objectAtIndex:lineNumber];
+                NSMutableArray * headerLineArray = [[NSMutableArray alloc] init];
+                [headerLineArray addObject:headerLine];
+                
+                [thisQuestionData saveData:headerLineArray];
+                
+                lineNumber++;
+                
+                lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
+                line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
+                fields = [line componentsSeparatedByString:@"\t"];
+                
+                //NSLog(@"fields:  %@",fields);
+                
+            }// end if if it is header line.
+            
+            
+        }  //here we should have the fields of the question.
+        
+        NSString * blockString = [fields objectAtIndex:2];
+        int blockNum = [blockString intValue];
+        
+        if ((blockNum != 0)&& !inRandom){
+            NSLog(@"going to initialize random");
+            inRandom = YES;
+            inRandomNumber = 0;
+            linesBeforeRandom = lineNumber;
+            NSLog(@"lines before random:  %i",linesBeforeRandom);
+            [self initializeRandomMatrix];
+        }
+        
+        if (inRandom){
+            if (inRandomNumber >= ([randomMatrix count])){
+                NSLog(@"done with random");
+                inRandom = NO;
+                lineNumber = linesBeforeRandom + [randomMatrix count];
+            }
+            else{
+                NSLog(@"next random");
+                lineNumber = [[[randomMatrix objectAtIndex:inRandomNumber] objectAtIndex:0] intValue];
+                inRandomNumber ++;
+            }
+            lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
+            line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
+            fields = [line componentsSeparatedByString:@"\t"];
+            
+        }else
+            NSLog(@"not in random");
+        
+        if (([fields count] > 4)&&!([tester0 isEqualToString:@"goodbye"])) {
+            tester0 =[fields objectAtIndex:3];
+        }
+        else{
+            tester0 = @"goodbye";
+        }
         
         titrationVerbalCorrectAtLevel += titrationVerbalCorrect;
         titrationSpatialCorrectAtLevel += titrationSpatialCorrect;
+        
+        titrationVerbalCorrect = 0;
+        titrationSpatialCorrect = 0;
         
         if((titrationVerbalAskedAtLevel == 3)&&(titrationVerbalCorrectAtLevel >=2)){
             titrationVerbalLevel ++;
             titrationVerbalAskedAtLevel = 0;
             titrationVerbalCorrectAtLevel = 0;
-            //NSLog(@"titrationVerbalLevel: %i",titrationVerbalLevel);
         }
         if((titrationSpatialAskedAtLevel == 3)&&(titrationSpatialCorrectAtLevel >=2)){
             titrationSpatialLevel ++;
             titrationSpatialAskedAtLevel = 0;
             titrationSpatialCorrectAtLevel = 0;
-            //NSLog(@"titrationSpatialLevel: %i",titrationSpatialLevel);
         }
         
         NSLog(@"titrationVerbalLevel: %i, titrationSpatialLevel, %i",titrationVerbalLevel,titrationSpatialLevel);
-        
-        NSLog(@"anotherFromTaskOrder %i",(int)anotherFromTaskOrder);
-        NSLog(@"task order position %i",taskOrderPosition);
-        NSLog(@"lengthOfOrder %i",lengthOfOrder);
-        
         NSLog(@"in random:  %i",inRandom);
-        
-        
         NSLog(@"line number, view did appear %i,%i",_lineNumber,lineNumber);
         
-        
-        
-        
-        NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
-        
-        NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
-        
-        fields = [line componentsSeparatedByString:@"\t"];
-        
-        if ([fields count ]> 4){
-            
-            NSString * blockString = [fields objectAtIndex:2];
-            int blockNum = [blockString intValue];
-            //NSLog(@"fields: %@",fields);
-            //NSLog(@"blockNum:  %i",blockNum);
-            
-            if ((blockNum != 0)&& !inRandom){
-                NSLog(@"going to initialize random");
-                inRandom = YES;
-                inRandomNumber = 0;
-                NSLog(@"initializing lines before random.  Line number is: %i",lineNumber);
-                linesBeforeRandom = lineNumber;
-                NSLog(@"lines before random:  %i",linesBeforeRandom);
-                [self initializeRandomMatrix];
-            }
-            
-            if (inRandom){
-                NSLog(@"in random!!! ");
-                //inRandomNumber ++;
-                //int lineQuest;
-                if (inRandomNumber >= ([randomMatrix count])){
-                    inRandom = NO;
-                    lineNumber = linesBeforeRandom + [randomMatrix count];
-                }
-                else{
-                     NSLog(@"next random");
-                    lineNumber = [[[randomMatrix objectAtIndex:inRandomNumber] objectAtIndex:0] intValue];
-                    inRandomNumber ++;
-                }
-            }else
-                NSLog(@"not in random");
-        }
-        
-        //int numberOfLinesOfFile;
-        //NSArray * linesOfFile = [stringOfFile componentsSeparatedByString:@"\r"];
-        
-        NSLog(@"lineNumber,linesOfFile, after if in random %i , %i",lineNumber,numberOfLinesOfFile);
-        
-        NSString * tester0 = NULL;
         NSString * tester1 =@"numberline";
         NSString * tester2 =@"wordFill";
         NSString * tester3 =@"numberFill";
@@ -443,121 +532,11 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         NSString * tester13 =@"titrationBranch";
         
         NSLog(@"previousAnswer:  %@",previousAnswer);
-        
-        if (lineNumber >= numberOfLinesOfFile){
-            
-            if (!anotherFromTaskOrder){
-                
-                tester0 = @"goodbye";
-                NSLog(@"tester changed to goodbye");
-            }
-            
-            if (anotherFromTaskOrder){
-                taskOrderPosition ++;
-                
-                NSString * taskOrderInfile = [linesOfOrder objectAtIndex:taskOrderPosition];
-                
-                NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
-                
-                for (NSString * thisFile in theQuestions){
-                    if ([[thisFile lastPathComponent] isEqualToString:taskOrderInfile])
-                        infile = thisFile;
-                }
-                
-                lineNumber = 0;
-                
-                NSLog(@"linesOfOrder count: %i",[linesOfOrder count]);
-                NSLog(@"task order position %i",taskOrderPosition);
-                
-                
-                if (taskOrderPosition< lengthOfOrder -1)
-                    anotherFromTaskOrder = YES;
-                else{
-                    anotherFromTaskOrder = NO;
-                    //tester0 = @"goodbye";
-                }
-                [self loadInFile];
-            }
-        }
-        else{
-            
-            QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-            
-            NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
-            
-            NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
-            
-            fields = [line componentsSeparatedByString:@"\t"];
-            
-            while ([fields count] < 4){  //This is not a valid question, copy it to the output file.
-                
-                NSString * headerLine = [linesOfFile objectAtIndex:lineNumber];
-                //NSLog(@"headerline %@",linesOfFile);
-                //headerLine = [headerLine stringByAppendingString:@" \r"];    
-                NSMutableArray * headerLineArray = [[NSMutableArray alloc] init];
-                [headerLineArray addObject:headerLine];
-                
-                [thisQuestionData saveData:headerLineArray];
-                
-                lineNumber++;
-                
-                if (lineNumber >= numberOfLinesOfFile){
-                    if (!anotherFromTaskOrder){
-                        
-                        tester0 = @"goodbye";
-                        NSLog(@"tester changed to goodbye");
-                        break;
-                    }
-                    
-                    if (anotherFromTaskOrder){
-                        taskOrderPosition ++;
-                        
-                        NSString * taskOrderInfile = [linesOfOrder objectAtIndex:taskOrderPosition];
-                        
-                        NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
-                        
-                        for (NSString * thisFile in theQuestions){
-                            if ([[thisFile lastPathComponent] isEqualToString:taskOrderInfile])
-                                infile = thisFile;
-                        }
-                        
-                        NSLog(@"2linesOfOrder count: %i",lengthOfOrder);
-                        NSLog(@"2task order position %i",taskOrderPosition);
-                        
-                        
-                        if (taskOrderPosition< lengthOfOrder -1)
-                                 anotherFromTaskOrder = YES;
-                        else{
-                            anotherFromTaskOrder = NO;
-                           // tester0 = @"goodbye";
-                        }
-                        lineNumber = 0;
-                        
-                        [self loadInFile];
-
-                        
-                        break;
-                    }
-                   // break; 
-                }
-                
-//                NSString * lineNoEnt = [linesOfFile objectAtIndex:lineNumber];
-//                NSString * line = [lineNoEnt stringByReplacingOccurrencesOfString:@"&NL" withString:@"\n"];
-//                
-//                fields = [line componentsSeparatedByString:@"\t"];
-                
-            }  //end of copy line to output file
-            
-        }  //here we should have the fields of the question.
-        
-        if ([fields count] > 4){
-            tester0 =[fields objectAtIndex:3];
-        }
-        else{
-            tester0 = @"goodbye";
-        }
+        NSLog(@"line number, lines of file: %i, %i",lineNumber,numberOfLinesOfFile);
         
         bool selectedSomething = false;
+        
+        previousInfile = infile;
         
         NSLog(@"selector is:  %@",tester0);
         
@@ -620,7 +599,8 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
             selectedSomething = true;
             NSLog(@"going toBranchTo");
             lineNumber ++;
-            [self branchTo];
+            //[NSThread sleepForTimeInterval:3];
+            [self performSegueWithIdentifier: @"toBranchTo" sender: self];
         }
         if ([tester11 isEqualToString:tester0]){
             selectedSomething = true;
@@ -636,17 +616,14 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
                 titrationVerbalAskedAtLevel ++;
             if ([[fields objectAtIndex:6] isEqualToString:@"spatial"])
                 titrationSpatialAskedAtLevel ++;
-            
             [self performSegueWithIdentifier: @"toTitration" sender: self];
         }
         if ([tester13 isEqualToString:tester0]){
             selectedSomething = true;
             NSLog(@"going toTitrationBranch");
             lineNumber ++;
-            [self titrationBranch];
+            [self performSegueWithIdentifier: @"toTitrationBranch" sender: self];
         }
-        
-        
         
         
         if ((! selectedSomething) && ![tester0 isEqualToString:@"goodbye"])
@@ -657,225 +634,10 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         if ([tester0 isEqualToString:@"goodbye"]){
             [self performSegueWithIdentifier: @"toGoodbye" sender: self];
         }
+    }//end of load didn't fail.
+    else{
+        [self performSegueWithIdentifier: @"toBadInfile" sender: self];
     }
-}
-
--(void) branchTo{
-    //this comes from code in branchOut, see that for some comments and debug.
-    //line 0 is the header line.  
-    NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
-    int lengthQnsPths = [theQuestions count];
-    NSString * newInputFile = [fields objectAtIndex:5];
-    NSString * stringLineNumber = [fields objectAtIndex:6];
-    _lineNumber = [stringLineNumber intValue];
-    for (int stepThrough = 0; stepThrough < lengthQnsPths; stepThrough++){
-        NSString * checkThis = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
-        NSString * checkingString = [checkThis lastPathComponent];
-        // NSLog(@"they are: %@ %@",checkThis,checkingString);
-        if ([checkingString isEqualToString: newInputFile]) {
-            newInputFile = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
-            //NSLog(@"they are: %@ %@",checkThis,checkingString);
-        }
-    }
-    
-    NSLog(@"new input file:  %@",newInputFile);
-    
-    //if (![infile isEqualToString:newInputFile])
-        inRandom = NO;
-    
-    _infile = newInputFile;
-    
-    NSLog(@"next question");
-    [self viewDidLoad];
-    [self viewDidAppear:true];
-    
-}
-
--(void) titrationBranch{
-    //this comes from code in branchOut, see that for some comments and debug.
-    //line 0 is the header line.  
-    NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
-    int lengthQnsPths = [theQuestions count];
-    
-    int theLevel;
-    NSString * newInputFile;
-    NSString * stringLineNumber;
-    int numOfChoices = 0;
-    BOOL modified;
-    int checkNum;
-    
-    modified = NO;
-    
-    
-    if ([[fields objectAtIndex:5] isEqualToString:@"verbal"])
-        theLevel = titrationVerbalLevel;
-    
-    if ([[fields objectAtIndex:5] isEqualToString:@"spatial"])
-        theLevel = titrationSpatialLevel;
-    
-    for (int choiceCounter = 6;choiceCounter < [fields count];choiceCounter+=3){
-        NSString * theChoice = [fields objectAtIndex:choiceCounter];
-        if([theChoice length] >0)
-            numOfChoices ++;
-    }
-    
-    NSLog(@"NumOfChoices:  %i",numOfChoices);
-    
-    switch (numOfChoices) {
-        case 1:
-            
-            checkNum = [[fields objectAtIndex:6] intValue];
-            
-            NSLog(@"CheckNum:  %i",checkNum);
-            
-            
-            if (checkNum == theLevel){
-                newInputFile = [fields objectAtIndex:7];
-                stringLineNumber = [fields objectAtIndex:8];
-                NSLog(@"trying to change to %@",newInputFile);
-                modified = YES;
-            }
-            
-            break;
-            
-        case 2:
-            if ([[fields objectAtIndex:6] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:7];
-                stringLineNumber = [fields objectAtIndex:8];
-                
-                modified = YES;
-            }
-            if ([[fields objectAtIndex:9] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:10];
-                stringLineNumber = [fields objectAtIndex:11];
-                
-                modified = YES;
-            }
-            break;
-            
-        case 3:
-            if ([[fields objectAtIndex:6] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:7];
-                stringLineNumber = [fields objectAtIndex:8];
-                
-                modified = YES;
-            }
-            if ([[fields objectAtIndex:9] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:10];
-                stringLineNumber = [fields objectAtIndex:11];
-                
-                modified = YES;
-            }
-            if ([[fields objectAtIndex:12] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:13];
-                stringLineNumber = [fields objectAtIndex:14];
-                modified = YES;
-                
-                
-            }
-            break;
-            
-        case 4:
-            if ([[fields objectAtIndex:6] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:7];
-                stringLineNumber = [fields objectAtIndex:8];
-                
-                modified = YES;
-            }
-            if ([[fields objectAtIndex:9] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:10];
-                stringLineNumber = [fields objectAtIndex:11];
-                
-                modified = YES;
-            }
-            if ([[fields objectAtIndex:12] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:13];
-                stringLineNumber = [fields objectAtIndex:14];
-                
-                modified = YES;
-            }
-            if ([[fields objectAtIndex:15] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:16];
-                stringLineNumber = [fields objectAtIndex:17];
-                
-                modified = YES;
-            }
-            break;
-            
-        case 5:
-            if ([[fields objectAtIndex:6] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:7];
-                stringLineNumber = [fields objectAtIndex:8];
-                
-                modified = YES;
-            }
-            if ([[fields objectAtIndex:9] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:10];
-                stringLineNumber = [fields objectAtIndex:11];
-                
-                modified = YES;
-            }
-            if ([[fields objectAtIndex:12] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:13];
-                stringLineNumber = [fields objectAtIndex:14];
-                
-                modified = YES;
-            }
-            if ([[fields objectAtIndex:15] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:16];
-                stringLineNumber = [fields objectAtIndex:17];
-                
-                modified = YES;
-            }
-            if ([[fields objectAtIndex:18] intValue] == theLevel){
-                newInputFile = [fields objectAtIndex:19];
-                stringLineNumber = [fields objectAtIndex:20];
-                modified = YES;
-            }
-            break;
-            
-        default:
-            
-            break;
-            
-            
-    }
-    
-    if (modified){
-        inRandom = NO;
-        _lineNumber = [stringLineNumber intValue];
-        NSLog(@"string line number: %@", stringLineNumber);
-        NSLog (@"lineNumber, (from titration branch): %i %i",_lineNumber,lineNumber);    
-        for (int stepThrough = 0; stepThrough < lengthQnsPths; stepThrough++){
-            NSString * checkThis = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
-            NSString * checkingString = [checkThis lastPathComponent];
-            //NSLog(@"they are: %@ %@",newInputFile,checkingString);
-            if ([checkingString isEqualToString: newInputFile]) {
-                NSString * newInputFile2 = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
-                //NSLog(@"they are place 2: %@ %@",newInputFile2,checkingString);
-                _infile = newInputFile2;
-                //NSLog(@"new input file first:  %@",_infile);
-            }
-            
-            
-        }
-        
-    }
-    
-    
-    
-    NSLog(@"new input file:  %@",_infile);
-    //NSLog(@"in random: %@",inRandom);
-    
-    //_infile = newInputFile;
-    NSLog(@"Did titrationBranch");
-     NSLog(@"line number, titration branch, before calling view did load %i, %i",_lineNumber,lineNumber);
-    [self viewDidLoad];
-    NSLog(@"line number, titration branch, before calling view did appear %i, %i",_lineNumber,lineNumber);
-   
-    [self viewDidAppear:true];
-    NSLog(@"line number, titration branch, after calling view did appear %i, %i",_lineNumber,lineNumber);
- 
 }
 
 
@@ -895,26 +657,29 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     }
     if ([segue.identifier isEqualToString:@"toMultipleChoice"]){
         multipleChoice * svc = [segue destinationViewController];
+        [svc setQuestionParser:self];
         svc.fields = fields; 
     }
     if ([segue.identifier isEqualToString:@"toInstruction"]){
-        numberFill * svc = [segue destinationViewController];
+        instruction * svc = [segue destinationViewController];
+        //[svc setQuestionParser:self];
         svc.fields = fields; 
     }
     if ([segue.identifier isEqualToString:@"toPicture"]){
-        numberFill * svc = [segue destinationViewController];
+        picture * svc = [segue destinationViewController];
         svc.fields = fields;
     }
     if ([segue.identifier isEqualToString:@"toSpeech"]){
-        numberFill * svc = [segue destinationViewController];
+        speech * svc = [segue destinationViewController];
         svc.fields = fields; 
     }
     if ([segue.identifier isEqualToString:@"toBranchOut"]){
-        numberFill * svc = [segue destinationViewController];
+        branchOut * svc = [segue destinationViewController];
         svc.fields = fields; 
+        [svc setQuestionParser:self];
     }
     if ([segue.identifier isEqualToString:@"toAudioNumberLine"]){
-        numberFill * svc = [segue destinationViewController];
+        audioNumberLine * svc = [segue destinationViewController];
         svc.fields = fields; 
     }
     if ([segue.identifier isEqualToString:@"toFeedback"]){
@@ -924,9 +689,22 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     }
     if ([segue.identifier isEqualToString:@"toTitration"]){
         titration * svc = [segue destinationViewController];
+        [svc setQuestionParser:self];
         svc.fields = fields; 
     }
-    
+    if ([segue.identifier isEqualToString:@"toBranchTo"]){
+        branchTo * svc = [segue destinationViewController];
+        [svc setQuestionParser:self];
+        svc.fields = fields; 
+        //[NSThread sleepForTimeInterval:3];
+    }
+    if ([segue.identifier isEqualToString:@"toTitrationBranch"]){
+        titrationBranch * svc = [segue destinationViewController];
+        [svc setQuestionParser:self];
+        svc.fields = fields; 
+        svc.titrationSpatialLevel = titrationSpatialLevel;
+        svc.titrationVerbalLevel = titrationVerbalLevel;
+    }
     
 }
 

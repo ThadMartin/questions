@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "multipleChoice.h"
+#import "titration.h"
+#import "branchTo.h"
+#import "titrationBranch.h"
 
 @interface questionParser : UIViewController
 
@@ -14,11 +18,17 @@
 @property (assign) NSArray * questionLine;
 @property (nonatomic) int lineNumber;
 @property (nonatomic,strong) NSString * previousAnswer;
-@property (nonatomic) int titrationVerbalCorrect;
-@property (nonatomic) int titrationSpatialCorrect;
 
--(void) branchTo;
--(void) titrationBranch;
 -(void) initializeRandomMatrix;
+
+-(void) setOldAnswer:(NSString *)pAnswer;
+
+-(void) setVerbalAnswer:(int)verCorrect;
+-(void) setSpatialAnswer:(int)spaCorrect;
+
+-(void) setInputFile:(NSString *)newFile;
+-(void) setLineNbr:(int)lnNbr;
+
+-(void) setInRnd:(BOOL)inRand;
 
 @end

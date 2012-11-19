@@ -52,6 +52,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.numberLabel.text = [fields objectAtIndex:5];
     NSString * timerTime = [fields objectAtIndex:4];
     //NSLog(@"fields: %@",fields);
@@ -68,39 +69,37 @@
     NSString * numberFillAnswer;
     
     numberFillAnswer = [@"time ran out. " stringByAppendingString:numberFillAnswer2];    
+    NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
     
-        
-        NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
-        
-        NSString *answerObj = [NSString stringWithFormat:@"%@",numberFillAnswer];
-        
-        [questionAnswers2 addObject:answerObj];
-        
-        NSDate *myDate = [NSDate date];
-        NSDateFormatter *df = [NSDateFormatter new];
-        [df setDateFormat:@"HH_mm_ss.SSS"];
-        NSString * timeNow2 = [df stringFromDate:myDate];
-        
-        [questionAnswers2 addObject:timeNow2];
-        
-        NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
-        
-        int retab = [questionAnswers2 count];
-        
-        for (int retabCounter = 0;retabCounter<retab;retabCounter++){
-            NSString * retabWhatever = [questionAnswers2 objectAtIndex:retabCounter];
-            retabWhatever = [retabWhatever stringByAppendingString:@"\t"];
-            [questionAnswers addObject:retabWhatever];
-        }
-        
-        NSString * newLn = @"\r";
-        [questionAnswers addObject:newLn];
-        
-        QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
-        [thisQuestionData saveData:questionAnswers];
-        
-        [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-
+    NSString *answerObj = [NSString stringWithFormat:@"%@",numberFillAnswer];
+    
+    [questionAnswers2 addObject:answerObj];
+    
+    NSDate *myDate = [NSDate date];
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"HH_mm_ss.SSS"];
+    NSString * timeNow2 = [df stringFromDate:myDate];
+    
+    [questionAnswers2 addObject:timeNow2];
+    
+    NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
+    
+    int retab = [questionAnswers2 count];
+    
+    for (int retabCounter = 0;retabCounter<retab;retabCounter++){
+        NSString * retabWhatever = [questionAnswers2 objectAtIndex:retabCounter];
+        retabWhatever = [retabWhatever stringByAppendingString:@"\t"];
+        [questionAnswers addObject:retabWhatever];
+    }
+    
+    NSString * newLn = @"\r";
+    [questionAnswers addObject:newLn];
+    
+    QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
+    [thisQuestionData saveData:questionAnswers];
+    
+    [self dismissModalViewControllerAnimated:NO];
+    
 }
 
 
@@ -128,7 +127,6 @@
     [theTextField resignFirstResponder];
     return (YES);
 }
-
 
 - (IBAction)submitButtonPressed:(id)sender {
     [timer invalidate]; 
@@ -168,7 +166,9 @@
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
         [thisQuestionData saveData:questionAnswers];
         
-        [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+        [self dismissModalViewControllerAnimated:NO];
+        
+        
         //            
         //        }//numbers only, saved.
         //        

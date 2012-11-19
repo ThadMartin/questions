@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface engagementAppDelegate : UIResponder <UIApplicationDelegate>
+@class engagementViewController;
+
+@interface engagementAppDelegate : NSObject <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong) NSString * docPath;
 @property (strong) NSMutableArray * allQnsAndPaths;
-//@property BOOL inRandom;
-
+@property (strong, nonatomic) UINavigationController * navController;
 
 
 @end

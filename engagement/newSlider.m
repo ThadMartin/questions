@@ -8,7 +8,6 @@
 
 #import "newSlider.h"
 #import "QuestionData.h"
-#import <DropboxSDK/DropboxSDK.h>
 #import "questionParser.h"
 
 @implementation newSlider  {
@@ -41,8 +40,7 @@ int answerIndex;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSLog(@"toNewSliderWorked");
+    //NSLog(@"toNewSliderWorked");
     
     [sliderSubmit setEnabled:NO];   //disable submit until there is input.
     [sliderSubmit setTitle: @"touch slider" forState:UIControlStateNormal];    
@@ -58,7 +56,7 @@ int answerIndex;
         NSRunLoop *runner = [NSRunLoop currentRunLoop];
         [runner addTimer: timer forMode: NSDefaultRunLoopMode];
     }
-
+    
     
 }
 
@@ -92,10 +90,7 @@ int answerIndex;
     QuestionData * thisQuestionData = [[QuestionData alloc] init];
     [thisQuestionData saveData:questionAnswers];
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-    
- 
-    
+    [self dismissModalViewControllerAnimated:NO];
     
 }
 
@@ -177,21 +172,21 @@ int answerIndex;
 	
 	UITouch *touch = [touches anyObject];
 	// Animate the first touch
-    if (touch.view == moveBox){
-        CGPoint touchPoint = [touch locationInView:moveBox];
-        if(touchPoint.x > 0 && touchPoint.x < moveBox.bounds.size.width){
-            touchPoint.y = moveBox.bounds.size.height/2;
-            qSlider.center = touchPoint;
-            NSLog(@"%f", (touchPoint.x/moveBox.bounds.size.width)*100);
-            currentAnswer = touchPoint.x/moveBox.bounds.size.width*100;
-        }
+    //if (touch.view == moveBox){  //This makes it harder to get the slider right to the edge.
+    CGPoint touchPoint = [touch locationInView:moveBox];
+    if(touchPoint.x > 0 && touchPoint.x < moveBox.bounds.size.width){
+        touchPoint.y = moveBox.bounds.size.height/2;
+        qSlider.center = touchPoint;
+        NSLog(@"%f", (touchPoint.x/moveBox.bounds.size.width)*100);
+        currentAnswer = touchPoint.x/moveBox.bounds.size.width*100;
     }
+    //}
 }
 
 
 - (IBAction)sliderSubmitPressed:(id)sender {
     
-        [timer invalidate];
+    [timer invalidate];
     
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
     
@@ -207,7 +202,7 @@ int answerIndex;
     [questionAnswers2 addObject:timeNow];
     
     NSMutableArray * questionAnswers = [[NSMutableArray alloc] init]; 
-
+    
     int retab = [questionAnswers2 count];
     
     for (int retabCounter = 0;retabCounter<retab;retabCounter++){
@@ -218,11 +213,11 @@ int answerIndex;
     
     NSString * newLn = @"\r";
     [questionAnswers addObject:newLn];
-
+    
     QuestionData * thisQuestionData = [[QuestionData alloc] init];
     [thisQuestionData saveData:questionAnswers];
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    [self dismissModalViewControllerAnimated:NO];
     
 }
 

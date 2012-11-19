@@ -53,6 +53,7 @@
     self.instructionLabel.text = [fields objectAtIndex:5]; 
     NSString * timerTime = [fields objectAtIndex:4];
     float timerTimeNumber = [timerTime floatValue];
+    //float timerTimeNumber = 0.5;  //for debugging, when you get tired of timeouts.
     if (timerTimeNumber > 0){
         timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
         NSRunLoop *runner = [NSRunLoop currentRunLoop];
@@ -98,8 +99,9 @@
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
     [thisQuestionData saveData:questionAnswers];
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    thisQuestionData = nil;
     
+    [self.presentingViewController.presentingViewController dismissModalViewControllerAnimated:NO];
 }
 
 
@@ -107,6 +109,10 @@
 {
     [self setInstructionLabel:nil];
     [self setContinueButton:nil];
+    [timer invalidate];
+    fields = nil;
+    NSLog(@"didUnload ran");
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -121,12 +127,12 @@
         return YES;
 }
 
+
 - (IBAction)continueButtonPressed:(id)sender {
     
     [timer invalidate];
     
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
-    
     
     NSDate *myDate = [NSDate date];
     NSDateFormatter *df = [NSDateFormatter new];
@@ -153,7 +159,7 @@
     
     NSLog(@"going back to questionParser");
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    [self.presentingViewController.presentingViewController dismissModalViewControllerAnimated:NO];
 }
 @end
 

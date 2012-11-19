@@ -37,8 +37,6 @@
 @class FliteTTS;
 
 float currentAnswer2 = -1;
-//NSArray * questionList;
-//int answerIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,7 +51,7 @@ float currentAnswer2 = -1;
 {
     [super viewDidLoad];
     
-    NSLog(@"toAudioNumberLineWorked");
+    NSLog(@"audioNumberLine loaded");
     
     fliteEngine = [[FliteTTS alloc] init];
     [fliteEngine setVoice:@"cmu_us_rms"];
@@ -79,8 +77,6 @@ float currentAnswer2 = -1;
     NSString * strRepeat = [fields objectAtIndex:11];
     timesToRepeat = [strRepeat intValue];
     //NSLog(@"before, %i, after, %i, repeat, %i",pauseBefore,pauseAfter,timesToRepeat);
-
-    
     
 }
 
@@ -91,19 +87,12 @@ float currentAnswer2 = -1;
     }
     [runner addTimer: timerBefore forMode: NSDefaultRunLoopMode];
     
-    //NSLog(@"nearly about to try to talk, ");
-    
-    // [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-    
 }
 
 
-
-
 -(void) sayIt:(NSTimer*)timer{
-    //    NSLog(@"timesToRepeat:");
-    //    NSLog(@"timesToRepeat: %@",fields);
-    [fliteEngine stopTalking];
+
+    [fliteEngine stopTalking];  //don't talk twice at the same time.
 
     if (timesToRepeat > 0){ 
         NSString * textToSay = [fields objectAtIndex:9];
@@ -160,11 +149,8 @@ float currentAnswer2 = -1;
     QuestionData * thisQuestionData = [[QuestionData alloc] init];
     [thisQuestionData saveData:questionAnswers];
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-    
-    
-    
-    
+    [self dismissModalViewControllerAnimated:NO];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -245,7 +231,7 @@ float currentAnswer2 = -1;
 	
 	UITouch *touch = [touches anyObject];
 	// Animate the first touch
-    if (touch.view == moveBox){
+    //if (touch.view == moveBox){  //This makes it harder to get the slider right to the edge.
         CGPoint touchPoint = [touch locationInView:moveBox];
         if(touchPoint.x > 0 && touchPoint.x < moveBox.bounds.size.width){
             touchPoint.y = moveBox.bounds.size.height/2;
@@ -253,7 +239,7 @@ float currentAnswer2 = -1;
             NSLog(@"%f", (touchPoint.x/moveBox.bounds.size.width)*100);
             currentAnswer2 = touchPoint.x/moveBox.bounds.size.width*100;
         }
-    }
+    //}
 }
 
 
@@ -294,8 +280,8 @@ float currentAnswer2 = -1;
     QuestionData * thisQuestionData = [[QuestionData alloc] init];
     [thisQuestionData saveData:questionAnswers];
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-    
+    [self dismissModalViewControllerAnimated:NO];
+
 }
 
 

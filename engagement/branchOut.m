@@ -50,6 +50,8 @@
 @synthesize multipleChoiceQuestion;
 @synthesize submitButton;
 
+@synthesize questionParser;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -81,6 +83,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+   // [self.presentingViewController dismissModalViewControllerAnimated:NO];
+
     appDelegate = [[UIApplication sharedApplication] delegate];
     
     choiceSelection = nil;
@@ -704,31 +708,11 @@
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
         [thisQuestionData saveData:questionAnswers];
         
-//        NSLog(@"submitted lineNumber%i",newQuestionNumber);
-//        
-//        NSLog(@"going back toQuestionParser");
-        
-        [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-        
-    }  // otherwise submit was pushed w/o selecting anything, don't do anything. 
-    
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-	if ([segue.identifier isEqualToString:@"backToQuestionParser"]){
-        
-        questionParser * svc = [segue destinationViewController];
         NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
-//        NSLog(@" questions is: %@",theQuestions);
-        
         int lengthQnsPths = [theQuestions count];
-//        NSLog(@"lengthQnsPths %i",lengthQnsPths);
         for (int stepThrough = 0; stepThrough < lengthQnsPths; stepThrough++){
             NSString * checkThis = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
             NSString * checkingString = [checkThis lastPathComponent];
-//            NSLog(@" %@ same as %@",checkingString,newInputFile);
-            
             if ([checkingString isEqualToString: newInputFile]) {
                 newInputFile = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
             }
@@ -736,11 +720,19 @@
         
         NSLog(@"new input file:  %@",newInputFile);
         
-        svc.infile = newInputFile;
-        svc.lineNumber = newQuestionNumber;
-        NSLog(@"going back toQuestionParser");
-    } 
+        BOOL inRandom = NO;
+        
+        [self.questionParser setInputFile:(newInputFile)];
+        [self.questionParser setLineNbr:(newQuestionNumber)];
+        [self.questionParser setInRnd:(inRandom)];
+
+
+        [self dismissModalViewControllerAnimated:NO];
+
+    }  // otherwise submit was pushed w/o selecting anything, don't do anything. 
+    
 }
+
 
 - (void) timeIsUp:(NSTimer*)timer{
     
@@ -778,12 +770,26 @@
     [thisQuestionData saveData:questionAnswers];
     
     NSLog(@"branchOut time up");
+    NSMutableArray * theQuestions = appDelegate.allQnsAndPaths;
+    int lengthQnsPths = [theQuestions count];
+    for (int stepThrough = 0; stepThrough < lengthQnsPths; stepThrough++){
+        NSString * checkThis = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
+        NSString * checkingString = [checkThis lastPathComponent];
+        if ([checkingString isEqualToString: newInputFile]) {
+            newInputFile = [appDelegate.allQnsAndPaths objectAtIndex:stepThrough];
+        }
+    }
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    NSLog(@"new input file:  %@",newInputFile);
     
-}
+   // time ran out, just leave everything the same.
+    
+   // [self.questionParser setInputFile:(newInputFile)];
+   // [self.questionParser setLineNbr:(newQuestionNumber)];
+    
+    [self dismissModalViewControllerAnimated:NO];
 
-
+   }
 
 
 @end

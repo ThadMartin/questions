@@ -9,6 +9,8 @@
 #import "picture.h"
 #import "instruction.h"
 #import "QuestionData.h"
+#import "engagementAppDelegate.h"
+#import "questionParser.h"
 
 
 @implementation picture{
@@ -54,15 +56,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     NSString * timerTime = [fields objectAtIndex:4];
     NSString * picName = [fields objectAtIndex:5];
-    float timerTimeNumber = [timerTime floatValue];
+    //float timerTimeNumber = [timerTime floatValue];
+    float timerTimeNumber = 0.5;  //for debugging, when tired of timeouts.
     if (timerTimeNumber > 0){
         timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
         NSRunLoop *runner = [NSRunLoop currentRunLoop];
         [runner addTimer: timer forMode: NSDefaultRunLoopMode];
     }
-    // [imgBackground setImage:[UIImage imageNamed:@"pie.jpg"]];
     
     NSString * picPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:picName];  //no enpty newline at end? 
     
@@ -82,15 +85,16 @@
     
     imgView.contentMode = UIViewContentModeCenter;
     
-    //imgView.contentMode = UIViewContentModeScaleAspectFit;
-       
+    //shrink it if it's too big.
+    if((image.size.width > 728)||(image.size.height > 853))
+        imgView.contentMode = UIViewContentModeScaleAspectFit;
+               
     [imgView setImage:image];
     
     NSString * showButton =[fields objectAtIndex:6];
     BOOL showButtonBool = [showButton boolValue];
     if (!showButtonBool)
         [continueButton setHidden:true];
-
 }
 
 
@@ -124,8 +128,7 @@
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
     [thisQuestionData saveData:questionAnswers];
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-    
+    [self dismissModalViewControllerAnimated:NO];
 }
 
 
@@ -179,9 +182,9 @@
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
     [thisQuestionData saveData:questionAnswers];
     
-    NSLog(@"going back to questionParser");
+    //NSLog(@"going back to questionParser");
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    [self dismissModalViewControllerAnimated:NO];
 
 }
 @end

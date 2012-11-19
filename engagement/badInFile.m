@@ -26,6 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     NSString * timerTime = @"3";
     float timerTimeNumber = [timerTime floatValue];
     if (timerTimeNumber > 0){

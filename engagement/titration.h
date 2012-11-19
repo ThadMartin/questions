@@ -9,6 +9,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class questionParser;
+
 @interface titration : UIViewController
 
 @property (weak, nonatomic) NSArray * fields;
@@ -43,37 +45,21 @@
 - (IBAction)choice12pressed:(id)sender;
 
 
-
-
-
 @property (weak, nonatomic) IBOutlet UILabel *choice1Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *choice2Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *choice3Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *choice4Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *choice5Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *choice6Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *choice7Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *choice8Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *choice9Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *choice10Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *choice11Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *choice12Label;
-
 
 - (void)highlightButton;
 
-
-
+@property (assign, nonatomic) questionParser * questionParser;
 
 @end

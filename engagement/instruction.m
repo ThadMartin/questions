@@ -9,15 +9,18 @@
 #import "instruction.h"
 #import "QuestionData.h"
 #import "instruction2.h"
+#import "engagementAppDelegate.h"
 
 @implementation instruction{
     NSTimer * timer;
     BOOL gotoBigInstruction;
+    engagementAppDelegate * appDelegate;
 }
 
 @synthesize fields;
 @synthesize instructionLabel;
 @synthesize continueButton;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,34 +53,37 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     //NSLog(@"fields:  %@",fields);
     
     if ([[fields objectAtIndex:7] isEqualToString:@"yes"]){
         NSLog(@"going to big instruction");
         gotoBigInstruction = YES;
         //[self performSegueWithIdentifier: @"toBigInstruction" sender: self];
+        //too soon.
     }
     else{
-    
-    self.instructionLabel.text = [fields objectAtIndex:5]; 
-    NSString * timerTime = [fields objectAtIndex:4];
-    float timerTimeNumber = [timerTime floatValue];
-    if (timerTimeNumber > 0){
-        timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
-        NSRunLoop *runner = [NSRunLoop currentRunLoop];
-        [runner addTimer: timer forMode: NSDefaultRunLoopMode];
+        
+        self.instructionLabel.text = [fields objectAtIndex:5]; 
+        NSString * timerTime = [fields objectAtIndex:4];
+        float timerTimeNumber = [timerTime floatValue];
+        NSLog(@"timerTime: %@",timerTime);
+        if (timerTimeNumber > 0){
+            timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
+            NSRunLoop *runner = [NSRunLoop currentRunLoop];
+            [runner addTimer: timer forMode: NSDefaultRunLoopMode];
+        }
+        
+        NSString * showButton =[fields objectAtIndex:6];
+        BOOL showButtonBool = [showButton boolValue];
+        if (!showButtonBool)
+            [continueButton setHidden:true];
     }
-    
-    NSString * showButton =[fields objectAtIndex:6];
-    BOOL showButtonBool = [showButton boolValue];
-    if (!showButtonBool)
-        [continueButton setHidden:true];
-
-    }
+ 
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+{   
     if ([segue.identifier isEqualToString:@"toBigInstruction"]){
         instruction2 * svc = [segue destinationViewController];
         svc.fields = fields; 
@@ -85,8 +91,14 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    if(gotoBigInstruction)
+    
+    [super viewDidAppear:animated];
+    NSLog(@"just before segue");
+    if(gotoBigInstruction){
+        //[NSThread sleepForTimeInterval:0.5];
         [self performSegueWithIdentifier: @"toBigInstruction" sender: self];
+        
+    }
 }
 
 -(void) timeIsUp:(NSTimer*)timer{
@@ -119,16 +131,16 @@
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
     [thisQuestionData saveData:questionAnswers];
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-    
+    [self dismissModalViewControllerAnimated:NO];
 }
 
 
 - (void)viewDidUnload
 {
+    [super viewDidUnload];
     [self setInstructionLabel:nil];
     [self setContinueButton:nil];
-    [super viewDidUnload];
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -147,7 +159,6 @@
     [timer invalidate];
     
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
-    
     
     NSDate *myDate = [NSDate date];
     NSDateFormatter *df = [NSDateFormatter new];
@@ -174,7 +185,7 @@
     
     NSLog(@"going back to questionParser");
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    [self dismissModalViewControllerAnimated:NO];
 }
 @end
 

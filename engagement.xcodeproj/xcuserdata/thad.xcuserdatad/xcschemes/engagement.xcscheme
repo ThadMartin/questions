@@ -14,8 +14,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "72F7DF0B1567EA4000500D63"
-               BuildableName = "questionnaires.app"
-               BlueprintName = "questionnaires"
+               BuildableName = "questionnairesByrge.app"
+               BlueprintName = "questionnairesByrge"
                ReferencedContainer = "container:engagement.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,8 +32,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "72F7DF0B1567EA4000500D63"
-            BuildableName = "questionnaires.app"
-            BlueprintName = "questionnaires"
+            BuildableName = "questionnairesByrge.app"
+            BlueprintName = "questionnairesByrge"
             ReferencedContainer = "container:engagement.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -50,8 +50,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "72F7DF0B1567EA4000500D63"
-            BuildableName = "questionnaires.app"
-            BlueprintName = "questionnaires"
+            BuildableName = "questionnairesByrge.app"
+            BlueprintName = "questionnairesByrge"
             ReferencedContainer = "container:engagement.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -68,8 +68,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "72F7DF0B1567EA4000500D63"
-            BuildableName = "questionnaires.app"
-            BlueprintName = "questionnaires"
+            BuildableName = "questionnairesByrge.app"
+            BlueprintName = "questionnairesByrge"
             ReferencedContainer = "container:engagement.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

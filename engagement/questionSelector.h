@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <DropboxSDK/DropboxSDK.h>
 
-@interface questionSelector : UITableViewController <UITableViewDelegate,UITableViewDataSource, DBRestClientDelegate>{
+@interface questionSelector : UITableViewController <UITableViewDelegate,UITableViewDataSource>{
     NSString * infile;
 }
 

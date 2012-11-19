@@ -17,6 +17,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *unlinkButton;
 - (IBAction)unlinkButtonPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *downloadButton;
+- (IBAction)downloadButtonPressed:(id)sender;
 
 
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;

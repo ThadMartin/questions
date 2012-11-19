@@ -11,7 +11,6 @@
 @interface wordFill : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
-
 @property (weak, nonatomic) NSArray * fields;
 @property (weak, nonatomic) IBOutlet UILabel *wordFillLabel;
 @property (weak, nonatomic) IBOutlet UIButton *wordFillSubmit;

@@ -49,6 +49,9 @@
 @synthesize multipleChoiceQuestion;
 @synthesize submitButton;
 
+@synthesize questionParser;
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -80,6 +83,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     choiceSelection = nil;
     self.multipleChoiceQuestion.text = [fields objectAtIndex:7];
     
@@ -313,8 +317,6 @@
             break;
             
     }
-    
-    
 }
 
 
@@ -628,12 +630,6 @@
         
         NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
         
-        // NSString * removeNLs = [questionAnswers2 objectAtIndex:3];
-        
-        //removeNLs = [removeNLs stringByReplacingOccurrencesOfString:@"\n" withString:@"&NL"];
-        
-        //[questionAnswers2 replaceObjectAtIndex:3 withObject:removeNLs];
-        
         NSString *answerObj = [NSString stringWithFormat:@"%@",choiceSelection];
         
         if ([choiceSelection isEqualToString:[fields objectAtIndex:5]])
@@ -666,12 +662,19 @@
         QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
         [thisQuestionData saveData:questionAnswers];
         
-        NSLog(@"submitted titration");
+        //NSLog(@"submitted titration");
         
-        NSLog(@"going back toQuestionParser");
+        //NSLog(@"going back toQuestionParser");
         
-        [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+        NSLog(@"correct: %i",correct);
         
+        if ([[fields objectAtIndex:6] isEqualToString:@"verbal"])
+            [self.questionParser setVerbalAnswer:(correct)];
+        if ([[fields objectAtIndex:6] isEqualToString:@"spatial"])
+            [self.questionParser setSpatialAnswer:(correct)];
+        
+        [self dismissModalViewControllerAnimated:NO];
+
     }  // otherwise submit was pushed w/o selecting anything, don't do anything. 
     
 }
@@ -680,7 +683,6 @@
     
     if (! [choiceSelection length] > 0)
         choiceSelection = (@"");
-    // NSString * choiceSelection2;
     
     if ([choiceSelection isEqualToString:[fields objectAtIndex:5]])
         correct = 1;
@@ -689,10 +691,7 @@
     
     choiceSelection = [@"time ran out. " stringByAppendingString:choiceSelection];
     
-    //choiceSelection = choiceSelection2;
-    
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
-    
     NSString *answerObj = [NSString stringWithFormat:@"%@",choiceSelection];
     
     [questionAnswers2 addObject:answerObj];
@@ -722,22 +721,15 @@
     
     NSLog(@"submitted titration");
     
-    NSLog(@"going back toQuestionParser");
+   // NSLog(@"going back toQuestionParser");
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-    
-}
+    if ([[fields objectAtIndex:6] isEqualToString:@"verbal"])
+        [self.questionParser setVerbalAnswer:(correct)];
+    if ([[fields objectAtIndex:6] isEqualToString:@"spatial"])
+        [self.questionParser setSpatialAnswer:(correct)];
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"backToQuestionParser"]){
-        questionParser * svc = [segue destinationViewController];
-        svc.previousAnswer = choiceSelection; 
-        if ([[fields objectAtIndex:6] isEqualToString:@"verbal"])
-            svc.titrationVerbalCorrect = correct;
-        if ([[fields objectAtIndex:6] isEqualToString:@"spatial"])
-            svc.titrationSpatialCorrect = correct;
-    } 
+    [self dismissModalViewControllerAnimated:NO];
+
 }
 
 

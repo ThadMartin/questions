@@ -46,6 +46,8 @@
 @synthesize multipleChoiceQuestion;
 @synthesize submitButton;
 
+@synthesize questionParser;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -77,6 +79,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     choiceSelection = nil;
     self.multipleChoiceQuestion.text = [fields objectAtIndex:5];
     
@@ -315,6 +318,7 @@
 
 - (void)viewDidUnload
 {
+    [super viewDidUnload];
     [self setMultipleChoiceQuestion:nil];
     [self setSubmitButton:nil];
     [self setChoice2:nil];
@@ -341,7 +345,7 @@
     [self setChoice10Label:nil];
     [self setChoice11Label:nil];
     [self setChoice12Label:nil];
-    [super viewDidUnload];
+
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -623,12 +627,6 @@
         
         NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
         
-        // NSString * removeNLs = [questionAnswers2 objectAtIndex:3];
-        
-        //removeNLs = [removeNLs stringByReplacingOccurrencesOfString:@"\n" withString:@"&NL"];
-        
-        //[questionAnswers2 replaceObjectAtIndex:3 withObject:removeNLs];
-        
         NSString *answerObj = [NSString stringWithFormat:@"%@",choiceSelection];
         
         [questionAnswers2 addObject:answerObj];
@@ -660,7 +658,9 @@
         
         NSLog(@"going back toQuestionParser");
         
-        [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+        [self.questionParser setPreviousAnswer:(choiceSelection)];
+        
+        [self dismissModalViewControllerAnimated:NO];
         
     }  // otherwise submit was pushed w/o selecting anything, don't do anything. 
     
@@ -670,11 +670,10 @@
     
     if (! [choiceSelection length] > 0)
         choiceSelection = (@"");
-   // NSString * choiceSelection2;
     
     choiceSelection = [@"time ran out. " stringByAppendingString:choiceSelection];
     
-    //choiceSelection = choiceSelection2;
+    //what they entered, and 'time ran out'
     
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
     
@@ -705,20 +704,15 @@
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
     [thisQuestionData saveData:questionAnswers];
     
-    NSLog(@"submitted multipleChoice");
+    //NSLog(@"submitted multipleChoice");
     
     NSLog(@"going back toQuestionParser");
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    [self.questionParser setPreviousAnswer:(choiceSelection)];
     
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"backToQuestionParser"]){
-        questionParser * svc = [segue destinationViewController];
-        svc.previousAnswer = choiceSelection; 
-    } 
+    [self dismissModalViewControllerAnimated:NO];
+    
+    
 }
 
 

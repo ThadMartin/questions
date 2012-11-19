@@ -7,11 +7,13 @@
 //
 
 #import "engagementAppDelegate.h"
+#import "engagementViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
-//You need to add QuartzCore.framework.
+//You need to add QuartzCore.framework, for dropbox.
 #import "QuestionData.h"
 #include <time.h>
 #include <stdlib.h>
+#import "questionParser.h"
 
 
 @implementation engagementAppDelegate{
@@ -24,6 +26,7 @@
 @synthesize window;
 @synthesize docPath;
 @synthesize allQnsAndPaths;
+@synthesize navController;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -46,12 +49,10 @@
     
     srand(time(NULL));
     
-    //rand() % 10 + 1;  // for 1 to 10
+    // dismissing modal view controllers without a navigation controller is tricky.
+    UIViewController *rootView = [[engagementViewController alloc] init];
+    self.navController = [[UINavigationController alloc] initWithRootViewController:rootView];
 
-    
-//    inRandom = NO;
-
-    
     return YES;
      
 }
@@ -96,7 +97,8 @@
      */
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {   //from dropbox
+//from dropbox
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {   
     if ([[DBSession sharedSession] handleOpenURL:url]) {
         if ([[DBSession sharedSession] isLinked]) {
             NSLog(@"App linked successfully!");

@@ -18,8 +18,6 @@
 @property (nonatomic, strong) NSString *infile;
 @property (weak, nonatomic) NSArray * fields;
 - (IBAction)sliderSubmitPressed:(id)sender;
-//- (IBAction)linkButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *highLabel;
-//@property (weak, nonatomic) IBOutlet UIButton *linkButton;
 
 @end

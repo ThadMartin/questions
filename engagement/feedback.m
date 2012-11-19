@@ -50,6 +50,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     //NSLog(@"fields:  %@",fields);
     //self.instructionLabel.text = [fields objectAtIndex:5];
     //self.instructionLabel.text = [self.instructionLabel.text stringByAppendingString:previousAnswer];
@@ -270,13 +271,6 @@
         NSRunLoop *runner = [NSRunLoop currentRunLoop];
         [runner addTimer: timer forMode: NSDefaultRunLoopMode];
     }
-    
-//    NSString * showButton =[fields objectAtIndex:6];
-//    BOOL showButtonBool = [showButton boolValue];
-//    if (!showButtonBool)
-//        [continueButton setHidden:true];
-    
-    
 }
 
 
@@ -310,8 +304,8 @@
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
     [thisQuestionData saveData:questionAnswers];
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-    
+    //[self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    [self dismissModalViewControllerAnimated:NO];
 }
 
 
@@ -332,6 +326,7 @@
     else
         return YES;
 }
+
 
 - (IBAction)continueButtonPressed:(id)sender {
     
@@ -365,7 +360,7 @@
     
     NSLog(@"going back to questionParser");
     
-    [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
+    [self dismissModalViewControllerAnimated:NO];
 }
 @end
 

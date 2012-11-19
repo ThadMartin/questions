@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+//@class questionParser;
+
+
 @interface feedback : UIViewController
 
 @property (weak, nonatomic) NSArray * fields;
@@ -17,6 +20,5 @@
 @property (nonatomic,strong) NSString * previousAnswer;
 
 - (IBAction)continueButtonPressed:(id)sender;
-
 
 @end
