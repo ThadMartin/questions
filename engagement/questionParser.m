@@ -382,7 +382,9 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     
     if (!loadFailed){
         
-        if (lineNumber+1 >= numberOfLinesOfFile){
+        NSLog(@"line number, numberOfLinesOf file: %i, %i",lineNumber,numberOfLinesOfFile);
+        
+        if (lineNumber+1 > numberOfLinesOfFile){
             
             if (anotherFromTaskOrder){
                 

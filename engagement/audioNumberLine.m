@@ -55,6 +55,7 @@ float currentAnswer2 = -1;
     
     fliteEngine = [[FliteTTS alloc] init];
     [fliteEngine setVoice:@"cmu_us_rms"];
+    [fliteEngine prepSpeech:([fields objectAtIndex:9])];
     
     [sliderSubmit setEnabled:NO];   //disable submit until there is input.
     [sliderSubmit setTitle: @"touch slider" forState:UIControlStateNormal];    
@@ -97,7 +98,7 @@ float currentAnswer2 = -1;
     if (timesToRepeat > 0){ 
         NSString * textToSay = [fields objectAtIndex:9];
         NSLog(@"about to try to talk, %@",textToSay);
-        [fliteEngine speakText:textToSay];	// Make it talk
+       [fliteEngine speakText];	// Make it talk
         timesToRepeat --;
         if (pauseAfter >= 0){
             timerAfter = [NSTimer scheduledTimerWithTimeInterval:pauseAfter target:self selector:@selector(sayIt:) userInfo:nil repeats:NO];
@@ -119,6 +120,7 @@ float currentAnswer2 = -1;
     [timerAfter invalidate];
     [timerBefore invalidate];
     [fliteEngine stopTalking];
+    [fliteEngine speakDelete];
 
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
     
@@ -249,7 +251,7 @@ float currentAnswer2 = -1;
     [timerAfter invalidate];
     [timerBefore invalidate];
     [fliteEngine stopTalking];
-
+    [fliteEngine speakDelete];
     
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
     

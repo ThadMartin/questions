@@ -112,7 +112,7 @@
     
     filelist2= [filemgr contentsOfDirectoryAtPath:qListPath2 error:nil];
     
-    NSLog(@"qlsitpath2: %@",filelist2);
+    NSLog(@"qlistpath2: %@",filelist2);
     onlyQns2 = [[NSMutableArray alloc ] initWithArray:[filelist2 filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]]];
     
     numInfiles2 = [onlyQns2 count];
@@ -461,6 +461,7 @@
                 uploadButton.enabled = FALSE;
                 uploadButton.opaque = TRUE;
                 
+                
                 if([appDelegate.allQnsAndPaths count]>0){
                     continueButton.enabled = TRUE;
                     continueButton.opaque = FALSE;
@@ -532,14 +533,21 @@
             downloadButton.enabled = FALSE;
             downloadButton.opaque = TRUE;
             
-            clearMemory.enabled = TRUE;
-            clearMemory.opaque = FALSE;
+            if([appDelegate.allQnsAndPaths count]>0){
+                clearMemory.enabled = TRUE;
+                clearMemory.opaque = FALSE;
+            }
             
             unlinkButton.enabled = TRUE;
             unlinkButton.opaque = FALSE;
             
             uploadButton.enabled = TRUE;
             uploadButton.opaque = FALSE;
+            
+            if([appDelegate.allQnsAndPaths count]>0){
+                continueButton.enabled = TRUE;
+                continueButton.opaque = FALSE;
+            }
             
         }
         

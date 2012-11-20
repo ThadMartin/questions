@@ -178,7 +178,7 @@
 		72C7826B15C9E39C00378319 /* speech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speech.h; sourceTree = "<group>"; };
 		72C7826C15C9E39C00378319 /* speech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = speech.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		72C7827115C9EA2700378319 /* FliteTTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FliteTTS.h; path = "sfoster-iphone-tts-a6502c779cd3/Classes/FliteTTS.h"; sourceTree = "<group>"; };
-		72C7827215C9EA2700378319 /* FliteTTS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FliteTTS.m; path = "sfoster-iphone-tts-a6502c779cd3/Classes/FliteTTS.m"; sourceTree = "<group>"; };
+		72C7827215C9EA2700378319 /* FliteTTS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FliteTTS.m; sourceTree = "<group>"; };
 		72C783A015C9ED0800378319 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		72F7DF0C1567EA4000500D63 /* questionnairesByrge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = questionnairesByrge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72F7DF101567EA4000500D63 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };

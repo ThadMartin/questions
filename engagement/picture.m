@@ -59,8 +59,8 @@
     
     NSString * timerTime = [fields objectAtIndex:4];
     NSString * picName = [fields objectAtIndex:5];
-    //float timerTimeNumber = [timerTime floatValue];
-    float timerTimeNumber = 0.5;  //for debugging, when tired of timeouts.
+    float timerTimeNumber = [timerTime floatValue];
+    //float timerTimeNumber = 0.5;  //for debugging, when tired of timeouts.
     if (timerTimeNumber > 0){
         timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(timeIsUp:) userInfo:nil repeats:NO];
         NSRunLoop *runner = [NSRunLoop currentRunLoop];

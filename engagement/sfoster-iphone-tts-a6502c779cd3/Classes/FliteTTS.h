@@ -36,8 +36,13 @@
 }
 
 // Use these:
--(void)speakText:(NSString *)text;
+-(void)speakText;
 -(void)stopTalking;
 -(void)setPitch:(float)pitch variance:(float)variance speed:(float)speed;
 -(void)setVoice:(NSString *)voicename;
+-(void)prepSpeech:(NSString *)text;
+-(void)speakDelete;
+
+
+
 @end

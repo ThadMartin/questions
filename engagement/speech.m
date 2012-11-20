@@ -65,13 +65,7 @@
     //NSLog(@"about to try to talk");
     fliteEngine = [[FliteTTS alloc] init];
     [fliteEngine setVoice:@"cmu_us_rms"];
-    //    [fliteEngine setVoice:@"cmu_us_kal"];
-    //    [fliteEngine setVoice:@"cmu_us_kal16"];
-    //    [fliteEngine setVoice:@"cmu_us_awb"];
-    //    [fliteEngine setVoice:@"cmu_us_slt"];
-    //    [fliteEngine setPitch:100.0 variance:50.0 speed:1.0];	// Change the voice properties
-    
-    
+    [fliteEngine prepSpeech:([fields objectAtIndex:7])];
     self.speechLabel.text = [fields objectAtIndex:5];
     NSString * timerTime = [fields objectAtIndex:4];
     float timerTimeNumber = [timerTime floatValue];
@@ -128,7 +122,7 @@
     if (timesToRepeat > 0){ 
         NSString * textToSay = [fields objectAtIndex:7];
         NSLog(@"about to try to talk, %@",textToSay);
-        [fliteEngine speakText:textToSay];	// Make it talk
+        [fliteEngine speakText];	// Make it talk
         timesToRepeat --;
         if (pauseAfter >= 0){
             timerAfter = [NSTimer scheduledTimerWithTimeInterval:pauseAfter target:self selector:@selector(sayIt:) userInfo:nil repeats:NO];
@@ -181,11 +175,13 @@
 
 
 - (IBAction)submitButtonPressed:(id)sender {
-    
+
+    [fliteEngine stopTalking];
+    [fliteEngine speakDelete];
     [timer invalidate]; 
     [timerAfter invalidate];
     [timerBefore invalidate];
-    [fliteEngine stopTalking];
+
     
     NSString * numberFillAnswer = self.textField.text;
     NSMutableArray * questionAnswers2 = [[NSMutableArray alloc] initWithArray:fields]; 
@@ -231,6 +227,7 @@
 
 -(void) timeIsUp:(NSTimer*)timer{
     [fliteEngine stopTalking];
+    [fliteEngine speakDelete];
     //[timer invalidate]; 
     [timerAfter invalidate];
     [timerBefore invalidate];
