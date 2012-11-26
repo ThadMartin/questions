@@ -33,8 +33,9 @@
 @synthesize highLabel;
 @synthesize infile;
 @synthesize fields;
+@synthesize fliteEngine;
 
-@class FliteTTS;
+//@class FliteTTS;
 
 float currentAnswer2 = -1;
 
@@ -52,10 +53,6 @@ float currentAnswer2 = -1;
     [super viewDidLoad];
     
     NSLog(@"audioNumberLine loaded");
-    
-    fliteEngine = [[FliteTTS alloc] init];
-    [fliteEngine setVoice:@"cmu_us_rms"];
-    [fliteEngine prepSpeech:([fields objectAtIndex:9])];
     
     [sliderSubmit setEnabled:NO];   //disable submit until there is input.
     [sliderSubmit setTitle: @"touch slider" forState:UIControlStateNormal];    
@@ -151,7 +148,7 @@ float currentAnswer2 = -1;
     QuestionData * thisQuestionData = [[QuestionData alloc] init];
     [thisQuestionData saveData:questionAnswers];
     
-    [self dismissModalViewControllerAnimated:NO];
+    [self.presentingViewController.presentingViewController dismissModalViewControllerAnimated:NO];
 
 }
 
@@ -282,7 +279,7 @@ float currentAnswer2 = -1;
     QuestionData * thisQuestionData = [[QuestionData alloc] init];
     [thisQuestionData saveData:questionAnswers];
     
-    [self dismissModalViewControllerAnimated:NO];
+    [self.presentingViewController.presentingViewController dismissModalViewControllerAnimated:NO];
 
 }
 

@@ -7,7 +7,6 @@
 //
 
 #import "speech.h"
-#import "FliteTTS.h"
 #import "QuestionData.h"
 
 
@@ -15,7 +14,6 @@
 
 @implementation speech{
     NSRunLoop *runner;
-    FliteTTS *fliteEngine;
     NSTimer * timer;
     NSTimer * timerBefore;
     NSTimer * timerAfter;
@@ -29,6 +27,7 @@
 @synthesize fields;
 @synthesize textField;
 @synthesize submitButton;
+@synthesize fliteEngine;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,10 +61,6 @@
 {
     [super viewDidLoad];
     
-    //NSLog(@"about to try to talk");
-    fliteEngine = [[FliteTTS alloc] init];
-    [fliteEngine setVoice:@"cmu_us_rms"];
-    [fliteEngine prepSpeech:([fields objectAtIndex:7])];
     self.speechLabel.text = [fields objectAtIndex:5];
     NSString * timerTime = [fields objectAtIndex:4];
     float timerTimeNumber = [timerTime floatValue];
@@ -148,8 +143,6 @@
     
     NSLog(@"nearly about to try to talk, ");
     
-    // [self performSegueWithIdentifier: @"backToQuestionParser" sender: self];
-    
 }
 
 - (void)viewDidUnload
@@ -215,7 +208,7 @@
     
     NSLog(@"Going back to questionParser");
     
-    [self dismissModalViewControllerAnimated:NO];
+    [self.presentingViewController.presentingViewController dismissModalViewControllerAnimated:NO];
     
 }
 
@@ -265,7 +258,7 @@
     QuestionData * thisQuestionData = [[QuestionData alloc] init]; 
     [thisQuestionData saveData:questionAnswers];
     
-    [self dismissModalViewControllerAnimated:NO];
+    [self.presentingViewController.presentingViewController dismissModalViewControllerAnimated:NO];
     
 }
 

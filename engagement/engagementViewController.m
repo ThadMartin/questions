@@ -22,24 +22,21 @@
     BOOL downloading;
     int downloadCount;
     int toDownload;
-    NSMutableArray * filelist;
-    NSArray * filelist2;
-    NSMutableArray * filelist3;
-    NSMutableArray * newQuestions;
+    NSArray * filelist;
     engagementAppDelegate * appDelegate;
     NSMutableArray * onlyQns;
-    NSMutableArray * onlyQns2;
     int numInfiles;
-    int numInfiles2;
     NSString * qListPath; 
-    NSString * qListPath2;
     BOOL shouldDownload;
+    NSMutableArray * unorderedQns;
+    NSString * directory;
     
     
 }
 @synthesize clearMemory;
 @synthesize quitButton;
 @synthesize linkLabel;
+@synthesize errorLabel;
 @synthesize uploadButton;
 @synthesize downloadButton;
 @synthesize continueButton;
@@ -55,84 +52,135 @@
 
 #pragma mark - View lifecycle
 
+static NSInteger Compare(NSString * string1, NSString * string2, void *context) {
+    NSString * string1Last = [string1 lastPathComponent]; 
+    NSString * string2Last = [string2 lastPathComponent];
+    
+    return ([string1Last localizedCaseInsensitiveCompare:string2Last]);    
+}
+
+- (void)updateLinkStatus:(NSTimer*)timer2{
+    if ([[DBSession sharedSession] isLinked]){
+        //NSLog(@"says linked");
+        NSString *URLString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"] encoding:NSUTF8StringEncoding error:nil];
+        
+        if ( URLString != NULL ) { 
+            linkLabel.text = @"app is linked to dropbox";
+            uploadButton.enabled = TRUE;  
+            uploadButton.opaque = FALSE;
+            
+            downloadButton.enabled = TRUE;
+            downloadButton.opaque = FALSE;
+            
+            linkButton.enabled = FALSE;
+            linkButton.opaque = TRUE;
+            
+            unlinkButton.enabled = TRUE;
+            unlinkButton.opaque = FALSE;
+            
+        }
+        else {
+            linkLabel.text = @"no internet connection";
+            uploadButton.enabled = FALSE; 
+            uploadButton.opaque = TRUE;
+            
+            downloadButton.enabled = FALSE;
+            downloadButton.opaque = TRUE;
+            
+            unlinkButton.enabled = FALSE;
+            unlinkButton.opaque = TRUE;
+            
+            linkButton.enabled = FALSE;
+            linkButton.opaque = TRUE;
+            
+        }  //still in if is linked.
+        
+        if (timer)
+            [timer invalidate];
+    }
+    else
+    {
+        NSLog(@"not linked");
+        
+        linkLabel.text = @"app not linked to dropbox";
+        
+        uploadButton.enabled = NO; 
+        uploadButton.opaque = YES;
+        
+        downloadButton.enabled = NO;
+        downloadButton.opaque = YES;
+        
+        linkButton.enabled = TRUE;
+        linkButton.opaque = FALSE;
+        
+        unlinkButton.enabled = FALSE;
+        unlinkButton.opaque = TRUE;
+        
+    }
+    
+    if([appDelegate.allQnsAndPaths count]>0){
+        continueButton.enabled = TRUE;
+        continueButton.opaque = FALSE;
+    }
+    else{
+        continueButton.enabled=NO;
+        continueButton.opaque=YES;
+    }
+    
+    quitButton.enabled = TRUE;
+    quitButton.opaque = FALSE;
+    
+    if([appDelegate.allQnsAndPaths count] >0){
+        clearMemory.enabled = TRUE;
+        clearMemory.opaque = FALSE;
+    }
+    
+    
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.allQnsAndPaths = [[NSMutableArray alloc] init];	
     filemgr = [NSFileManager defaultManager];
-	if (([[DBSession sharedSession] isLinked])){
-        NSString *URLString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"] encoding:NSUTF8StringEncoding error:nil];
-        
-        if ( URLString != NULL )      
-            linkLabel.text = @"app is linked to dropbox";
-        else{
-            linkLabel.text = @"no internet connection";
-            uploadButton.enabled = NO;  
-            uploadButton.opaque = YES;
-        }            
-    }
-    else{
-        linkLabel.text = @"app not linked to dropbox";
-        uploadButton.enabled = NO;
-        uploadButton.opaque = YES;
-    }
     
+    errorLabel.text=@"";
     
-    // It is possible to include files in the bundle path, and compile them in.  
-    // I'll remove that sometime.
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    qListPath = [paths objectAtIndex:0];
     
-    qListPath = [[NSBundle mainBundle] bundlePath];
+    NSError * error;
     
-    [filelist addObjectsFromArray:[filemgr contentsOfDirectoryAtPath:qListPath error:nil]];
+    filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:&error];
+    
+    if (error)
+        errorLabel.text = error.localizedDescription;
+    
     
     // to just show .ord files, modify the line below.  ***********************
     NSArray *extensions = [NSArray arrayWithObjects:@"txt", @"ord", nil];
+    
     onlyQns = [[NSMutableArray alloc ] initWithArray:[filelist filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]]];
     
-    
     numInfiles = [onlyQns count];
+   
+    NSMutableArray * onlyQnsPath = [[NSMutableArray alloc] init];
     
-    //used to strip off the .txt entension in this loop.
-    for (int noTxt = 0; noTxt < numInfiles; noTxt++){               
-        NSString * firstName = [onlyQns objectAtIndex:noTxt];
-        //NSLog(@"firstName %@",firstName);
-        NSString * fullQuestion = [qListPath stringByAppendingPathComponent:firstName];
-        [appDelegate.allQnsAndPaths addObject:fullQuestion];
-        
-    }
+    for (NSString * thing in onlyQns)
+        [onlyQnsPath addObject:[qListPath stringByAppendingPathComponent:thing]];
     
-    //          previously downloaded files, things ending with a 2.
+    [appDelegate.allQnsAndPaths addObjectsFromArray:onlyQnsPath];
     
+    numInfiles = [onlyQnsPath count];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    qListPath2 = [paths objectAtIndex:0];
+    NSLog(@"numInFiles: %i",numInfiles);
     
-    //NSLog(@"qlsitpath2: %@",qListPath2);
+    [self updateLinkStatus:timer];
     
-    filelist2= [filemgr contentsOfDirectoryAtPath:qListPath2 error:nil];
-    
-    NSLog(@"qlistpath2: %@",filelist2);
-    onlyQns2 = [[NSMutableArray alloc ] initWithArray:[filelist2 filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]]];
-    
-    numInfiles2 = [onlyQns2 count];
-    
-    NSLog(@"numInFiles2: %i",numInfiles2);
-    
-    for (int noTxt = numInfiles; noTxt < (numInfiles + numInfiles2); noTxt++){
-        NSString * firstName = [onlyQns2 objectAtIndex:noTxt-numInfiles];
-        NSString * fullQuestion = [qListPath2 stringByAppendingPathComponent:firstName];
-        [appDelegate.allQnsAndPaths addObject:fullQuestion];
-        [onlyQns addObject: [onlyQns2 objectAtIndex:noTxt-numInfiles]];
-        
-    }
-    
-    NSLog (@"NumberOfFiles is %i",numInfiles);
-    
-    filelist3 = [[NSMutableArray alloc] initWithArray:filelist];
-    
-    [filelist3 addObjectsFromArray:filelist2];  // So, all the files.
-    
+    NSLog (@"updated link status");
+
 }
 
 - (void)viewDidUnload
@@ -145,6 +193,7 @@
     [self setQuitButton:nil];
     [self setClearMemory:nil];
     [self setDownloadButton:nil];
+    [self setErrorLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -175,44 +224,6 @@
 	[super viewDidDisappear:animated];
 }
 
-- (void)updateLinkStatus:(NSTimer*)timer2{
-    if ([[DBSession sharedSession] isLinked]){
-        
-        NSString *URLString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"] encoding:NSUTF8StringEncoding error:nil];
-        
-        if ( URLString != NULL ) { 
-           // NSLog(@"download button changed here.");
-            linkLabel.text = @"app is linked to dropbox";
-            uploadButton.enabled = TRUE;  
-            uploadButton.opaque = FALSE;
-            
-            downloadButton.enabled = TRUE;
-            downloadButton.opaque = FALSE;
-            
-        }
-        else {
-            linkLabel.text = @"no internet connection";
-            uploadButton.enabled = FALSE; 
-            uploadButton.opaque = TRUE;
-            
-            downloadButton.enabled = FALSE;
-            downloadButton.opaque = TRUE;
-        }
-        
-        [timer invalidate];
-    }
-    else
-    {
-        linkLabel.text = @"app not linked to dropbox";
-        uploadButton.enabled = NO; 
-        uploadButton.opaque = YES;
-        
-        downloadButton.enabled = NO;
-        downloadButton.opaque = YES;
-        
-        
-    }
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -225,63 +236,61 @@
 
 
 - (IBAction)linkButtonPressed:(id)sender {
+    
     if (![[DBSession sharedSession] isLinked]) {
         [[DBSession sharedSession] linkFromController:self];
-        
-        //[NSThread sleepForTimeInterval:1]; 
-        
-        linkLabel.text = @"";
-        int timerTimeNumber = 3;
-        timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(updateLinkStatus:) userInfo:nil repeats:YES];
-        NSRunLoop *runner = [NSRunLoop currentRunLoop];
-        [runner addTimer: timer forMode: NSDefaultRunLoopMode];
     }
-    else {
-        linkLabel.text = @"app is linked to dropbox";
-        uploadButton.enabled = TRUE; 
-        uploadButton.opaque = FALSE;
-        downloadButton.enabled = TRUE;
-        downloadButton.opaque = FALSE;
-    }
+    
+    linkLabel.text = @"";
+    int timerTimeNumber = 3;
+    timer = [NSTimer scheduledTimerWithTimeInterval:timerTimeNumber target:self selector:@selector(updateLinkStatus:) userInfo:nil repeats:YES];
+    NSRunLoop *runner = [NSRunLoop currentRunLoop];
+    [runner addTimer: timer forMode: NSDefaultRunLoopMode];
+    
+    //[self updateLinkStatus:timer];  // This runs when the timer fires.
+    
 }
 
 
 - (IBAction)unlinkButtonPressed:(id)sender {
-    if ([[DBSession sharedSession] isLinked]) {
+    
+    if ([[DBSession sharedSession] isLinked]) 
         [[DBSession sharedSession] unlinkAll];
-        
-        [NSThread sleepForTimeInterval:1]; 
-        
-        if (![[DBSession sharedSession] isLinked]){
-            linkLabel.text = @"app not linked to dropbox";
-            uploadButton.enabled = NO; 
-            uploadButton.opaque = YES;
-            
-            downloadButton.enabled = NO;
-            downloadButton.opaque = YES;
-            
-        }
+    
+    // Maybe here would be a good place to set restclient = nil?
+    
+    [NSThread sleepForTimeInterval:1]; 
+    
+    if (![[DBSession sharedSession] isLinked]){
+        linkLabel.text = @"app not linked to dropbox";
     }
+    [self updateLinkStatus:timer];
     
 }
 
+
 - (IBAction)continueButtonPressed:(id)sender {
     [timer invalidate];
+    
     [self performSegueWithIdentifier: @"toQuestionSelector" sender: self]; 
 }
 
 
 - (IBAction)uploadButtonPressed:(id)sender {
+    
     uploading = TRUE;
     downloading = FALSE;
     
+    linkLabel.text = @"starting upload";
     
     if (!restClient) {
         restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
     }
     restClient.delegate = self;
     
-    [restClient loadMetadata:@"/uploadNumberStims/"];
+    directory = @"/uploadNumberStims/";
+    
+    [restClient  loadMetadata:directory];
     
     uploadButton.enabled = FALSE; 
     uploadButton.opaque = TRUE;
@@ -299,9 +308,10 @@
     
 }
 
+
 - (IBAction)quitPressed:(id)sender {
     
-    // filemgr = [NSFileManager defaultManager];
+    // Delete the output file that doesn't have anything in it yet.
     
     NSError * error;
     engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
@@ -322,20 +332,20 @@
     // Not removing the .ans files from here.
     NSArray *extensions = [NSArray arrayWithObjects:@"txt", @"ord", @"jpg", @"png", nil];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString * docDir = [paths objectAtIndex:0];
-    NSArray * dirContents2 = [filemgr contentsOfDirectoryAtPath:docDir error:nil];
+    NSArray * dirContents2 = [filemgr contentsOfDirectoryAtPath:qListPath error:nil];
     
-    NSLog(@"docDir: %@",docDir);
-    NSLog(@"dir contents: %@",dirContents2);
-    NSArray * onlyTXTs = [dirContents2 filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]];
+    NSArray * onlyInputFiles = [dirContents2 filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]];
     
-    for ( NSString * thingPath in onlyTXTs){
-        NSString * fullThingPath = [docDir stringByAppendingPathComponent:thingPath];
+    for ( NSString * thingPath in onlyInputFiles){
+        NSString * fullThingPath = [qListPath stringByAppendingPathComponent:thingPath];
         [filemgr removeItemAtPath:fullThingPath error:&error];
-        if(error)
+        if(error){
             NSLog(@"error: %@",error);
+            errorLabel.text = error.localizedDescription;
     }
+    }
+    
+    [appDelegate.allQnsAndPaths removeAllObjects];
     
     [clearMemory setTitle:@"cleared" forState:UIControlStateNormal];
     downloadButton.enabled = TRUE;
@@ -351,18 +361,12 @@
 
 - (IBAction)downloadButtonPressed:(id)sender {
     
-    [downloadButton setTitle:@"downloading" forState:UIControlStateNormal];
     if (!restClient) {
         restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
     }
     restClient.delegate = self;
     
-    [filelist addObjectsFromArray:[filemgr contentsOfDirectoryAtPath:qListPath error:nil]];
-    filelist3 = [[NSMutableArray alloc] initWithArray:filelist];
-    filelist2= [filemgr contentsOfDirectoryAtPath:qListPath2 error:nil];
-    
-    [filelist3 addObjectsFromArray:filelist2];
-    
+    linkLabel.text = @"starting download";
     
     uploading = FALSE;
     downloading = TRUE;
@@ -370,17 +374,27 @@
     uploadButton.enabled = FALSE;
     uploadButton.opaque = TRUE;
     
+    downloadButton.enabled = FALSE;
+    downloadButton.opaque = TRUE;
+    
     unlinkButton.enabled = FALSE;
     unlinkButton.opaque = TRUE;
     
     continueButton.enabled = FALSE;
     continueButton.opaque = TRUE;
     
-    NSString * directory = @"/downloadNumberStims/";
+    clearMemory.enabled = FALSE;
+    clearMemory.opaque = TRUE;
     
+    [downloadButton setTitle:@"downloading" forState:UIControlStateNormal];
+    
+    directory = @"/downloadNumberStims/";
+    unorderedQns = [[NSMutableArray alloc] init];
+        
     [restClient loadMetadata:directory];
+
     
-    NSLog(@"I told it to download");
+    //NSLog(@"I told it to download");    
     
 }
 
@@ -393,106 +407,75 @@
         uploadCount = 0;
         didUpload = 0;
         
-        //filemgr = [NSFileManager defaultManager];
+        //NSString * directory = @"/upload/";  //Well, it should be.
         
+        NSArray *extensions = [NSArray arrayWithObjects:@"ans",nil];
         
-        NSString *destDir = @"/uploadNumberStims/";
-        
-        NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        qListPath2 = [paths objectAtIndex:0];
-        
-        //NSArray * filelist2= [filemgr contentsOfDirectoryAtPath:qListPath2 error:nil];
-        
-        NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.ans'"];
-        
-        NSMutableArray * answerFiles = [[NSMutableArray alloc] initWithArray:[filelist2 filteredArrayUsingPredicate:fltr]];
-        
-        engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
-        
-        
-        docPath = delegate.docPath;
-        
-        NSString * currentDoc = [docPath lastPathComponent];
-        
-        NSLog(@"currentDoc %@",currentDoc);
+        NSMutableArray * answerFiles = [[NSMutableArray alloc]initWithArray:[filelist filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", extensions]]]; 
+                
         NSLog(@"answerFiles %@",answerFiles);
         NSLog(@"metadata contents %@",metadata.contents);
         
-        
-        
-        // for(NSString *existing in filelist2){
-        for(NSString *existing in answerFiles){  
-            bool shouldUpload = true;
+        if ([answerFiles count]>0){
             
-            if ([existing isEqualToString:currentDoc])
-                shouldUpload = false;
-            
-            for (DBMetadata *file in metadata.contents) {
-                // NSLog(@" existing, file.filename: %@ , %@",existing,file.filename);
-                if([existing isEqualToString:file.filename]){
-                    shouldUpload = false;
-                    // NSLog(@"don't upload this one");
-                    break;
+            for(NSString *existing in answerFiles){  
+                bool shouldUpload = true;
+                
+                for (DBMetadata *file in metadata.contents) {
+                    if([existing isEqualToString:file.filename]){  //Don't upload anything that's already there.
+                        shouldUpload = false;
+                        // NSLog(@"don't upload this one");
+                        break;
+                    }
+                    
+                }  // end of step through metadata contents
+                
+                if(shouldUpload){
+                    uploadCount++;
+                    NSString * filePathName = [qListPath stringByAppendingPathComponent:existing];
+                    
+                    [restClient uploadFile:existing toPath:directory withParentRev:nil  fromPath:filePathName];
+                }  // end of if should upload
+                
+                if (uploadCount ==0){
+                    [uploadButton setTitle:@"done preparing uploads" forState:UIControlStateNormal];
+                    
+                    [self updateLinkStatus:timer];
+                    
                 }
-                
-            }  // end of step through metadata contents
-            
-            if(shouldUpload){
-                uploadCount++;
-                NSString * filePathName = [qListPath2 stringByAppendingPathComponent:existing];
-                
-                [restClient uploadFile:existing toPath:destDir withParentRev:nil  fromPath:filePathName];
-            }  // end of if should upload
-            
-            if (uploadCount ==0){
-                [uploadButton setTitle:@"done uploading" forState:UIControlStateNormal];
-                
-                [self updateLinkStatus:timer];
-                
-                downloadButton.enabled = TRUE;
-                downloadButton.opaque = FALSE;
-                
-                clearMemory.enabled = TRUE;
-                clearMemory.opaque = FALSE;
-                
-                unlinkButton.enabled = TRUE;
-                unlinkButton.opaque = FALSE;
-                
-                uploadButton.enabled = FALSE;
-                uploadButton.opaque = TRUE;
-                
-                
-                if([appDelegate.allQnsAndPaths count]>0){
-                    continueButton.enabled = TRUE;
-                    continueButton.opaque = FALSE;
-                }
-             }
-         }  // end of step through 
+            }  // end of step through 
+        }
+        else{
+            [uploadButton setTitle:@"nothing to upload" forState:UIControlStateNormal];
+            [self updateLinkStatus:timer];   
+        }
     }// end of if uploading.
     
     if (downloading){
-        //download code here.
-        
-        NSLog(@"downloading");
+        NSLog(@"downloading...");
         
         linkLabel.text = @"downloading";
         
+        //NSString * directory = @"/download/";  //again, it should be.
         
-        NSLog(@"filelist 3: %@",filelist3);
+        NSError * error;
+        
+        filelist= [filemgr contentsOfDirectoryAtPath:qListPath error:&error];
+        
+        if (error)
+            errorLabel.text = error.localizedDescription;
         
         downloadCount = 0;
-        newQuestions = [[NSMutableArray alloc] init];
+        //newQuestions = [[NSMutableArray alloc] init];
         if (metadata.isDirectory) {
             for (DBMetadata *file in metadata.contents) {
                 shouldDownload = TRUE;
-                for(NSString *existing in filelist3){
-                    // NSLog(@"existing, file.filename %@ %@",existing,file.filename);
-                    
+                for(NSString *existing in filelist){
                     if([existing isEqualToString:file.filename]){
-                        shouldDownload = FALSE;       // can be changed to true, so if you modify a file, you get the new version.
+                        shouldDownload = FALSE;       // Don't re-download files already on iPad.
                         break;
                     }
-                    if(file.isDirectory){
+                    if(file.isDirectory){  // Don't download directories.
                         shouldDownload = FALSE;
                         break;
                     }
@@ -503,12 +486,9 @@
                     linkLabel.text = @"should download";
                     
                     downloadCount++;
-                    NSString * dropboxPath = [@"/downloadNumberStims/" stringByAppendingString:file.filename];
+                    NSString * dropboxPath = [directory stringByAppendingPathComponent:file.filename];
                     
-                    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-                    NSString *documentsDirectory = [paths objectAtIndex:0];
-                    
-                    NSString * localPath = [documentsDirectory stringByAppendingPathComponent:file.filename];
+                    NSString * localPath = [qListPath stringByAppendingPathComponent:file.filename];
                     // NSLog(@"local path: %@",localPath);
                     
                     NSLog(@"should download: %d",shouldDownload);
@@ -525,40 +505,31 @@
         if(downloadCount == 0){
             
             [downloadButton setTitle:@"done downloading" forState:UIControlStateNormal];
+            [clearMemory setTitle:@"clear downloads" forState:UIControlStateNormal];
             
-            [clearMemory setTitle:@"clear downloaded questions" forState:UIControlStateNormal];
+            NSArray * sortedArray = [unorderedQns sortedArrayUsingFunction:Compare context:nil];
+            [appDelegate.allQnsAndPaths addObjectsFromArray:sortedArray];
+            
+            [clearMemory setTitle:@"clear downloads" forState:UIControlStateNormal];
             
             [self updateLinkStatus:timer];
             
-            downloadButton.enabled = FALSE;
-            downloadButton.opaque = TRUE;
-            
-            if([appDelegate.allQnsAndPaths count]>0){
-                clearMemory.enabled = TRUE;
-                clearMemory.opaque = FALSE;
-            }
-            
-            unlinkButton.enabled = TRUE;
-            unlinkButton.opaque = FALSE;
-            
-            uploadButton.enabled = TRUE;
-            uploadButton.opaque = FALSE;
-            
-            if([appDelegate.allQnsAndPaths count]>0){
-                continueButton.enabled = TRUE;
-                continueButton.opaque = FALSE;
-            }
-            
         }
-        
     }//end of if downloading.
 }
 
+
+
 - (void)restClient:(DBRestClient *)client loadMetadataFailedWithError:(NSError *)error {
     NSLog(@"Error loading metadata: %@", error);
-    [[DBSession sharedSession] unlinkAll]; 
-    restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
-    restClient.delegate = self;
+    
+    errorLabel.text = error.localizedDescription;
+    
+    //[[DBSession sharedSession] unlinkAll]; 
+    
+    [NSThread sleepForTimeInterval:1];   //Try again. Maybe it would be better to unlink and relink.
+    
+    [restClient loadMetadata:directory];  
 }
 
 
@@ -566,12 +537,16 @@
     //NSLog(@"Uploaded from %@",srcPath);
     didUpload ++;
     
+    linkLabel.text = @"uploaded a file";
+    
     NSError * error;
     
     [filemgr removeItemAtPath:srcPath error:&error];
     
-    if(error)
+    if(error){
         NSLog(@"error: %@",error);
+        errorLabel.text = error.localizedDescription;
+    }
     
     NSString * buttonText = [NSString stringWithFormat:@"uploaded %i of %i",didUpload,uploadCount];
     
@@ -580,40 +555,24 @@
     if (didUpload >= uploadCount){
         
         [uploadButton setTitle:@"done uploading" forState:UIControlStateNormal];
-        
         [self updateLinkStatus:timer];
         
-        downloadButton.enabled = TRUE;
-        downloadButton.opaque = FALSE;
-        
-        clearMemory.enabled = TRUE;
-        clearMemory.opaque = FALSE;
-        
-        unlinkButton.enabled = TRUE;
-        unlinkButton.opaque = FALSE;
-        
-        uploadButton.enabled = FALSE;
-        uploadButton.opaque = TRUE;
-        
-        if([appDelegate.allQnsAndPaths count]>0){
-            continueButton.enabled = TRUE;
-            continueButton.opaque = FALSE;
-        }
     }
 }
 
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError *)error{
     NSLog(@"Upload error - %@", error);
     
+    linkLabel.text = @"retrying";
+    
     if (didUpload >= uploadCount)
         [uploadButton setTitle:@"upload complete" forState:UIControlStateNormal];
-    
     
     NSLog(@"from %@",error.userInfo.description);
     
     NSString * reloadSourcePath;
     NSString * reloadDestinationPath;
-    NSString *destDir = @"/uploadNumberStims/";
+    NSString * destDir = @"/uploadNumberStims/";
     
     for (id key in error.userInfo){
         NSLog(@"key, %@",key);
@@ -624,7 +583,6 @@
         if ([key isEqualToString:@"destinationPath"])
             reloadDestinationPath = [error.userInfo objectForKey:key];
     }
-    
     
     if ([reloadSourcePath length]>1 && [reloadDestinationPath length] > 1){
         [restClient uploadFile:[reloadSourcePath lastPathComponent] toPath:destDir withParentRev:nil  fromPath:reloadSourcePath];
@@ -638,27 +596,30 @@
     
     linkLabel.text = @"downloaded a file";
     
-    
     NSString * buttonText = [NSString stringWithFormat:@"downloaded %i of %i",(toDownload - (downloadCount+1)),toDownload];
     
     [downloadButton setTitle:buttonText forState:UIControlStateNormal];
     
-    
-    //[downloadButton setTitle:@"downloaded %i of %i" forState:UIControlStateNormal];
     NSString *filename = [localPath lastPathComponent];
+    NSString * filenamePath = [qListPath stringByAppendingPathComponent:filename];
     NSArray *components = [filename componentsSeparatedByString:@"."];
     //NSLog(@"file extension, %@", [components objectAtIndex:1]);
     
-    //if the extension is ok add it to the new files array to be added to the table later
-    //NSLog(@" %@ = txt",[components objectAtIndex:1] );
     if ([[components objectAtIndex:1] isEqualToString:@"txt"]||[[components objectAtIndex:1] isEqualToString:@"ord"]) {
-        [newQuestions addObject:filename];
-        [appDelegate.allQnsAndPaths addObject:localPath];
+        [unorderedQns addObject:filenamePath];
     }
+    
+    //NSLog(@"%@",unorderedQns);
+    
     downloadCount--;
     if(downloadCount == 0){
         
         [downloadButton setTitle:@"done downloading" forState:UIControlStateNormal];
+        
+        
+        
+        NSArray * sortedArray = [unorderedQns sortedArrayUsingFunction:Compare context:nil];
+        [appDelegate.allQnsAndPaths addObjectsFromArray:sortedArray];
         
         [clearMemory setTitle:@"clear downloaded questions" forState:UIControlStateNormal];
         
@@ -685,12 +646,13 @@
 
 
 - (void)restClient:(DBRestClient*)client loadFileFailedWithError:(NSError*)error {
-    NSLog(@"There was an error loading the file - %@", error);
-    
+    NSLog(@"There was an error loading the file - %@", error);    
     NSLog(@"from %@",error.userInfo.description);
     
     NSString * reloadPath;
     NSString * reloadDestinationPath;
+    
+    linkLabel.text = @"retrying";
     
     for (id key in error.userInfo){
         NSLog(@"key, %@",key);
@@ -699,8 +661,7 @@
             reloadPath = [error.userInfo objectForKey:key];
         }
         if ([key isEqualToString:@"destinationPath"])
-            reloadDestinationPath = [error.userInfo objectForKey:key];
-        
+            reloadDestinationPath = [error.userInfo objectForKey:key];        
     }
     
     
@@ -710,8 +671,5 @@
     }
 }
 
-
 @end
-
-
 

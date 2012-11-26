@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+@class FliteTTS;
 
 @interface audioNumberLine : UIViewController 
 
@@ -18,5 +19,7 @@
 @property (weak, nonatomic) NSArray * fields;
 - (IBAction)sliderSubmitPressed:(id)sender;
  @property (weak, nonatomic) IBOutlet UILabel * highLabel;
+
+@property (strong) FliteTTS *fliteEngine;
  
 @end

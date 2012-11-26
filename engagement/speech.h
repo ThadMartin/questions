@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FliteTTS.h"
+
+@class FliteTTS;
 
 @interface speech : UIViewController
 
@@ -15,5 +18,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *submitButton;
 - (IBAction)submitButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UILabel *speechLabel;
+@property (strong) FliteTTS *fliteEngine;
 
 @end

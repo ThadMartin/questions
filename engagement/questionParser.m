@@ -14,9 +14,9 @@
 #import "numberFill.h"
 #import "multipleChoice.h"
 #import "picture.h"
-#import "speech.h"
+#import "pSpeech.h"
 #import "branchOut.h"
-#import "audioNumberLine.h"
+#import "pAudioNumberLine.h"
 #import "engagementAppDelegate.h"
 #import "feedback.h"
 #import "titration.h"
@@ -672,7 +672,7 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         svc.fields = fields;
     }
     if ([segue.identifier isEqualToString:@"toSpeech"]){
-        speech * svc = [segue destinationViewController];
+        pSpeech * svc = [segue destinationViewController];
         svc.fields = fields; 
     }
     if ([segue.identifier isEqualToString:@"toBranchOut"]){
@@ -681,7 +681,7 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         [svc setQuestionParser:self];
     }
     if ([segue.identifier isEqualToString:@"toAudioNumberLine"]){
-        audioNumberLine * svc = [segue destinationViewController];
+        pAudioNumberline * svc = [segue destinationViewController];
         svc.fields = fields; 
     }
     if ([segue.identifier isEqualToString:@"toFeedback"]){

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		720F5D831576702500C74BC5 /* goodbye.m in Sources */ = {isa = PBXBuildFile; fileRef = 720F5D821576702500C74BC5 /* goodbye.m */; };
+		7216AFFF165B233F00B78D18 /* pSpeech.m in Sources */ = {isa = PBXBuildFile; fileRef = 7216AFFE165B233F00B78D18 /* pSpeech.m */; };
+		7216B003165B2DE900B78D18 /* pAudioNumberline.m in Sources */ = {isa = PBXBuildFile; fileRef = 7216B002165B2DE900B78D18 /* pAudioNumberline.m */; };
 		7217E46F15B9B2EF00B09FD6 /* picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7217E46C15B9B2EF00B09FD6 /* picture.m */; };
 		722844B915E1B58D004401CA /* badInFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 722844B815E1B58C004401CA /* badInFile.m */; };
 		724118A51580EB7E002FC139 /* instruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 724118A41580EB7E002FC139 /* instruction.m */; };
@@ -16,6 +18,7 @@
 		7264E49915796595000784A2 /* newSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7264E49815796595000784A2 /* newSlider.m */; };
 		727362CF1580E0C600F4B689 /* numberFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 727362CE1580E0C600F4B689 /* numberFill.m */; };
 		727B5500157E55DA004D13D1 /* questionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 727B54FF157E55DA004D13D1 /* questionParser.m */; };
+		728B5E0C1662BF8C003FB1A2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF191567EA4100500D63 /* InfoPlist.strings */; };
 		7291AFC41658C4130076F9F5 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7291AFC31658C4130076F9F5 /* DropboxSDK.framework */; };
 		72936CF615EC591A00AFDC0A /* noAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 72936CF515EC591A00AFDC0A /* noAnimationSegue.m */; };
 		729545A01656DC5700DBBC0F /* branchTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7295459F1656DC5700DBBC0F /* branchTo.m */; };
@@ -24,7 +27,6 @@
 		729BE1C515F9BAF400F920B8 /* feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 729BE1C415F9BAF400F920B8 /* feedback.m */; };
 		72A3070115FA3CA200749E14 /* titration.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A3070015FA3CA200749E14 /* titration.m */; };
 		72A6B0E415EFC3B100BAC90A /* audioNumberLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6B0E315EFC3B000BAC90A /* audioNumberLine.m */; };
-		72ABB16D164B58B00088FE74 /* engagement-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 72ABB16C164B58B00088FE74 /* engagement-Info.plist */; };
 		72BB7867158142C200047EEA /* questionSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 72BB7866158142C200047EEA /* questionSelector.m */; };
 		72C7826D15C9E39C00378319 /* speech.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C7826C15C9E39C00378319 /* speech.m */; };
 		72C7833415C9EA2700378319 /* FliteTTS.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C7827215C9EA2700378319 /* FliteTTS.m */; };
@@ -32,7 +34,6 @@
 		72F7DF111567EA4000500D63 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF101567EA4000500D63 /* UIKit.framework */; };
 		72F7DF131567EA4000500D63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF121567EA4000500D63 /* Foundation.framework */; };
 		72F7DF151567EA4000500D63 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7DF141567EA4000500D63 /* CoreGraphics.framework */; };
-		72F7DF1B1567EA4100500D63 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF191567EA4100500D63 /* InfoPlist.strings */; };
 		72F7DF1D1567EA4100500D63 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF1C1567EA4100500D63 /* main.m */; };
 		72F7DF211567EA4100500D63 /* engagementAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7DF201567EA4100500D63 /* engagementAppDelegate.m */; };
 		72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */; };
@@ -142,6 +143,10 @@
 /* Begin PBXFileReference section */
 		720F5D811576702500C74BC5 /* goodbye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodbye.h; sourceTree = "<group>"; };
 		720F5D821576702500C74BC5 /* goodbye.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodbye.m; sourceTree = "<group>"; };
+		7216AFFD165B233F00B78D18 /* pSpeech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pSpeech.h; sourceTree = "<group>"; };
+		7216AFFE165B233F00B78D18 /* pSpeech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pSpeech.m; sourceTree = "<group>"; };
+		7216B001165B2DE800B78D18 /* pAudioNumberline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pAudioNumberline.h; sourceTree = "<group>"; };
+		7216B002165B2DE900B78D18 /* pAudioNumberline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pAudioNumberline.m; sourceTree = "<group>"; };
 		7217E46B15B9B2EF00B09FD6 /* picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = picture.h; sourceTree = "<group>"; };
 		7217E46C15B9B2EF00B09FD6 /* picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = picture.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		722844B715E1B58C004401CA /* badInFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = badInFile.h; sourceTree = "<group>"; };
@@ -418,6 +423,8 @@
 			children = (
 				72A6B0E215EFC3B000BAC90A /* audioNumberLine.h */,
 				72A6B0E315EFC3B000BAC90A /* audioNumberLine.m */,
+				7216B001165B2DE800B78D18 /* pAudioNumberline.h */,
+				7216B002165B2DE900B78D18 /* pAudioNumberline.m */,
 				722844B715E1B58C004401CA /* badInFile.h */,
 				722844B815E1B58C004401CA /* badInFile.m */,
 				E4349EFD162C5DE100FA7F18 /* branchOut.h */,
@@ -456,6 +463,8 @@
 				727B54FF157E55DA004D13D1 /* questionParser.m */,
 				72BB7865158142C200047EEA /* questionSelector.h */,
 				72BB7866158142C200047EEA /* questionSelector.m */,
+				7216AFFD165B233F00B78D18 /* pSpeech.h */,
+				7216AFFE165B233F00B78D18 /* pSpeech.m */,
 				72C7826B15C9E39C00378319 /* speech.h */,
 				72C7826C15C9E39C00378319 /* speech.m */,
 				72F7DF171567EA4100500D63 /* Supporting Files */,
@@ -782,10 +791,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72F7DF1B1567EA4100500D63 /* InfoPlist.strings in Resources */,
+				728B5E0C1662BF8C003FB1A2 /* InfoPlist.strings in Resources */,
 				72F7DF271567EA4100500D63 /* MainStoryboard_iPad.storyboard in Resources */,
 				E434A00A162C5E8700FA7F18 /* us_pos.tree in Resources */,
-				72ABB16D164B58B00088FE74 /* engagement-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -915,6 +923,8 @@
 				E434A00D162C5E8700FA7F18 /* usenglish.c in Sources */,
 				729545A01656DC5700DBBC0F /* branchTo.m in Sources */,
 				729545A41656E4BA00DBBC0F /* titrationBranch.m in Sources */,
+				7216AFFF165B233F00B78D18 /* pSpeech.m in Sources */,
+				7216B003165B2DE900B78D18 /* pAudioNumberline.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

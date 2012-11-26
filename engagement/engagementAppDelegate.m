@@ -40,10 +40,10 @@
     root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox    
     [DBSession setSharedSession:dbSession];
     
-    QuestionData * thisQuestionData = [[QuestionData alloc] init];     
-    docPath = [thisQuestionData createDataPath];  //includes full path.
+   QuestionData * thisQuestionData = [[QuestionData alloc] init];     
+   docPath = [thisQuestionData createDataPath];  //includes full path.
     
-    NSLog(@"docPath is: %@",docPath);
+   NSLog(@"docPath is: %@",docPath);
     
     allQnsAndPaths = [[NSMutableArray alloc] init];
     

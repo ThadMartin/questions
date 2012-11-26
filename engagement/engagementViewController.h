@@ -25,6 +25,7 @@
 - (IBAction)continueButtonPressed:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UILabel *linkLabel;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *uploadButton;
 
