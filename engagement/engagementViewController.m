@@ -29,10 +29,17 @@
     NSString * qListPath; 
     BOOL shouldDownload;
     NSMutableArray * unorderedQns;
-    NSString * directory;
+    NSString * uploadDirectory;
+    NSString * downloadDirectory;
     
     
 }
+@synthesize downloadDirLabel;
+@synthesize downloadDirTxt;
+@synthesize downloadDirChange;
+@synthesize uploadDirLabel;
+@synthesize uploadDirText;
+@synthesize uploadDirChange;
 @synthesize clearMemory;
 @synthesize quitButton;
 @synthesize linkLabel;
@@ -135,7 +142,6 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
         clearMemory.opaque = FALSE;
     }
     
-    
 }
 
 
@@ -177,6 +183,21 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     
     NSLog(@"numInFiles: %i",numInfiles);
     
+    NSString * initFileDownload = [qListPath stringByAppendingPathComponent:@"downloadDirectory"];
+    NSString * initFileUpload = [qListPath stringByAppendingPathComponent:@"uploadDirectory"];
+    
+    NSData *downloadDirData = [NSData dataWithContentsOfFile:initFileDownload];
+    NSData *uploadDirData = [NSData dataWithContentsOfFile:initFileUpload];
+    
+    downloadDirectory = [[NSString alloc] initWithData:downloadDirData encoding:NSUTF8StringEncoding];
+    uploadDirectory = [[NSString alloc] initWithData:uploadDirData encoding:NSUTF8StringEncoding];
+    
+    NSString * uploadText = [NSString stringWithFormat: @"upload directory: %@",uploadDirectory];    
+    uploadDirLabel.text = uploadText;
+
+    NSString * downloadText = [NSString stringWithFormat: @"download directory: %@",downloadDirectory];    
+    downloadDirLabel.text = downloadText;
+
     [self updateLinkStatus:timer];
     
     NSLog (@"updated link status");
@@ -194,6 +215,12 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     [self setClearMemory:nil];
     [self setDownloadButton:nil];
     [self setErrorLabel:nil];
+    [self setDownloadDirLabel:nil];
+    [self setDownloadDirTxt:nil];
+    [self setDownloadDirChange:nil];
+    [self setUploadDirLabel:nil];
+    [self setUploadDirText:nil];
+    [self setUploadDirChange:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -288,9 +315,9 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     }
     restClient.delegate = self;
     
-    directory = @"/uploadNumberStims/";
+    //uploadDirectory = @"/uploadNumberStims/";
     
-    [restClient  loadMetadata:directory];
+    [restClient  loadMetadata:uploadDirectory];
     
     uploadButton.enabled = FALSE; 
     uploadButton.opaque = TRUE;
@@ -388,14 +415,74 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     
     [downloadButton setTitle:@"downloading" forState:UIControlStateNormal];
     
-    directory = @"/downloadNumberStims/";
+    //downloadDirectory = @"/downloadNumberStims/";
+
     unorderedQns = [[NSMutableArray alloc] init];
         
-    [restClient loadMetadata:directory];
-
+    [restClient loadMetadata:downloadDirectory];
     
     //NSLog(@"I told it to download");    
     
+}
+
+- (IBAction)uploadDirChangePressed:(id)sender {
+    if (!restClient) {
+        restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+    }
+    restClient.delegate = self;
+    
+    uploadDirectory = @"/";
+    uploadDirectory = [uploadDirectory stringByAppendingString: uploadDirText.text];
+    
+    NSString * uploadText = [NSString stringWithFormat: @"upload directory: %@",uploadDirectory];    
+    uploadDirLabel.text = uploadText;
+    
+    [restClient createFolder:uploadDirectory];
+    
+    NSError * error;
+    
+    NSString * uploadDirPath = [qListPath stringByAppendingPathComponent:@"uploadDirectory"];
+    
+    [uploadDirectory writeToFile:uploadDirPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
+    NSLog(@"error: %@",error);
+
+    
+}
+
+- (IBAction)downloadDirChangePressed:(id)sender {
+    if (!restClient) {
+        restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+    }
+    restClient.delegate = self;
+    
+//    NSMutableArray* newDownloadPath = [NSMutableArray new];
+//    
+//    for (DBMetadata* child in metadata.contents) {
+//        
+//        [newPhotoPaths addObject:child.path];
+//        
+//    }
+    
+    downloadDirectory = [NSString stringWithFormat:@"/%@",downloadDirTxt.text];
+    //downloadDirectory = downloadDirTxt.text;
+    NSString * downloadText = [NSString stringWithFormat: @"download directory: %@",downloadDirectory];    
+    downloadDirLabel.text = downloadText;
+    
+    NSError * error;
+    
+    NSString * downloadDirPath = [qListPath stringByAppendingPathComponent:@"downloadDirectory"];
+    
+    [downloadDirectory writeToFile:downloadDirPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
+    NSLog(@"error: %@",error);
+
+    
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return (YES);
 }
 
 
@@ -434,7 +521,7 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
                     uploadCount++;
                     NSString * filePathName = [qListPath stringByAppendingPathComponent:existing];
                     
-                    [restClient uploadFile:existing toPath:directory withParentRev:nil  fromPath:filePathName];
+                    [restClient uploadFile:existing toPath:uploadDirectory withParentRev:nil  fromPath:filePathName];
                 }  // end of if should upload
                 
                 if (uploadCount ==0){
@@ -486,7 +573,10 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
                     linkLabel.text = @"should download";
                     
                     downloadCount++;
-                    NSString * dropboxPath = [directory stringByAppendingPathComponent:file.filename];
+                    
+                    //NSString * dropboxPath = [downloadDirectory stringByAppendingString:@"/"];
+                    
+                    NSString * dropboxPath = [downloadDirectory stringByAppendingPathComponent:file.filename];
                     
                     NSString * localPath = [qListPath stringByAppendingPathComponent:file.filename];
                     // NSLog(@"local path: %@",localPath);
@@ -529,7 +619,7 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     
     [NSThread sleepForTimeInterval:1];   //Try again. Maybe it would be better to unlink and relink.
     
-    [restClient loadMetadata:directory];  
+    [restClient loadMetadata:downloadDirectory];  
 }
 
 
@@ -572,7 +662,7 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     
     NSString * reloadSourcePath;
     NSString * reloadDestinationPath;
-    NSString * destDir = @"/uploadNumberStims/";
+    //NSString * destDir = @"/uploadNumberStims/";
     
     for (id key in error.userInfo){
         NSLog(@"key, %@",key);
@@ -585,7 +675,7 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     }
     
     if ([reloadSourcePath length]>1 && [reloadDestinationPath length] > 1){
-        [restClient uploadFile:[reloadSourcePath lastPathComponent] toPath:destDir withParentRev:nil  fromPath:reloadSourcePath];
+        [restClient uploadFile:[reloadSourcePath lastPathComponent] toPath:uploadDirectory withParentRev:nil  fromPath:reloadSourcePath];
         NSLog(@"re-upload trying");
     }
 }
@@ -670,6 +760,18 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
         NSLog(@"re-download trying");
     }
 }
+
+
+- (void)restClient:(DBRestClient*)client createdFolder:(DBMetadata*)folder{
+    NSLog(@"Created Folder Path %@",folder.path);
+    NSLog(@"Created Folder name %@",folder.filename);
+}
+// [error userInfo] contains the root and path
+- (void)restClient:(DBRestClient*)client createFolderFailedWithError:(NSError*)error{
+    NSLog(@"%@",error);
+}
+
+
 
 @end
 

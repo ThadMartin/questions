@@ -36,4 +36,17 @@
 @property (weak, nonatomic) IBOutlet UIButton *clearMemory;
 - (IBAction)clearMemoryPressed:(id)sender;
 
+
+@property (weak, nonatomic) IBOutlet UILabel *downloadDirLabel;
+@property (weak, nonatomic) IBOutlet UITextField *downloadDirTxt;
+@property (weak, nonatomic) IBOutlet UIButton *downloadDirChange;
+- (IBAction)downloadDirChangePressed:(id)sender;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *uploadDirLabel;
+@property (weak, nonatomic) IBOutlet UITextField *uploadDirText;
+@property (weak, nonatomic) IBOutlet UIButton *uploadDirChange;
+- (IBAction)uploadDirChangePressed:(id)sender;
+
+
 @end
