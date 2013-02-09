@@ -283,6 +283,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
 			};
 			name = Debug;
 		};
@@ -305,12 +306,15 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = armv7;
 			};
 			name = Release;
 		};
 		72F7DF2E1567EA4100500D63 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Robert Goldstone";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Robert Goldstone";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/engagement\"",
@@ -318,7 +322,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engagement/engagement-Prefix.pch";
 				INFOPLIST_FILE = "engagement/engagement-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8DFDC043-0554-451A-9D1E-7D5695C11FE0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8DFDC043-0554-451A-9D1E-7D5695C11FE0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -326,6 +333,8 @@
 		72F7DF2F1567EA4100500D63 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Robert Goldstone";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Robert Goldstone";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/engagement\"",
@@ -333,7 +342,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engagement/engagement-Prefix.pch";
 				INFOPLIST_FILE = "engagement/engagement-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8DFDC043-0554-451A-9D1E-7D5695C11FE0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8DFDC043-0554-451A-9D1E-7D5695C11FE0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
