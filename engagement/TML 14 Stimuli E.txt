@@ -1,0 +1,1 @@
+item	condition	index	leftnum	leftlabel	rightnum	rightlabel203	0	numberline	1 billion	0	1 trillion201	0	numberline	1 thousand	0	1 trillion202	0	numberline	1 million	0	1 trillion
