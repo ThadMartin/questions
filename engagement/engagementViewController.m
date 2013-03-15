@@ -288,7 +288,7 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     }
     restClient.delegate = self;
     
-    directory = @"/uploadNumberStims/";
+    directory = @"/uploadTML30/";
     
     [restClient  loadMetadata:directory];
     
@@ -388,7 +388,7 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     
     [downloadButton setTitle:@"downloading" forState:UIControlStateNormal];
     
-    directory = @"/downloadNumberStims/";
+    directory = @"/downloadTML30/";
     unorderedQns = [[NSMutableArray alloc] init];
         
     [restClient loadMetadata:directory];
@@ -572,7 +572,7 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     
     NSString * reloadSourcePath;
     NSString * reloadDestinationPath;
-    NSString * destDir = @"/uploadNumberStims/";
+    NSString * destDir = @"/uploadTML30/";
     
     for (id key in error.userInfo){
         NSLog(@"key, %@",key);

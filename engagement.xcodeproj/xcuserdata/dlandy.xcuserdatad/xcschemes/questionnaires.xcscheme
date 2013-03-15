@@ -14,8 +14,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "72F7DF0B1567EA4000500D63"
-               BuildableName = "questionnaires.app"
-               BlueprintName = "questionnaires"
+               BuildableName = "questionnairesBrianGuay.app"
+               BlueprintName = "questionnairesBrianGuay"
                ReferencedContainer = "container:engagement.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,8 +32,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "72F7DF0B1567EA4000500D63"
-            BuildableName = "questionnaires.app"
-            BlueprintName = "questionnaires"
+            BuildableName = "questionnairesBrianGuay.app"
+            BlueprintName = "questionnairesBrianGuay"
             ReferencedContainer = "container:engagement.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -44,14 +44,15 @@
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "72F7DF0B1567EA4000500D63"
-            BuildableName = "questionnaires.app"
-            BlueprintName = "questionnaires"
+            BuildableName = "questionnairesBrianGuay.app"
+            BlueprintName = "questionnairesBrianGuay"
             ReferencedContainer = "container:engagement.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -68,8 +69,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "72F7DF0B1567EA4000500D63"
-            BuildableName = "questionnaires.app"
-            BlueprintName = "questionnaires"
+            BuildableName = "questionnairesBrianGuay.app"
+            BlueprintName = "questionnairesBrianGuay"
             ReferencedContainer = "container:engagement.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
