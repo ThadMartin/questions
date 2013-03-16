@@ -25,6 +25,7 @@
 		729545A41656E4BA00DBBC0F /* titrationBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 729545A31656E4BA00DBBC0F /* titrationBranch.m */; };
 		72973528157F6D640051AD29 /* wordFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 72973527157F6D640051AD29 /* wordFill.m */; };
 		729BE1C515F9BAF400F920B8 /* feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 729BE1C415F9BAF400F920B8 /* feedback.m */; };
+		729CCFD816A792630014D15D /* outFileError.m in Sources */ = {isa = PBXBuildFile; fileRef = 729CCFD716A792630014D15D /* outFileError.m */; };
 		72A3070115FA3CA200749E14 /* titration.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A3070015FA3CA200749E14 /* titration.m */; };
 		72A6B0E415EFC3B100BAC90A /* audioNumberLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6B0E315EFC3B000BAC90A /* audioNumberLine.m */; };
 		72BB7867158142C200047EEA /* questionSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 72BB7866158142C200047EEA /* questionSelector.m */; };
@@ -173,6 +174,8 @@
 		72973527157F6D640051AD29 /* wordFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = wordFill.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		729BE1C315F9BAF400F920B8 /* feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = feedback.h; sourceTree = "<group>"; };
 		729BE1C415F9BAF400F920B8 /* feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = feedback.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		729CCFD616A792630014D15D /* outFileError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = outFileError.h; sourceTree = "<group>"; };
+		729CCFD716A792630014D15D /* outFileError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = outFileError.m; sourceTree = "<group>"; };
 		72A306FF15FA3CA200749E14 /* titration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = titration.h; sourceTree = "<group>"; };
 		72A3070015FA3CA200749E14 /* titration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = titration.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		72A6B0E215EFC3B000BAC90A /* audioNumberLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audioNumberLine.h; sourceTree = "<group>"; };
@@ -445,6 +448,8 @@
 				72FCAD2A161D44BB007E4242 /* instruction2.h */,
 				72FCAD2B161D44BB007E4242 /* instruction2.m */,
 				72F7DF251567EA4100500D63 /* MainStoryboard_iPad.storyboard */,
+				729CCFD616A792630014D15D /* outFileError.h */,
+				729CCFD716A792630014D15D /* outFileError.m */,
 				724118A71580F03A002FC139 /* multipleChoice.h */,
 				E4349EFE162C5DFE00FA7F18 /* multipleChoice.m */,
 				7264E49715796595000784A2 /* newSlider.h */,
@@ -925,6 +930,7 @@
 				729545A41656E4BA00DBBC0F /* titrationBranch.m in Sources */,
 				7216AFFF165B233F00B78D18 /* pSpeech.m in Sources */,
 				7216B003165B2DE900B78D18 /* pAudioNumberline.m in Sources */,
+				729CCFD816A792630014D15D /* outFileError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
