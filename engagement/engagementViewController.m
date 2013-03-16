@@ -344,7 +344,9 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
     docPath = delegate.docPath;
     
-    [filemgr removeItemAtPath:docPath error:&error];
+    //commented, not letting the app delete any output files, for debugging.
+    
+    //[filemgr removeItemAtPath:docPath error:&error];
     if(error)
         NSLog(@"error: %@",error);
     
@@ -631,7 +633,7 @@ static NSInteger Compare(NSString * string1, NSString * string2, void *context) 
     
     NSError * error;
     
-    [filemgr removeItemAtPath:srcPath error:&error];
+    //[filemgr removeItemAtPath:srcPath error:&error];
     
     if(error){
         NSLog(@"error: %@",error);

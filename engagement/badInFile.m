@@ -63,16 +63,18 @@
     
     NSError * error;
     
-    engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
+    //commented, not letting the app delete any output files, for debugging.
+    
+    //engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
     
     
     // we don't want to save data for this one.
     
-    NSString * docPath = delegate.docPath;
+    //NSString * docPath = delegate.docPath;
     
-    NSFileManager * filemgr = [NSFileManager defaultManager];
+    //NSFileManager * filemgr = [NSFileManager defaultManager];
 
-    [filemgr removeItemAtPath:docPath error:&error];
+    //[filemgr removeItemAtPath:docPath error:&error];
     
     if(error)
         NSLog(@"error: %@",error);

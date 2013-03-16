@@ -10,6 +10,7 @@
 #import <DropboxSDK/DropboxSDK.h>
 #import "newSlider.h"
 #import "engagementAppDelegate.h"
+#import "questionParser.h"
 
 @implementation QuestionData 
 
@@ -18,6 +19,7 @@
 @synthesize questionAnswers = _questionAnswers;
 @synthesize answerIndex = _answerIndex;
 @synthesize thisQuestionData;
+@synthesize questionParser;
 
 - (id)init {
     if ((self = [super init])) {        
@@ -57,11 +59,33 @@
 
 - (void)saveData: (NSMutableArray *)questionAnswers{
     
+    NSLog(@"questionData:save");
+    
     int answerLength = [questionAnswers count];
     
     engagementAppDelegate *delegate = (engagementAppDelegate *) [[UIApplication sharedApplication]delegate];
     
     NSString * docPath = delegate.docPath;
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:docPath];
+    
+    if (!fileExists){
+        
+        NSLog(@"Outfile is missing!");
+        
+        //outFileProblem * outPr = [[outFileProblem alloc] init];
+        NSString * errorMsg = @"Output file does not exist.";
+        
+        questionParser * thisQuestionParser = [[questionParser alloc] init]; 
+        [thisQuestionParser setOutFileError:(errorMsg)];
+        
+      //  [thisQuestionParser presentModalViewController:self animated:NO];
+
+        
+        //[self.questionParser setOutFileError:(errorMsg)];
+        
+        //[self presentModalViewController:outPr animated:false ];
+    }
 
     NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:docPath];
     

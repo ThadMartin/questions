@@ -11,6 +11,7 @@
 #import "titration.h"
 #import "branchTo.h"
 #import "titrationBranch.h"
+#import "QuestionData.h"
 
 @interface questionParser : UIViewController
 
@@ -30,5 +31,7 @@
 -(void) setLineNbr:(int)lnNbr;
 
 -(void) setInRnd:(BOOL)inRand;
+
+-(void) setOutFileError:(NSString *)errDetails;
 
 @end

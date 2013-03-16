@@ -22,6 +22,7 @@
 #import "titration.h"
 #import "instruction.h"
 #import "titrationBranch.h"
+#import "outFileError.h"
 
 @implementation questionParser{
     
@@ -39,6 +40,7 @@ int lineNumber = 0;
 
 NSString * infile;
 NSString * previousInfile;
+NSString * outFileErrorText;
 
 NSString * docPath;
 
@@ -185,6 +187,11 @@ int taskOrderPosition = 0;
     //NSLog(@"%@",prAnswer);
 }
 
+-(void) setOutFileError:(NSString *)errDetails{
+    outFileErrorText = errDetails;
+    NSLog(@"error details set. %@",outFileErrorText);
+}
+
 -(void) setSpatialAnswer:(int)spaCorrect{
     titrationSpatialCorrect = spaCorrect;
 }
@@ -315,6 +322,8 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     
     //first execution.
     
+    outFileErrorText = @"";
+    
     infile = _infile;
     
     if ([infile hasSuffix:@".ord"]){
@@ -371,6 +380,11 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
     if(![previousInfile isEqualToString:infile]){
         NSLog(@"loading infile.");
         [self loadInFile];
+    }
+    
+    if([outFileErrorText length] > 2){
+        NSLog(@"Told it to go to OutFileError.");
+        [self performSegueWithIdentifier: @"toOutFileError" sender: self];
     }
     
     NSString * lineNoEnt;            
@@ -707,7 +721,10 @@ static NSInteger Compare(NSArray * array1, NSArray * array2, void *context) {
         svc.titrationSpatialLevel = titrationSpatialLevel;
         svc.titrationVerbalLevel = titrationVerbalLevel;
     }
-    
+    if ([segue.identifier isEqualToString:@"toOutFileError"]){
+        outFileError * svc = [segue destinationViewController];
+        svc.ErrorMessage = outFileErrorText; 
+     }
 }
 
 

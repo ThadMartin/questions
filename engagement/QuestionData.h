@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+@class questionParser;
 
 @interface QuestionData : NSObject 
 
@@ -14,6 +17,8 @@
 @property (copy) NSMutableArray * questionAnswers;
 @property (copy) NSString * docPath;
 @property (retain) QuestionData * thisQuestionData;
+@property (assign, nonatomic) questionParser * questionParser;
+
 
 - (void)saveData:(NSMutableArray *)questionAnswers;
 
